@@ -1,0 +1,6 @@
+.idea
+_pycache_/
+venv/
+release/main.build/
+release/main.build/
+release/main.onefile-build/

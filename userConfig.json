@@ -1,0 +1,14 @@
+{
+    "entryFilePath": "E:/Code/MyGit/PyQT/NuitkaGUI/main.py",
+    "pythonHome": "C:\\Users\\ZSSL\\AppData\\Local\\Programs\\Python\\Python39",
+    "envFile": "",
+    "userArg": [
+        "-m",
+        "nuitka",
+        "E:/Code/MyGit/PyQT/NuitkaGUI/main.py",
+        "--onefile",
+        "--windows-icon-from-ico=E:/Code/MyGit/PyQT/NuitkaGUI/ui/images/icons8_compass.ico",
+        "--plugin-enable=pyside6",
+        "--ouput=release"
+    ]
+}

@@ -4,7 +4,7 @@
 
 本项目基于 PySIde6 进行开发
 
-![image-20230421091613026](./README.assets/image-20230421091613026.png)
+![image-20230421091613026](./docs/assets/image-20230421091613026.png)
 
 ## 使用说明
 
