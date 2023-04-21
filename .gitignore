@@ -2,5 +2,5 @@
 _pycache_/
 venv/
 release/main.build/
-release/main.build/
+release/main.dist/
 release/main.onefile-build/
