@@ -1,11 +1,23 @@
-from PySide6.QtWidgets import QApplication
-from src.view import View
-import subprocess
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+"""
+@File    :   main.py
+@Author  :   B-E-MAKE,KmBase
+@Version :   1.0
+@License :   (C)Copyright 2022, B-E-MAKE,KmBase
+@Desc    :   None
+"""
 
-if __name__ == '__main__':
-    app = QApplication()  # 启动一个应用
-    window = View()  # 实例化主窗口
-    window.setGeometry(300, 300, 500, 150)
-    window.setWindowTitle('Nutika打包小工具')
-    window.show()  # 展示主窗口
-    app.exec()  # 避免程序执行到这一行后直接退出
+
+from PySide6.QtWidgets import QApplication
+
+from ui.nuitkaGUI import MyWindow
+import os
+
+if __name__ == "__main__":
+    pjPath = os.path.dirname(os.path.abspath(__file__))
+    print("当前路径为：", pjPath)
+    app = QApplication([])
+    window = MyWindow(pjPath)
+    window.show()
+    app.exec()
