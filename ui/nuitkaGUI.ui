@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>NuitkaGUI</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/images/images/icons8_compass_30px.png</normaloff>:/images/images/icons8_compass_30px.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <item>
+       <widget class="QPushButton" name="btnLoadConfig">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>36</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>打开配置文件</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>28</width>
+          <height>28</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnSaveConfig">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>36</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>保存配置文件</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>28</width>
+          <height>28</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="btnGetPy">
+          <property name="text">
+           <string>打开项目入口文件</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resource.qrc">
+            <normaloff>:/images/images/icons8_code_file_64px.png</normaloff>:/images/images/icons8_code_file_64px.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>28</width>
+            <height>28</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="LinePyFilePath">
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>当前没有选择任何py文件</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>选择您的打包策略</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QRadioButton" name="standalone">
+           <property name="toolTip">
+            <string>standalone</string>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;生成一个文件夹，可运行文件在这个文件夹里面&lt;/p&gt;&lt;p&gt;同时这个文件夹里面还有很多其他的内容&lt;/p&gt;&lt;p&gt;使用这种方法相对于单文件不容易报错，但是新手可能找不到可执行文件&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>打包为多文件
+--standalone</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="onefile">
+           <property name="toolTip">
+            <string>onefile</string>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;打包出来的文件是单个exe文件，方便传播，但是不方便调试&lt;/p&gt;&lt;p&gt;通常都是多文件运行成功以后才会使用这个&lt;/p&gt;&lt;p&gt;该命令会同时开启--windows-onefile-tempdir-spec=./temp&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>打包为单文件
+--onefile</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton">
+        <property name="toolTip">
+         <string>点我进入这是什么WhatThis页面</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/images/images/icons8_puzzled_32px.png</normaloff>:/images/images/icons8_puzzled_32px.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="autoRaise">
+         <bool>false</bool>
+        </property>
+        <property name="arrowType">
+         <enum>Qt::NoArrow</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>基础参数</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="cbShowProgress">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="toolTip">
+           <string>show-progress</string>
+          </property>
+          <property name="whatsThis">
+           <string>show-progress</string>
+          </property>
+          <property name="text">
+           <string>显示进度条
+--show-progress</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QCheckBox" name="cbShowMemory">
+          <property name="toolTip">
+           <string>show-memory</string>
+          </property>
+          <property name="whatsThis">
+           <string>show-memory</string>
+          </property>
+          <property name="text">
+           <string>显示内存占用
+-show-memory</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="btnSetRequirements">
+          <property name="maximumSize">
+           <size>
+            <width>165</width>
+            <height>48</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Requirements路径</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resource.qrc">
+            <normaloff>:/images/images/icons8_py_32px.png</normaloff>:/images/images/icons8_py_32px.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="DragableQLineEdit" name="lePythonPath_2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>配置requirements.txt安装依赖</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="btnModifyingPythonPaths">
+          <property name="maximumSize">
+           <size>
+            <width>165</width>
+            <height>48</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>修改Python路径</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resource.qrc">
+            <normaloff>:/images/images/icons8_py_32px.png</normaloff>:/images/images/icons8_py_32px.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="DragableQLineEdit" name="lePythonPath">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>当前的Python路径未初始化！</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="btnSetIcon">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>设置图标</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resource.qrc">
+            <normaloff>:/images/images/icons8_wink_32px.png</normaloff>:/images/images/icons8_wink_32px.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="DragableQLineEdit" name="lineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>这里放置图标，可以直接拖入</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QPushButton" name="btnSetOutputPath">
+          <property name="text">
+           <string>设置输出路径</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resource.qrc">
+            <normaloff>:/images/images/icons8_external_32px.png</normaloff>:/images/images/icons8_external_32px.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="DragableQLineEdit" name="lineEdit_2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="placeholderText">
+           <string>在这里设置输出路径，可以使用拖拽的方式</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>开启插件</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>未启用的插件</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="listUnselect">
+              <item>
+               <property name="text">
+                <string>pyside6</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>pyside2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>pyqt6</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>pyqt5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>matplotlib</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>tensorflow</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>tk-inter</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>pywebview</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>upx</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>multiprocessing</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>trio</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>kivy</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QToolButton" name="btnAddPlugin">
+              <property name="text">
+               <string>...</string>
+              </property>
+              <property name="arrowType">
+               <enum>Qt::RightArrow</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="btnRemovePlugin">
+              <property name="text">
+               <string>...</string>
+              </property>
+              <property name="arrowType">
+               <enum>Qt::LeftArrow</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>已经启用的插件</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="listSelect"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPlainTextEdit" name="plainTextEdit">
+          <property name="maximumSize">
+           <size>
+            <width>10000</width>
+            <height>57</height>
+           </size>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="plainText">
+           <string>如果你导入了相应的模块，那么你需要从左边选择对应的插件，然后双击他或者点击按钮将它添加到右边
+
+这样做能够让你更快的编译，而且有的时候如果你没有开启插件最后甚至可能无法运行，比如PyQt</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>高级参数</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="cbDisableCcache">
+            <property name="toolTip">
+             <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+            </property>
+            <property name="whatsThis">
+             <string>当你频繁打包失败的时候可以开起来，平时尽量关闭，关闭这个选项能加快打包速度</string>
+            </property>
+            <property name="text">
+             <string>清除上一次的缓存，防止打包失败
+disable-ccache</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QCheckBox" name="cbNoFollowImports">
+            <property name="toolTip">
+             <string>nofollow-imports</string>
+            </property>
+            <property name="whatsThis">
+             <string>nofollow-imports</string>
+            </property>
+            <property name="text">
+             <string>不导入任何模块(不适合单文件)
+--nofollow-imports</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="cbRemoveOutput">
+            <property name="toolTip">
+             <string>remove-output</string>
+            </property>
+            <property name="whatsThis">
+             <string>自动删除构建文件夹</string>
+            </property>
+            <property name="text">
+             <string>自动删除构建文件夹
+remove-output</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QCheckBox" name="cbFollowImports">
+            <property name="toolTip">
+             <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+            </property>
+            <property name="whatsThis">
+             <string>如果你导入了很多第三方库，请务必开启这个选项</string>
+            </property>
+            <property name="text">
+             <string>递归查找所有的模块
+--follow-imports</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="cbLowMemory">
+            <property name="toolTip">
+             <string>该选项会降低打包速度</string>
+            </property>
+            <property name="whatsThis">
+             <string>该选项会降低打包速度</string>
+            </property>
+            <property name="text">
+             <string>编译时占用更少的内存
+low-memory</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="maximumSize">
+               <size>
+                <width>78</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+              </property>
+              <property name="whatsThis">
+               <string>请不要设置大于自己电脑核心的线程，通常设置为6或者8即可</string>
+              </property>
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;开启的线程数&lt;br/&gt;jobs&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="jobs">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>64</number>
+              </property>
+              <property name="value">
+               <number>8</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="cbIncludeDataFiles">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="toolTip">
+             <string>include-data-files</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;对于要包含的数据文件，请使用选项 --include-data-files=&amp;lt;source&amp;gt;=&amp;lt;target&amp;gt; ，其中源是文件系统路径，但必须指定相对目标。对于独立，您也可以手动复制它们，但这可以进行额外的检查，对于单文件模式，无法手动复制。&lt;/p&gt;&lt;p&gt;要复制目录中的部分或全部文件，请使用选项 --include-data-files=/etc/*.txt=etc/ ，您可以在其中指定文件的 shell 模式，以及放置它们的子目录，由尾部斜杠指示。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>打包额外的文件
+--include-data-files</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="cbIncludeDataDir">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="toolTip">
+             <string>include-data-dir</string>
+            </property>
+            <property name="whatsThis">
+             <string>要复制包含所有文件的整个文件夹，您可以使用 --include-data-dir=/path/to/images=images ，它将复制所有文件，包括潜在的子目录结构。您不能在此处过滤，即如果您只想要部分副本，请事先删除文件。</string>
+            </property>
+            <property name="text">
+             <string>打包额外的文件夹以及文件夹下所有的内容
+--include-data-dir</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QCheckBox" name="cbDisableConsole">
+            <property name="toolTip">
+             <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+            </property>
+            <property name="whatsThis">
+             <string>请不要在一开始直接使用，请确保自己的程序打包之后能够运行再开启这个选项</string>
+            </property>
+            <property name="text">
+             <string>关闭命令行
+--windows-disable-console</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QCheckBox" name="cbQuiet">
+            <property name="toolTip">
+             <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+            </property>
+            <property name="whatsThis">
+             <string>这个选项只会输出错误</string>
+            </property>
+            <property name="text">
+             <string>开启安静打包模式(只输出错误)
+--quiet</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="DragableQLineEdit" name="lineEditIncludeDataFiles">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;可以通过/path/to/file/*.txt的形式获取多个文件&lt;/p&gt;&lt;p&gt;同样也可以通过拖拽的形式只打包一个文件&lt;/p&gt;&lt;p&gt;如果是多文件打包推荐尽量不要打包数据文件，在运行之后再手动放入数据文件&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="placeholderText">
+             <string>额外的文件(可以进入WhatThis模式查看详细说明)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="DragableQLineEdit" name="lineEditIncludeDataDir">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+            </property>
+            <property name="whatsThis">
+             <string>可以拖拽，该选项会打包文件夹下的所有内容</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
+             <string>额外的文件夹以及文件夹下所有的内容</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEditCompanyName">
+          <property name="toolTip">
+           <string>在可执行文件的版本信息中添加公司名称。</string>
+          </property>
+          <property name="whatsThis">
+           <string>在可执行文件的版本信息中添加公司名称。</string>
+          </property>
+          <property name="placeholderText">
+           <string>windows-company-name</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEditFileVersion">
+          <property name="toolTip">
+           <string>在可执行文件的版本信息中添加文件版本。</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在可执行文件的版本信息中添加文件版本。&lt;/p&gt;&lt;p&gt;注意版本号必须要有四个数字，比如1.0.0.0&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="placeholderText">
+           <string>windows-file-version(必须是4位数,比如1.0.0.0)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEditProductVersion">
+          <property name="toolTip">
+           <string>在可执行文件的版本信息中添加产品版本。</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在可执行文件的版本信息中添加产品版本。&lt;/p&gt;&lt;p&gt;注意版本号必须要有四个数字，比如1.0.0.0&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="placeholderText">
+           <string>windows-product-version(必须是4位数,比如1.0.0.0)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEditFileDescription">
+          <property name="toolTip">
+           <string>在可执行文件的版本信息中添加文件描述。</string>
+          </property>
+          <property name="whatsThis">
+           <string>在可执行文件的版本信息中添加文件描述。</string>
+          </property>
+          <property name="placeholderText">
+           <string>windows-file-description</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnStart">
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>开始打包</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/images/images/icons8_start_64px.png</normaloff>:/images/images/icons8_start_64px.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>关于</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>更多</string>
+    </property>
+    <widget class="QMenu" name="menu_3">
+     <property name="title">
+      <string>更换皮肤</string>
+     </property>
+     <addaction name="action_Dark"/>
+     <addaction name="action_Bright"/>
+    </widget>
+    <addaction name="actionBatchMode"/>
+    <addaction name="menu_3"/>
+    <addaction name="actionShowArgs"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/images/images/icons8_wink_32px.png</normaloff>:/images/images/icons8_wink_32px.png</iconset>
+   </property>
+   <property name="text">
+    <string>关于</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionBatchMode">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>批处理模式</string>
+   </property>
+  </action>
+  <action name="action_Dark">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>暗黑</string>
+   </property>
+  </action>
+  <action name="action_Bright">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>明亮</string>
+   </property>
+  </action>
+  <action name="actionShowArgs">
+   <property name="text">
+    <string>查看当前参数</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DragableQLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>dragableqlineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbIncludeDataFiles</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>lineEditIncludeDataFiles</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>301</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>92</x>
+     <y>355</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbIncludeDataDir</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>lineEditIncludeDataDir</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>389</x>
+     <y>302</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>397</x>
+     <y>354</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>enterWhatsThisMode()</signal>
+ </slots>
+</ui>
