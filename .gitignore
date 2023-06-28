@@ -1,6 +1,3 @@
-.idea
-_pycache_/
-venv/
-release/main.build/
-release/main.build/
-release/main.onefile-build/
+__pycache__/dragableqlineedit.cpython-39.pyc
+__pycache__/resource_rc.cpython-39.pyc
+__pycache__/Ui_nuitkaGUI.cpython-39.pyc

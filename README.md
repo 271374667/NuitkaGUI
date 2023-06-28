@@ -4,7 +4,13 @@
 
 本项目基于 PySIde6 进行开发
 
-![image-20230421091613026](./docs/assets/image-20230421091613026.png)
+![image-20230628102123676](./README.assets/image-20230628102123676.png)
+
+![image-20230628102137458](./README.assets/image-20230628102137458.png)
+
+![image-20230628102147162](./README.assets/image-20230628102147162.png)
+
+![image-20230628102203358](./README.assets/image-20230628102203358.png)
 
 ## 使用说明
 
@@ -26,7 +32,7 @@
 
 代码主要分为几大板块，首先是初始区域，这里定义了界面上可以使用的参数，后期通过将这个字典里面的值从False改为True，最后通过 for 循环就能达到获取用户勾选了哪些选项，避免了大量的 if-elif-else 语句
 
-```python
+```
 self.argsDict = {
     '--onefile': False,
     '--standalone': True,
@@ -59,4 +65,3 @@ for each in pluginList:
 使用 `self.getArgs()` 函数获取当前的值，然后使用 `sself.tartNuitka()` 函数作为启动程序的入口，通过PySIde6的QProcess来调用系统命令行
 
 如果你想要新增更多功能可以在相应的页面添加槽函数，然后在 `self.bind()` 函数里面进行信号与槽的绑定
-
