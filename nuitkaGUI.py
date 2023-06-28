@@ -2,7 +2,6 @@ import shutil
 import subprocess
 import sys
 import os
-import locale
 from pathlib import Path
 import threading
 import zipfile
@@ -167,14 +166,16 @@ class MyWindow(QMainWindow):
     def getPythonExePath(self):
         # 使用 where python 命令获取python.exe路径
         # 但是在windows下where命令不是内置命令，所以需要使用subprocess模块调用
-        python_path = subprocess.check_output(
-            ['where', 'python']).decode('utf-8').strip().split('\n')
-        python_path = [each for each in python_path if '~1.DIS' not in each][0]
+        # python_path = subprocess.check_output(
+        #     ['where', 'python']).decode('utf-8').strip().split('\n')
+        # python_path = [each for each in python_path if '~1.DIS' not in each][0]
+        python_path = sys.executable
         print(python_path)
 
         self.ui.LEPythonExePath.setText(python_path)
         self.pythonExePath = python_path
         self.pythonExePathChange(python_path)
+
 
     def getExecPyPath(self):
         filePath, _ = QFileDialog.getOpenFileName(
@@ -260,17 +261,19 @@ class MyWindow(QMainWindow):
                 self, '警告', '请先点击左上角选择入口文件(需要打包的py文件)!', QMessageBox.StandardButton.Yes)
             return
 
-        os.chdir(Path(self.entryFilePath).parent)
+        # os.chdir(Path(self.entryFilePath).parent)
 
         # TODO:多线程
-        # process = subprocess.Popen(
-        #     self.getArgs(), encoding='utf-8', stderr=subprocess.PIPE)
-        process = subprocess.Popen(' '.join(self.getArgs()), shell=True, encoding='utf-8', stderr=subprocess.PIPE)
+        @threadRun
+        def run():
+            process = subprocess.Popen(self.getArgs(
+            ), encoding='utf-8', stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NEW_CONSOLE)
 
-        os.chdir(Path(__file__).parent)
-        # 将错误写入到日志文件
-        with open('error.txt', 'w', encoding='utf-8') as f:
-            f.write(process.stderr.read())
+            # os.chdir(Path(__file__).parent)
+            # 将错误写入到日志文件
+            with open('error.txt', 'w', encoding='utf-8') as f:
+                f.write(process.stderr.read())
+        run()
 
     def outputFinished(self):
         self.process = None
@@ -310,7 +313,6 @@ class MyWindow(QMainWindow):
     def pythonExePathChange(self, value):
         self.pythonExePath = value
         sys.path.append(os.path.dirname(value))
-        sys.path.append(os.path.dirname(value) + '/Scripts')
         self.statusBar().showMessage('已添加python.exe路径')
 
     # 插件页面的槽函数============================================
@@ -370,17 +372,19 @@ class MyWindow(QMainWindow):
         self.statusBar().showMessage('正在识别库文件，请稍等...')
         self.ui.ListUnselectMod.clear()
         try:
-            reqs = identifyThirdPartyLibraries(
-                self.pythonExePath, self.entryFilePath)
-            for each in reqs:
-                self.ui.ListUnselectMod.addItem(each)
+            @threadRun
+            def run():
+                reqs = identifyThirdPartyLibraries(
+                    self.pythonExePath, self.entryFilePath)
+                for each in reqs:
+                    self.ui.ListUnselectMod.addItem(each)
 
-            self.statusBar().showMessage('识别完成', 3000)
+                self.statusBar().showMessage('识别完成', 3000)
+            run()
         except Exception as e:
             QMessageBox.warning(
                 self, '警告', f'识别库文件失败，错误信息：{e}', QMessageBox.StandardButton.Yes)
 
-    @threadRun
     def downloadModule(self):
         # 获取被启用的模块并下载
         moduleList = [self.ui.ListSelectMod.item(
@@ -398,8 +402,11 @@ class MyWindow(QMainWindow):
 
         self.statusBar().showMessage('正在下载模块，请稍等...')
         try:
-            subprocess.Popen([self.pythonExePath, '-m', 'pip', 'install', '-t', str(
-                exeDir), *moduleList], creationflags=subprocess.CREATE_NEW_CONSOLE, encoding='utf-8')
+            @threadRun
+            def run():
+                subprocess.Popen([self.pythonExePath, '-m', 'pip', 'install', '-t', str(
+                    exeDir), *moduleList], creationflags=subprocess.CREATE_NEW_CONSOLE, encoding='utf-8')
+            run()
         except Exception as e:
             QMessageBox.warning(
                 self, '警告', f'下载模块失败，错误信息：{e}', QMessageBox.StandardButton.Yes)
