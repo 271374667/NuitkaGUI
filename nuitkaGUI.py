@@ -99,11 +99,11 @@ class MyWindow(QMainWindow):
     def initGUI(self):
         self.whatthis = QWhatsThis()
         # 检测是否安装nuitka
-        # try:
-        #     import nuitka
-        # except ImportError:
-        #     subprocess.call(['python', '-m', 'pip',
-        #                     'install', 'nuitka', '-U'])
+        try:
+            import nuitka
+        except ImportError:
+            subprocess.call(['python', '-m', 'pip',
+                            'install', 'nuitka', '-U'])
 
         # 删除listUnselect里所有的item，然后添加pluginList里的所有item
         self.ui.listUnselect.clear()
@@ -111,7 +111,6 @@ class MyWindow(QMainWindow):
             self.ui.listUnselect.addItem(each)
 
         self.getPythonExePath()
-        self.ui.ListSelectMod.addItem('unicodedata')
 
     def bind(self):
         # 打包模式
