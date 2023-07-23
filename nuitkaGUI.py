@@ -1,57 +1,17 @@
+import os
 import shutil
 import subprocess
-import os
-from pathlib import Path
-import threading
+import sys
 import zipfile
-import logging
-try:
-    import PySide6
-except ImportError:
-    subprocess.check_call(['python', '-m', 'pip', 'install', 'PySide6', '-U'])
+from pathlib import Path
 
-from PySide6.QtWidgets import (QApplication, QFileDialog, QCheckBox,
-                               QMainWindow, QMessageBox,
-                               QWhatsThis)
+from PySide6.QtCore import Slot
+from PySide6.QtWidgets import (QApplication, QFileDialog, QMainWindow,
+                               QMessageBox, QWhatsThis)
 
 import resource_rc
+from func import identifyThirdPartyLibraries, isPythonAvailable, threadRun
 from Ui_nuitkaGUI import Ui_MainWindow
-
-
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(levelname)s - %(filename)s - %(lineno)d - %(asctime)s - %(message)s')
-
-
-def threadRun(func):
-    """装饰器，用于将函数放入线程中运行"""
-    def wrapper(*args, **kwargs):
-        t = threading.Thread(target=func, args=args, kwargs=kwargs)
-        t.start()
-    return wrapper
-
-
-def identifyThirdPartyLibraries(pythonExePath, pyFilePath: str) -> list:
-    """识别第三方库"""
-    # 检测是否安装pipreqs
-    try:
-        import pipreqs
-    except ImportError:
-        subprocess.check_call(
-            [pythonExePath, '-m', 'pip', 'install', 'pipreqs', '-U'])
-
-    requirementsFile = Path(pyFilePath).parent.joinpath('requirements.txt')
-    # 使用pipreqs识别第三方库
-    print(Path(pyFilePath).parent)
-
-    process = subprocess.Popen(['pipreqs', Path(
-        pyFilePath).parent, '--encoding=utf8', '--force'], creationflags=subprocess.CREATE_NEW_CONSOLE)
-
-    process.wait()
-
-    # 读取requirements.txt文件
-    with open(requirementsFile, 'r', encoding='utf-8') as f:
-        requirements = f.readlines()
-        return requirements
 
 
 class MyWindow(QMainWindow):
@@ -87,7 +47,7 @@ class MyWindow(QMainWindow):
 
         # 将插件添加到字典中
         self.pluginList = ['pyside6', 'pyside2', 'pyqt5', 'pyqt6', 'tk-inter', 'matplotlib',
-                           'tensorflow', 'pywebview', 'upx', 'multiprocessing', 'trio', 'kivy', 'transformers'
+                           'tensorflow', 'pywebview', 'upx', 'multiprocessing', 'trio', 'kivy', 'transformers',
                            'glfw', 'gevent', 'anti-bloat'
                            ]
         for each in self.pluginList:
@@ -99,11 +59,11 @@ class MyWindow(QMainWindow):
     def initGUI(self):
         self.whatthis = QWhatsThis()
         # 检测是否安装nuitka
-        # try:
-        #     import nuitka
-        # except ImportError:
-        #     subprocess.call(['python', '-m', 'pip',
-        #                     'install', 'nuitka', '-U'])
+        try:
+            import nuitka
+        except Exception:
+            subprocess.call([self.pythonExePath, '-m', 'pip',
+                            'install', 'nuitka', '-U'])
 
         # 删除listUnselect里所有的item，然后添加pluginList里的所有item
         self.ui.listUnselect.clear()
@@ -111,7 +71,6 @@ class MyWindow(QMainWindow):
             self.ui.listUnselect.addItem(each)
 
         self.getPythonExePath()
-        self.ui.ListSelectMod.addItem('unicodedata')
 
     def bind(self):
         # 打包模式
@@ -123,7 +82,8 @@ class MyWindow(QMainWindow):
             lambda: self.whatthis.enterWhatsThisMode())
         self.ui.btnGetPy.clicked.connect(self.getExecPyPath)
 
-        self.ui.BTNSetIcon.clicked.connect(self.setOutputIconFilePath)
+        self.ui.BTNPythonExePath.clicked.connect(self.setPythonExePath)
+        self.ui.BTNSetIcon.clicked.connect(self.setOutPutIcon)
         self.ui.LEIcon.textChanged.connect(self.iconPathChange)
         self.ui.BTNSetOutputPath.clicked.connect(self.setOutputPath)
         self.ui.LEOutpuPath.textChanged.connect(self.outputPathChange)
@@ -173,13 +133,16 @@ class MyWindow(QMainWindow):
     def getPythonExePath(self):
         # 使用 where python 命令获取python.exe路径
         # 但是在windows下where命令不是内置命令，所以需要使用subprocess模块调用
-        # python_path = subprocess.check_output(
-        #     ['where', 'python']).decode('utf-8').strip().split('\n')
-        # python_path = [each for each in python_path if '~1.DIS' not in each][0]
-        python_path = 'python'
-        logging.debug(f'当前Python路径为{python_path}')
+        python_path = sys.executable
+        print(python_path)
+        if isPythonAvailable(python_path):
+            self.ui.LEPythonExePath.setText(python_path)
+            self.pythonExePath = python_path
+            self.pythonExePathChange(python_path)
+        else:
+            QMessageBox.warning(
+                self, '警告', '未检测到Python3.x版本，请手动选择Python3.x版本的python.exe文件', QMessageBox.StandardButton.Ok)
 
-        self.pythonExePath = python_path
 
     def getExecPyPath(self):
         filePath, _ = QFileDialog.getOpenFileName(
@@ -197,7 +160,8 @@ class MyWindow(QMainWindow):
             elif outputPath.exists():
                 # 如果output文件夹存在则询问是否删除内部文件
                 reply = QMessageBox.question(
-                    self, '询问', '检测到当前目录下已经存在output文件夹,可能是曾经的打包结果\n是否删除output文件夹内部文件?', QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, QMessageBox.StandardButton.No)
+                    self, '询问', '检测到当前目录下已经存在output文件夹,可能是曾经的打包结果\n是否删除output文件夹内部文件?',
+                      QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, QMessageBox.StandardButton.No)
                 if reply == QMessageBox.StandardButton.Yes:
                     shutil.rmtree(outputPath)
                     outputPath.mkdir()
@@ -256,7 +220,7 @@ class MyWindow(QMainWindow):
                 'CBLto': '--lto=no',
             }
             self.argsDict[senderIntToArgs[sender.objectName()]
-                          ] = sender.isChecked()  # type: ignore
+                          ] = sender.isChecked()
 
     def startNuitka(self):
         # 开始前先判断是否有python路径以及入口文件
@@ -265,21 +229,15 @@ class MyWindow(QMainWindow):
                 self, '警告', '请先点击左上角选择入口文件(需要打包的py文件)!', QMessageBox.StandardButton.Yes)
             return
 
-        # os.chdir(Path(self.entryFilePath).parent)
-        logging.debug(f'当前工作目录:{os.getcwd()}')
-        logging.debug(f'当前从外部获取的命令:{self.getArgs()}')
+        os.chdir(Path(self.entryFilePath).parent)
 
         # TODO:多线程
         @threadRun
         def run():
-            process = subprocess.Popen(self.getArgs(
-            ), encoding='utf-8', stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NEW_CONSOLE)
-
-            logging.debug(f'当前命令:{process.args}')
-            # os.chdir(Path(__file__).parent)
-            # 将错误写入到日志文件
-            with open('error.txt', 'w', encoding='utf-8') as f:
-                f.write(process.stderr.read())
+            process = subprocess.run(' '.join(self.getArgs()), shell=True, encoding='utf-8')
+            #process = subprocess.Popen(self.getArgs(), creationflags=subprocess.CREATE_NEW_CONSOLE)
+                                        
+            
         run()
 
     def outputFinished(self):
@@ -287,13 +245,14 @@ class MyWindow(QMainWindow):
 
     # 基础页面的槽函数=============================================
 
-    def setOutputIconFilePath(self):
+    def setOutPutIcon(self):
         filePath, fileType = QFileDialog.getOpenFileName(
             self, '请选择一个icon文件', '', 'Python Files (*.ico)')
         if filePath:
             self.ui.LEIcon.setText(filePath)
             self.iconPathChange(filePath)
 
+    @Slot(str)
     def iconPathChange(self, filePath):
         self.argsDict['--windows-icon-from-ico'] = filePath
 
@@ -302,8 +261,28 @@ class MyWindow(QMainWindow):
             self.ui.LEOutpuPath.setText(filePath)
             self.outputPathChange(filePath)
 
+    @Slot(str)
     def outputPathChange(self, value):
         self.argsDict['--output-dir'] = value
+
+    def setPythonExePath(self):
+        exePath, _ = QFileDialog.getOpenFileName(
+            self, '请选择一个python.exe文件', '', 'Python Files (*.exe)')
+        if not exePath:
+            self.statusBar().showMessage('未选择python.exe文件')
+            return
+        
+        if not isPythonAvailable(exePath):
+            QMessageBox.warning(self, '警告', '选择的不是Python3.x版本的python.exe文件', QMessageBox.StandardButton.Ok)
+            return
+
+        self.ui.LEPythonExePath.setText(exePath)
+        self.pythonExePathChange(exePath)
+
+    def pythonExePathChange(self, value):
+        self.pythonExePath = value
+        sys.path.append(os.path.dirname(value))
+        self.statusBar().showMessage('已添加python.exe路径')
 
     # 插件页面的槽函数============================================
 
@@ -331,6 +310,7 @@ class MyWindow(QMainWindow):
 
     # 高级页面槽函数============================================
 
+    @Slot(int)
     def jobsChange(self, value):
         self.argsDict['--jobs'] = value
 
@@ -394,7 +374,7 @@ class MyWindow(QMainWindow):
             @threadRun
             def run():
                 subprocess.Popen([self.pythonExePath, '-m', 'pip', 'install', '-t', str(
-                    exeDir), *moduleList], creationflags=subprocess.CREATE_NEW_CONSOLE, encoding='utf-8')
+                    exeDir), *moduleList], creationflags=subprocess.CREATE_NEW_CONSOLE)
             run()
         except Exception as e:
             QMessageBox.warning(
@@ -407,6 +387,11 @@ class MyWindow(QMainWindow):
             'output').joinpath(f'{Path(self.entryFilePath).stem}.dist')
         if not exeDir.exists():
             exeDir.mkdir(parents=True, exist_ok=True)
+        else:
+            QMessageBox.warning(
+                self, '警告', '当前目录下没有找到pythonStandard.zip文件!', QMessageBox.StandardButton.Yes
+            )
+            return
 
         self.statusBar().showMessage('正在解压标准库，请稍等...')
         with zipfile.ZipFile('./pythonStandard.zip', 'r') as zip_ref:

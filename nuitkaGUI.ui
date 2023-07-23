@@ -196,6 +196,20 @@
         <string>基础参数</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="1">
+         <widget class="QCheckBox" name="CBShowMemory">
+          <property name="toolTip">
+           <string>show-memory</string>
+          </property>
+          <property name="whatsThis">
+           <string>show-memory</string>
+          </property>
+          <property name="text">
+           <string>显示内存占用
+-show-memory</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0">
          <widget class="QCheckBox" name="CBShowProgress">
           <property name="enabled">
@@ -217,78 +231,6 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <item>
-           <widget class="QPushButton" name="BTNSetOutputPath">
-            <property name="toolTip">
-             <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-            </property>
-            <property name="statusTip">
-             <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-            </property>
-            <property name="whatsThis">
-             <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-            </property>
-            <property name="text">
-             <string>设置输出路径</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resource.qrc">
-              <normaloff>:/images/images/icons8_external_32px.png</normaloff>:/images/images/icons8_external_32px.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="1">
-         <widget class="QCheckBox" name="CBShowMemory">
-          <property name="toolTip">
-           <string>show-memory</string>
-          </property>
-          <property name="whatsThis">
-           <string>show-memory</string>
-          </property>
-          <property name="text">
-           <string>显示内存占用
--show-memory</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="DragableQLineEdit" name="LEIcon">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>40</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>点击这里可以设置打包之后Exe的图标</string>
-          </property>
-          <property name="statusTip">
-           <string>点击这里可以设置打包之后Exe的图标</string>
-          </property>
-          <property name="whatsThis">
-           <string>点击这里可以设置打包之后Exe的图标</string>
-          </property>
-          <property name="dragEnabled">
-           <bool>true</bool>
-          </property>
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-          <property name="placeholderText">
-           <string>这里放置图标，可以直接拖入</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QPushButton" name="BTNSetIcon">
@@ -324,7 +266,7 @@
           </item>
          </layout>
         </item>
-        <item row="2" column="1">
+        <item row="3" column="1">
          <widget class="DragableQLineEdit" name="LEOutpuPath">
           <property name="minimumSize">
            <size>
@@ -343,6 +285,109 @@
           </property>
           <property name="placeholderText">
            <string>在这里设置输出路径，可以使用拖拽的方式</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="BTNPythonExePath">
+          <property name="text">
+           <string>Python.exe的路径</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resource.qrc">
+            <normaloff>:/images/images/icons8_hand_right_32px.png</normaloff>:/images/images/icons8_hand_right_32px.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QPushButton" name="BTNSetOutputPath">
+            <property name="toolTip">
+             <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+            </property>
+            <property name="statusTip">
+             <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+            </property>
+            <property name="whatsThis">
+             <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+            </property>
+            <property name="text">
+             <string>设置输出路径</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/images/images/icons8_external_32px.png</normaloff>:/images/images/icons8_external_32px.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="1">
+         <widget class="DragableQLineEdit" name="LEIcon">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>这里放置图标，可以直接拖入</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="DragableQLineEdit" name="LEPythonExePath">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>这里输入Python.exe的路径</string>
           </property>
          </widget>
         </item>
@@ -598,7 +643,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>390</width>
+             <width>768</width>
              <height>476</height>
             </rect>
            </property>
@@ -1045,7 +1090,7 @@ remove-output</string>
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>517</width>
+             <width>768</width>
              <height>526</height>
             </rect>
            </property>
