@@ -14,10 +14,16 @@
 
 ## 使用说明
 
+### 编译使用
+
 1. 你需要在本地安装 Python(版本最好在3.9或者以上)
 2. 在命令行输入`pip install nuitka`，然后nuitka会自动安装剩下的东西
 3. 自行配置环境打开或者用realease里面的可执行文件打开文件
 4. 选择你需要打包的文件然后勾选参数，结束
+
+### 直接使用
+
+下载 release 里面的可执行文件，然后直接使用(需要有本地Python环境)
 
 ## 如何编译或者进行修改？
 
@@ -62,6 +68,6 @@ for each in pluginList:
     self.argsDict[f'--plugin-enable={each}'] = False
 ```
 
-使用 `self.getArgs()` 函数获取当前的值，然后使用 `sself.tartNuitka()` 函数作为启动程序的入口，通过PySIde6的QProcess来调用系统命令行
+使用 `self.getArgs()` 函数获取当前的值，然后使用 `self.startNuitka()` 函数作为启动程序的入口，通过PySIde6的QProcess来调用系统命令行
 
 如果你想要新增更多功能可以在相应的页面添加槽函数，然后在 `self.bind()` 函数里面进行信号与槽的绑定
