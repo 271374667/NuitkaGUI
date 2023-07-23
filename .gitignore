@@ -2,6 +2,7 @@ __pycache__/dragableqlineedit.cpython-39.pyc
 __pycache__/resource_rc.cpython-39.pyc
 __pycache__/Ui_nuitkaGUI.cpython-39.pyc
 output/*
+exe/temp
 nuitkaGUI v0.0.3
 NuitkaVenv
 error.txt
