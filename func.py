@@ -41,9 +41,9 @@ def identifyThirdPartyLibraries(pythonExePath, pyFilePath: str) -> list:
         requirements = f.readlines()
         return requirements
     
-def isPythonAvailable(pythonExePath):
-            try:
-                output = subprocess.check_output([pythonExePath, "-V"], timeout=3)
-            except (TimeoutError, FileNotFoundError):
-                output = b""
-            return output.startswith(b"Python 3.")
+def isPythonAvailable(pythonExePath:str):
+    try:
+        output = subprocess.check_output([pythonExePath, "-V"], timeout=3)
+    except (TimeoutError, FileNotFoundError):
+        output = b""
+    return output.startswith(b"Python 3.")

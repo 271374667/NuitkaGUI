@@ -1,8 +1,10 @@
 import os
+import io
 import shutil
 import subprocess
 import sys
 import zipfile
+import urllib.request
 from pathlib import Path
 
 from PySide6.QtCore import Slot
@@ -20,6 +22,7 @@ class MyWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.entryFilePath: str = ''
         self.pythonExePath: str = ''
+        self.homePath = Path(__file__).parent
         self.ui.setupUi(self)
 
         self.argsDict = {
@@ -228,16 +231,24 @@ class MyWindow(QMainWindow):
             QMessageBox.warning(
                 self, '警告', '请先点击左上角选择入口文件(需要打包的py文件)!', QMessageBox.StandardButton.Yes)
             return
+        
+        if isPythonAvailable(self.pythonExePath) == False:
+            QMessageBox.warning(
+                self, '警告', '选择的不是Python3.x版本的python.exe文件', QMessageBox.StandardButton.Ok)
+            return
 
         os.chdir(Path(self.entryFilePath).parent)
 
         # TODO:多线程
         @threadRun
         def run():
-            process = subprocess.run(' '.join(self.getArgs()), shell=True, encoding='utf-8')
-            #process = subprocess.Popen(self.getArgs(), creationflags=subprocess.CREATE_NEW_CONSOLE)
-                                        
-            
+            process = subprocess.run(self.getArgs(), creationflags=subprocess.CREATE_NEW_CONSOLE)
+            # 运行结束后打开输出文件夹
+            exeDir = Path(self.entryFilePath).parent.joinpath(
+            'output').joinpath(f'{Path(self.entryFilePath).stem}.dist')
+            if process.returncode == 0 and exeDir.exists():
+                os.startfile(exeDir)
+                                                    
         run()
 
     def outputFinished(self):
@@ -382,22 +393,31 @@ class MyWindow(QMainWindow):
 
     @threadRun
     def unzipStandardMod2ExeDir(self):
+        # TODO: 未来智能识别需要哪些标准库
         # 解压标准库到exeDir
         exeDir = Path(self.entryFilePath).parent.joinpath(
             'output').joinpath(f'{Path(self.entryFilePath).stem}.dist')
         if not exeDir.exists():
             exeDir.mkdir(parents=True, exist_ok=True)
-        else:
+        
+        url = 'https://files.cnblogs.com/files/blogs/740926/pythonStandard.zip?t=1690101477&download=true'
+
+        # 下载文件
+        try:
+            with urllib.request.urlopen(url) as response:
+                data = response.read()
+        except Exception as e:
             QMessageBox.warning(
-                self, '警告', '当前目录下没有找到pythonStandard.zip文件!', QMessageBox.StandardButton.Yes
-            )
+                self, '警告', f'下载标准库失败，错误信息：{e}', QMessageBox.StandardButton.Yes)
             return
 
+        # 解压缩文件
         self.statusBar().showMessage('正在解压标准库，请稍等...')
-        with zipfile.ZipFile('./pythonStandard.zip', 'r') as zip_ref:
+        with zipfile.ZipFile(io.BytesIO(data)) as zip_ref:
             zip_ref.extractall(exeDir)
 
         self.statusBar().showMessage('解压完成', 3000)
+        QMessageBox.information(self, '提示', '解压完成', QMessageBox.StandardButton.Yes)
 
 
 if __name__ == "__main__":
