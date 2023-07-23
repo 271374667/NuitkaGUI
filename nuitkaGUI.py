@@ -37,6 +37,7 @@ class MyWindow(QMainWindow):
             '--quiet': False,
             '--lto=no': False,
             '--disable-ccache': False,
+            '--assume-yes-for-downloads': True,
             '--jobs': 8,
             '--output-dir': '',
             '--main': '',
@@ -137,6 +138,17 @@ class MyWindow(QMainWindow):
         # 使用 where python 命令获取python.exe路径
         # 但是在windows下where命令不是内置命令，所以需要使用subprocess模块调用
         python_path = sys.executable
+        # 获取可用的python.exe路径
+        result = subprocess.run('where python', stdout=subprocess.PIPE, shell=True)
+        print(result)
+        # 读取一行数据
+        result = result.stdout.decode().splitlines()
+        for each in result:
+            print(each)
+            if isPythonAvailable(each):
+                python_path = each
+                break
+
         print(python_path)
         if isPythonAvailable(python_path):
             self.ui.LEPythonExePath.setText(python_path)
@@ -202,11 +214,11 @@ class MyWindow(QMainWindow):
             if sender == self.ui.standalone:
                 self.argsDict['--standalone'] = True
                 self.argsDict['--onefile'] = False
-                self.argsDict['--onefile-tempdir-spec=./temp'] = False
+                #self.argsDict['--onefile-tempdir-spec=nuitkaGUITemp'] = False
             elif sender == self.ui.onefile:
                 self.argsDict['--standalone'] = False
                 self.argsDict['--onefile'] = True
-                self.argsDict['--onefile-tempdir-spec=./temp'] = True
+                #self.argsDict['--onefile-tempdir-spec=nuitkaGUITemp'] = True
 
         elif value in [2, 0]:
             senderIntToArgs = {
