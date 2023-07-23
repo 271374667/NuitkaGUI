@@ -226,7 +226,7 @@
 --show-progress</string>
           </property>
           <property name="checked">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -833,6 +833,9 @@ disable-ccache</string>
                  <property name="text">
                   <string>自动删除构建文件夹
 remove-output</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>

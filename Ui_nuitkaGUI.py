@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'nuitkaGUI.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -138,7 +138,7 @@ class Ui_MainWindow(object):
         self.CBShowProgress = QCheckBox(self.tab)
         self.CBShowProgress.setObjectName(u"CBShowProgress")
         self.CBShowProgress.setEnabled(True)
-        self.CBShowProgress.setChecked(False)
+        self.CBShowProgress.setChecked(True)
 
         self.gridLayout.addWidget(self.CBShowProgress, 0, 0, 1, 1)
 
@@ -376,6 +376,7 @@ class Ui_MainWindow(object):
 
         self.CBRemoveOutput = QCheckBox(self.groupBox_4)
         self.CBRemoveOutput.setObjectName(u"CBRemoveOutput")
+        self.CBRemoveOutput.setChecked(True)
 
         self.gridLayout_5.addWidget(self.CBRemoveOutput, 1, 1, 1, 1)
 

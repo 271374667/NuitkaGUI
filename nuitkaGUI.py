@@ -8,7 +8,7 @@ import urllib.request
 from pathlib import Path
 
 from PySide6.QtCore import Slot
-from PySide6.QtWidgets import (QApplication, QFileDialog, QMainWindow,
+from PySide6.QtWidgets import (QApplication, QFileDialog, QMainWindow, QWidget, 
                                QMessageBox, QWhatsThis)
 
 import resource_rc
@@ -28,9 +28,9 @@ class MyWindow(QMainWindow):
         self.argsDict = {
             '--onefile': False,
             '--standalone': True,
-            '--show-progress': False,
+            '--show-progress': True,
             '--show-memory': False,
-            '--remove-output': False,
+            '--remove-output': True,
             '--follow-imports': False,
             '--windows-disable-console': False,
             '--mingw64': False,
@@ -238,18 +238,22 @@ class MyWindow(QMainWindow):
             return
 
         os.chdir(Path(self.entryFilePath).parent)
+        exeDir = Path(self.entryFilePath).parent.joinpath(
+            'output').joinpath(f'{Path(self.entryFilePath).stem}.dist')
 
-        # TODO:多线程
         @threadRun
         def run():
             process = subprocess.run(self.getArgs(), creationflags=subprocess.CREATE_NEW_CONSOLE)
             # 运行结束后打开输出文件夹
-            exeDir = Path(self.entryFilePath).parent.joinpath(
-            'output').joinpath(f'{Path(self.entryFilePath).stem}.dist')
             if process.returncode == 0 and exeDir.exists():
                 os.startfile(exeDir)
                                                     
         run()
+        # 创建一个 bat 来运行程序
+        batPath = Path(self.entryFilePath).parent.joinpath('output').joinpath('运行.bat')
+        with open(batPath, 'w', encoding='utf-8') as f:
+            f.write(f'@echo off\nchcp 65001\ncd {exeDir}\n{Path(self.entryFilePath).stem}.exe')
+
 
     def outputFinished(self):
         self.process = None
@@ -278,7 +282,7 @@ class MyWindow(QMainWindow):
 
     def setPythonExePath(self):
         exePath, _ = QFileDialog.getOpenFileName(
-            self, '请选择一个python.exe文件', '', 'Python Files (*.exe)')
+            self, '请选择一个python.exe文件', '', 'Python Files (python.exe)')
         if not exePath:
             self.statusBar().showMessage('未选择python.exe文件')
             return
@@ -395,6 +399,7 @@ class MyWindow(QMainWindow):
     def unzipStandardMod2ExeDir(self):
         # TODO: 未来智能识别需要哪些标准库
         # 解压标准库到exeDir
+        tempWidget = QWidget()
         exeDir = Path(self.entryFilePath).parent.joinpath(
             'output').joinpath(f'{Path(self.entryFilePath).stem}.dist')
         if not exeDir.exists():
@@ -407,8 +412,7 @@ class MyWindow(QMainWindow):
             with urllib.request.urlopen(url) as response:
                 data = response.read()
         except Exception as e:
-            QMessageBox.warning(
-                self, '警告', f'下载标准库失败，错误信息：{e}', QMessageBox.StandardButton.Yes)
+            self.statusBar().showMessage(f'下载标准库失败，错误信息：{e}')
             return
 
         # 解压缩文件
@@ -417,7 +421,6 @@ class MyWindow(QMainWindow):
             zip_ref.extractall(exeDir)
 
         self.statusBar().showMessage('解压完成', 3000)
-        QMessageBox.information(self, '提示', '解压完成', QMessageBox.StandardButton.Yes)
 
 
 if __name__ == "__main__":
