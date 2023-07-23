@@ -16,6 +16,8 @@ from func import identifyThirdPartyLibraries, isPythonAvailable, threadRun
 from Ui_nuitkaGUI import Ui_MainWindow
 
 
+__version__ = "0.0.4"
+
 class MyWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -129,7 +131,7 @@ class MyWindow(QMainWindow):
 
         # 菜单
         self.ui.actionAbout.triggered.connect(lambda: QMessageBox.about(
-            self, '关于', '作者:Bemake\n版本:0.0.3\n时间:2023-04-09\nPySide6学习欢迎加群633585910'))
+            self, '关于', f'作者:Bemake\n版本:{__version__}\n时间:2023-04-09\nPySide6学习欢迎加群633585910'))
         self.ui.actionShowArgs.triggered.connect(
             lambda: QMessageBox.about(self, '参数', str(self.getArgs())))
 
