@@ -196,40 +196,6 @@
         <string>基础参数</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="1">
-         <widget class="QCheckBox" name="CBShowMemory">
-          <property name="toolTip">
-           <string>show-memory</string>
-          </property>
-          <property name="whatsThis">
-           <string>show-memory</string>
-          </property>
-          <property name="text">
-           <string>显示内存占用
--show-memory</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QCheckBox" name="CBShowProgress">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="toolTip">
-           <string>show-progress</string>
-          </property>
-          <property name="whatsThis">
-           <string>show-progress</string>
-          </property>
-          <property name="text">
-           <string>显示进度条
---show-progress</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
@@ -266,8 +232,8 @@
           </item>
          </layout>
         </item>
-        <item row="3" column="1">
-         <widget class="DragableQLineEdit" name="LEOutpuPath">
+        <item row="1" column="1">
+         <widget class="DragableQLineEdit" name="LEPythonExePath">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -275,16 +241,22 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+           <string>点击这里可以设置打包之后Exe的图标</string>
           </property>
           <property name="statusTip">
-           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+           <string>点击这里可以设置打包之后Exe的图标</string>
           </property>
           <property name="whatsThis">
-           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
           </property>
           <property name="placeholderText">
-           <string>在这里设置输出路径，可以使用拖拽的方式</string>
+           <string>这里输入Python.exe的路径</string>
           </property>
          </widget>
         </item>
@@ -335,6 +307,28 @@
           </item>
          </layout>
         </item>
+        <item row="3" column="1">
+         <widget class="DragableQLineEdit" name="LEOutpuPath">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="placeholderText">
+           <string>在这里设置输出路径，可以使用拖拽的方式</string>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="1">
          <widget class="DragableQLineEdit" name="LEIcon">
           <property name="minimumSize">
@@ -363,32 +357,67 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="DragableQLineEdit" name="LEPythonExePath">
-          <property name="minimumSize">
+        <item row="0" column="0" colspan="2">
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="maximumSize">
            <size>
-            <width>0</width>
-            <height>40</height>
+            <width>16777215</width>
+            <height>50</height>
            </size>
           </property>
-          <property name="toolTip">
-           <string>点击这里可以设置打包之后Exe的图标</string>
+          <property name="title">
+           <string>兼容性</string>
           </property>
-          <property name="statusTip">
-           <string>点击这里可以设置打包之后Exe的图标</string>
-          </property>
-          <property name="whatsThis">
-           <string>点击这里可以设置打包之后Exe的图标</string>
-          </property>
-          <property name="dragEnabled">
-           <bool>true</bool>
-          </property>
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-          <property name="placeholderText">
-           <string>这里输入Python.exe的路径</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QRadioButton" name="RBJRNone">
+             <property name="text">
+              <string>无</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="RBJRHigh">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>该功能测试中</string>
+             </property>
+             <property name="statusTip">
+              <string>该功能测试中</string>
+             </property>
+             <property name="whatsThis">
+              <string>该功能测试中</string>
+             </property>
+             <property name="text">
+              <string>加强兼容</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="RBJRTop">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>该功能测试中</string>
+             </property>
+             <property name="statusTip">
+              <string>该功能测试中</string>
+             </property>
+             <property name="whatsThis">
+              <string>该功能测试中</string>
+             </property>
+             <property name="text">
+              <string>最大兼容</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -595,10 +624,7 @@
            <string>如果你导入了相应的模块，那么你需要从左边选择对应的插件，然后双击他或者点击按钮将它添加到右边
 
 这样做能够让你更快的编译，而且有的时候如果你没有开启插件最后甚至可能无法运行，比如PyQt
-
---anti-bloat 命令选项用于减小打包后的可执行文件的大小。Nuitka 会尝试移除一些不必要的代码和数据,有报错可能
-
---upx 可以在减小包的大小的同时不报错，但是会增加打包时间</string>
+</string>
           </property>
          </widget>
         </item>
@@ -644,7 +670,7 @@
              <x>0</x>
              <y>0</y>
              <width>768</width>
-             <height>476</height>
+             <height>516</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -659,8 +685,8 @@
               <property name="title">
                <string>性能</string>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_3">
-               <item>
+              <layout class="QGridLayout" name="gridLayout_3">
+               <item row="0" column="0">
                 <layout class="QHBoxLayout" name="horizontalLayout_7">
                  <item>
                   <widget class="QLabel" name="label_3">
@@ -702,7 +728,47 @@
                  </item>
                 </layout>
                </item>
-               <item>
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="CBClang">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;速度最快，比mingw64最快能快5倍以上，但是打包报错概率提高，同时你需要自己下载clang编译器，第一次可以尝试，失败后再用mingw64&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>速度最快，比mingw64最快能快5倍以上，但是打包报错概率提高，同时你需要自己下载clang编译器，第一次可以尝试，失败后再用mingw64</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>速度最快，比mingw64最快能快5倍以上，但是打包报错概率提高，同时你需要自己下载clang编译器，第一次可以尝试，失败后再用mingw64</string>
+                 </property>
+                 <property name="text">
+                  <string>开启clang
+--clang</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QCheckBox" name="CBMingw64">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;该选项用来开启mingw64进行加速，nuitka会自动下载&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>该选项用来开启mingw64进行加速，nuitka会自动下载，该选项加上lto=no可以提高打包成功概率，如果该选项也失败可以取消勾选而用MSVC</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;该选项用来开启mingw64进行加速，nuitka会自动下载，该选项加上lto=no可以提高打包成功概率，如果该选项也失败可以取消勾选而用MSVC&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="text">
+                  <string>开启mingw64
+--mingw64 </string>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
                 <widget class="QCheckBox" name="CBLowMemory">
                  <property name="toolTip">
                   <string>该选项会降低打包速度</string>
@@ -734,92 +800,27 @@ low-memory</string>
                <string>其他选项</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_5">
-               <item row="0" column="0">
-                <widget class="QCheckBox" name="CBDisableCcache">
-                 <property name="toolTip">
-                  <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
-                 </property>
-                 <property name="statusTip">
-                  <string>当你频繁打包失败的时候可以开起来，平时尽量关闭，关闭这个选项能加快打包速度</string>
-                 </property>
-                 <property name="whatsThis">
-                  <string>当你频繁打包失败的时候可以开起来，平时尽量关闭，关闭这个选项能加快打包速度</string>
-                 </property>
-                 <property name="text">
-                  <string>不使用上一次的缓存，防止打包失败
-disable-ccache</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QCheckBox" name="CBQuiet">
-                 <property name="toolTip">
-                  <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
-                 </property>
-                 <property name="statusTip">
-                  <string>这个选项只会输出错误</string>
-                 </property>
-                 <property name="whatsThis">
-                  <string>这个选项只会输出错误</string>
-                 </property>
-                 <property name="text">
-                  <string>开启安静打包模式(只输出错误)
---quiet</string>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="1">
-                <widget class="QCheckBox" name="CBFollowImports">
+                <widget class="QCheckBox" name="CBShowProgress">
                  <property name="toolTip">
-                  <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+                  <string>可以在打包的时候显示更多的进度条</string>
                  </property>
                  <property name="statusTip">
-                  <string>如果你导入了很多第三方库，请务必开启这个选项</string>
+                  <string>可以在打包的时候显示更多的进度条</string>
                  </property>
                  <property name="whatsThis">
-                  <string>如果你导入了很多第三方库，请务必开启这个选项</string>
+                  <string>可以在打包的时候显示更多的进度条</string>
                  </property>
                  <property name="text">
-                  <string>递归查找所有的模块
---follow-imports</string>
+                  <string>显示进度条
+--show-progress</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
-                <widget class="QCheckBox" name="CBCleanCache">
-                 <property name="toolTip">
-                  <string>remove-output</string>
-                 </property>
-                 <property name="statusTip">
-                  <string>自动删除构建文件夹</string>
-                 </property>
-                 <property name="whatsThis">
-                  <string>自动删除构建文件夹</string>
-                 </property>
-                 <property name="text">
-                  <string>清除所有缓存
---clean-cache</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QCheckBox" name="CBDisableConsole">
-                 <property name="toolTip">
-                  <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
-                 </property>
-                 <property name="statusTip">
-                  <string>请不要在一开始直接使用，请确保自己的程序打包之后能够运行再开启这个选项</string>
-                 </property>
-                 <property name="whatsThis">
-                  <string>请不要在一开始直接使用，请确保自己的程序打包之后能够运行再开启这个选项</string>
-                 </property>
-                 <property name="text">
-                  <string>关闭命令行
---windows-disable-console</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
+               <item row="0" column="0">
                 <widget class="QCheckBox" name="CBRemoveOutput">
                  <property name="toolTip">
                   <string>remove-output</string>
@@ -839,30 +840,75 @@ remove-output</string>
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
-                <widget class="QCheckBox" name="CBMingw64">
-                 <property name="enabled">
-                  <bool>true</bool>
-                 </property>
+               <item row="7" column="1">
+                <widget class="QCheckBox" name="CBCleanCache">
                  <property name="toolTip">
-                  <string>该选项用来开启mingw64进行加速</string>
+                  <string>remove-output</string>
                  </property>
                  <property name="statusTip">
-                  <string>该选项用来开启mingw64进行加速</string>
+                  <string>自动删除构建文件夹</string>
                  </property>
                  <property name="whatsThis">
-                  <string>该选项用来开启mingw64进行加速</string>
+                  <string>自动删除构建文件夹</string>
                  </property>
                  <property name="text">
-                  <string>开启mingw64
---mingw64 </string>
-                 </property>
-                 <property name="checked">
-                  <bool>false</bool>
+                  <string>清除所有缓存
+--clean-cache</string>
                  </property>
                 </widget>
                </item>
-               <item row="3" column="1">
+               <item row="5" column="1">
+                <widget class="QCheckBox" name="CBQuiet">
+                 <property name="toolTip">
+                  <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>这个选项只会输出错误</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>这个选项只会输出错误</string>
+                 </property>
+                 <property name="text">
+                  <string>开启安静打包模式(只输出错误)
+--quiet</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="0">
+                <widget class="QCheckBox" name="CBShowMemory">
+                 <property name="toolTip">
+                  <string>显示内存</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>显示内存</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>显示内存</string>
+                 </property>
+                 <property name="text">
+                  <string>显示内存占用
+-show-memory</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="CBDisableConsole">
+                 <property name="toolTip">
+                  <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>请不要在一开始直接使用，请确保自己的程序打包之后能够运行再开启这个选项</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>请不要在一开始直接使用，请确保自己的程序打包之后能够运行再开启这个选项</string>
+                 </property>
+                 <property name="text">
+                  <string>关闭命令行
+--windows-disable-console</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
                 <widget class="QCheckBox" name="CBLto">
                  <property name="enabled">
                   <bool>true</bool>
@@ -882,6 +928,23 @@ remove-output</string>
                  </property>
                  <property name="checked">
                   <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QCheckBox" name="CBDisableCcache">
+                 <property name="toolTip">
+                  <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>当你频繁打包失败的时候可以开起来，平时尽量关闭，关闭这个选项能加快打包速度</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>当你频繁打包失败的时候可以开起来，平时尽量关闭，关闭这个选项能加快打包速度</string>
+                 </property>
+                 <property name="text">
+                  <string>不使用上一次的缓存，防止打包失败
+disable-ccache</string>
                  </property>
                 </widget>
                </item>
@@ -1053,9 +1116,55 @@ remove-output</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>嵌入文件</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <item>
+         <widget class="QScrollArea" name="scrollArea_3">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_3">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>785</width>
+             <height>381</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_14">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>嵌入文件，在下面选中你需要打包的文件，这些内容最终会会被编译到exe当中，其中的路径则是采用相对打包文件的路径</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="FileTree" name="treeWidget"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="BTNFlushDir">
+              <property name="text">
+               <string>加载目录</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
-        <string>兼容性(实验性功能)</string>
+        <string>打包参数</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
@@ -1063,7 +1172,7 @@ remove-output</string>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>50</height>
+            <height>16777215</height>
            </size>
           </property>
           <property name="toolTip">
@@ -1081,286 +1190,6 @@ remove-output</string>
           <property name="placeholderText">
            <string>这里会显示当前你选择的参数</string>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QScrollArea" name="scrollArea_2">
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_2">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>768</width>
-             <height>526</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_12">
-            <item>
-             <widget class="QPlainTextEdit" name="PTEExplaineCompatibility">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>150</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>如果看不完全可以滚动滚动条</string>
-              </property>
-              <property name="statusTip">
-               <string/>
-              </property>
-              <property name="whatsThis">
-               <string>如果看不完全可以滚动滚动条</string>
-              </property>
-              <property name="verticalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOn</enum>
-              </property>
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-              <property name="plainText">
-               <string>==(该页面是实验性的！其中界面的内容甚至逻辑都可能会发生变化，使用前请详细阅读下方说明)==
-
-启动其中的选项之后所有的包都不会被编译而是会被直接复制到打包目录下，使用该方法可以解决一些库无法编译或者编译错误的情况，大部分报错出错都可以从这里删去打包库而使用直接调用的方式运行，能大幅增加运行通过的概率
-
-但是需要注意，此方法会导致打包体积大幅增加，而且会在打包目录下生成大量文件，在非必要情况下不启用
-
-选择好需要打包的Py文件后点击下方的①方法分析第三方库，然后点击②方法将所有库下载到打包目录中
-
-你无法手动编辑下方内容，所有的库都会由pipreqs(会自动安装)进行筛选
-</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_8">
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_9">
-                <item>
-                 <widget class="QLabel" name="label_5">
-                  <property name="font">
-                   <font>
-                    <pointsize>14</pointsize>
-                   </font>
-                  </property>
-                  <property name="toolTip">
-                   <string>一些说明</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>一些说明</string>
-                  </property>
-                  <property name="text">
-                   <string>打包的时候这些库会被编译</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QListWidget" name="ListUnselectMod">
-                  <property name="toolTip">
-                   <string>这些库是被识别出来的库，双加他们或者点击中间的按钮来移动</string>
-                  </property>
-                  <property name="statusTip">
-                   <string>这些库是被识别出来的库，双加他们或者点击中间的按钮来移动</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>这些库是被识别出来的库，双加他们或者点击中间的按钮来移动</string>
-                  </property>
-                  <property name="sizeAdjustPolicy">
-                   <enum>QAbstractScrollArea::AdjustToContents</enum>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_10">
-                <item>
-                 <widget class="QToolButton" name="BTNAddMod">
-                  <property name="toolTip">
-                   <string>移动库</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>移动库</string>
-                  </property>
-                  <property name="text">
-                   <string>...</string>
-                  </property>
-                  <property name="arrowType">
-                   <enum>Qt::RightArrow</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QToolButton" name="BTNRemoveMod">
-                  <property name="toolTip">
-                   <string>移动库</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>移动库</string>
-                  </property>
-                  <property name="text">
-                   <string>...</string>
-                  </property>
-                  <property name="arrowType">
-                   <enum>Qt::LeftArrow</enum>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_11">
-                <item>
-                 <widget class="QLabel" name="label_6">
-                  <property name="font">
-                   <font>
-                    <pointsize>14</pointsize>
-                   </font>
-                  </property>
-                  <property name="toolTip">
-                   <string>一些说明</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>一些说明</string>
-                  </property>
-                  <property name="text">
-                   <string>这些库会被直接复制进目录</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QListWidget" name="ListSelectMod">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>150</height>
-                   </size>
-                  </property>
-                  <property name="toolTip">
-                   <string>这些是会跟随打包一起被放进打包目录的库</string>
-                  </property>
-                  <property name="statusTip">
-                   <string>这些是会跟随打包一起被放进打包目录的库</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>这些是会跟随打包一起被放进打包目录的库</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QPushButton" name="BTNAnalysisMod">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>这一步会调用pipreqs，所以可能会出现命令行，而且会等待很长时间，属于正常情况</string>
-              </property>
-              <property name="statusTip">
-               <string>这一步会调用pipreqs，所以可能会出现命令行，而且会等待很长时间，属于正常情况</string>
-              </property>
-              <property name="whatsThis">
-               <string>这一步会调用pipreqs，所以可能会出现命令行，而且会等待很长时间，属于正常情况</string>
-              </property>
-              <property name="text">
-               <string>点击这里开始自动分析代码中使用到的库(在打包前使用)</string>
-              </property>
-              <property name="icon">
-               <iconset resource="resource.qrc">
-                <normaloff>:/images/images/icons8_1st_32px.png</normaloff>:/images/images/icons8_1st_32px.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="BTNModDownload">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>点击这个方法会使用pip方法将第三方库以及一些python原生的dll和标准库复制进打包目录，可能会导致打包文件夹内文件数量很多，后期可以用EVB封包</string>
-              </property>
-              <property name="statusTip">
-               <string>注意，该方法需要先打包后再使用，不然nuitka会清空目录下所有的文件</string>
-              </property>
-              <property name="whatsThis">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;点击这个方法会使用pip方法将第三方库以及一些python原生的dll和标准库复制进打包目录，可能会导致打包文件夹内文件数量很多，后期可以用EVB封包&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;注意，该方法需要先打包后再使用，不然nuitka会清空目录下所有的文件&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="text">
-               <string>将这些库下载到打包目录中(需在打包完成后使用)</string>
-              </property>
-              <property name="icon">
-               <iconset resource="resource.qrc">
-                <normaloff>:/images/images/icons8_circled_2_c_32px.png</normaloff>:/images/images/icons8_circled_2_c_32px.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="BTNModStandardCopy">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;大量第三方库都依赖标准库，需要手动将这些标准库复制到打包目录中才能正常使用&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="statusTip">
-               <string>大量第三方库都依赖标准库，需要手动将这些标准库复制到打包目录中才能正常使用</string>
-              </property>
-              <property name="whatsThis">
-               <string>大量第三方库都依赖标准库，需要手动将这些标准库复制到打包目录中才能正常使用</string>
-              </property>
-              <property name="text">
-               <string>将标准库复制到打包目录中(需在打包完成后使用)</string>
-              </property>
-              <property name="icon">
-               <iconset resource="resource.qrc">
-                <normaloff>:/images/images/icons8_circled_3_c_32px.png</normaloff>:/images/images/icons8_circled_3_c_32px.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
          </widget>
         </item>
        </layout>
@@ -1453,7 +1282,12 @@ remove-output</string>
   <customwidget>
    <class>DragableQLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>dragableqlineedit.h</header>
+   <header>customWidget.dragableqlineedit</header>
+  </customwidget>
+  <customwidget>
+   <class>FileTree</class>
+   <extends>QTreeWidget</extends>
+   <header>customWidget.filetree</header>
   </customwidget>
  </customwidgets>
  <resources>
@@ -1473,6 +1307,38 @@ remove-output</string>
     <hint type="destinationlabel">
      <x>399</x>
      <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CBClang</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CBMingw64</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>274</x>
+     <y>239</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>410</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CBMingw64</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CBClang</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>230</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>269</x>
+     <y>236</y>
     </hint>
    </hints>
   </connection>
