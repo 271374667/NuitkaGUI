@@ -18,8 +18,6 @@ from Ui_nuitkaGUI import Ui_MainWindow
 __version__ = '0.0.5'
 
 
-__version__ = "0.0.4"
-
 class MyWindow(QMainWindow):
     def __init__(self):
         super().__init__()
