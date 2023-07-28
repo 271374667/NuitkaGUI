@@ -15,8 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resource.qrc">
-    <normaloff>:/images/images/icons8_compass_30px.png</normaloff>
-    <normalon>:/images/images/icons8_compass_30px.png</normalon>:/images/images/icons8_compass_30px.png</iconset>
+    <normaloff>:/images/resource/images/icons8_compass_30px.png</normaloff>:/images/resource/images/icons8_compass_30px.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -40,7 +39,7 @@
           </property>
           <property name="icon">
            <iconset resource="resource.qrc">
-            <normaloff>:/images/images/icons8_code_file_64px.png</normaloff>:/images/images/icons8_code_file_64px.png</iconset>
+            <normaloff>:/images/resource/images/icons8_code_file_64px.png</normaloff>:/images/resource/images/icons8_code_file_64px.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -136,7 +135,7 @@
         </property>
         <property name="icon">
          <iconset resource="resource.qrc">
-          <normaloff>:/images/images/icons8_puzzled_32px.png</normaloff>:/images/images/icons8_puzzled_32px.png</iconset>
+          <normaloff>:/images/resource/images/icons8_puzzled_32px.png</normaloff>:/images/resource/images/icons8_puzzled_32px.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -173,7 +172,7 @@
       </property>
       <property name="icon">
        <iconset resource="resource.qrc">
-        <normaloff>:/images/images/icons8_start_64px.png</normaloff>:/images/images/icons8_start_64px.png</iconset>
+        <normaloff>:/images/resource/images/icons8_start_64px.png</normaloff>:/images/resource/images/icons8_start_64px.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -220,7 +219,7 @@
             </property>
             <property name="icon">
              <iconset resource="resource.qrc">
-              <normaloff>:/images/images/icons8_wink_32px.png</normaloff>:/images/images/icons8_wink_32px.png</iconset>
+              <normaloff>:/images/resource/images/icons8_wink_32px.png</normaloff>:/images/resource/images/icons8_wink_32px.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -267,7 +266,7 @@
           </property>
           <property name="icon">
            <iconset resource="resource.qrc">
-            <normaloff>:/images/images/icons8_hand_right_32px.png</normaloff>:/images/images/icons8_hand_right_32px.png</iconset>
+            <normaloff>:/images/resource/images/icons8_hand_right_32px.png</normaloff>:/images/resource/images/icons8_hand_right_32px.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -295,7 +294,7 @@
             </property>
             <property name="icon">
              <iconset resource="resource.qrc">
-              <normaloff>:/images/images/icons8_external_32px.png</normaloff>:/images/images/icons8_external_32px.png</iconset>
+              <normaloff>:/images/resource/images/icons8_external_32px.png</normaloff>:/images/resource/images/icons8_external_32px.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -401,7 +400,7 @@
            <item>
             <widget class="QRadioButton" name="RBJRTop">
              <property name="enabled">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <property name="toolTip">
               <string>该功能测试中</string>
@@ -1147,7 +1146,13 @@ disable-ccache</string>
              </widget>
             </item>
             <item>
-             <widget class="FileTree" name="treeWidget"/>
+             <widget class="FileTree" name="treeWidget">
+              <column>
+               <property name="text">
+                <string notr="true">1</string>
+               </property>
+              </column>
+             </widget>
             </item>
             <item>
              <widget class="QPushButton" name="BTNFlushDir">
@@ -1236,7 +1241,7 @@ disable-ccache</string>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="resource.qrc">
+    <iconset>
      <normaloff>:/images/images/icons8_wink_32px.png</normaloff>:/images/images/icons8_wink_32px.png</iconset>
    </property>
    <property name="text">

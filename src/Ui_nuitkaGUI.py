@@ -34,8 +34,7 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(829, 619)
         icon = QIcon()
-        icon.addFile(u":/images/images/icons8_compass_30px.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon.addFile(u":/images/images/icons8_compass_30px.png", QSize(), QIcon.Normal, QIcon.On)
+        icon.addFile(u":/images/resource/images/icons8_compass_30px.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.actionAbout = QAction(MainWindow)
         self.actionAbout.setObjectName(u"actionAbout")
@@ -66,7 +65,7 @@ class Ui_MainWindow(object):
         self.btnGetPy = QPushButton(self.centralwidget)
         self.btnGetPy.setObjectName(u"btnGetPy")
         icon2 = QIcon()
-        icon2.addFile(u":/images/images/icons8_code_file_64px.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u":/images/resource/images/icons8_code_file_64px.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btnGetPy.setIcon(icon2)
         self.btnGetPy.setIconSize(QSize(28, 28))
 
@@ -103,7 +102,7 @@ class Ui_MainWindow(object):
         self.toolButton = QToolButton(self.centralwidget)
         self.toolButton.setObjectName(u"toolButton")
         icon3 = QIcon()
-        icon3.addFile(u":/images/images/icons8_puzzled_32px.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u":/images/resource/images/icons8_puzzled_32px.png", QSize(), QIcon.Normal, QIcon.Off)
         self.toolButton.setIcon(icon3)
         self.toolButton.setIconSize(QSize(32, 32))
         self.toolButton.setAutoRaise(False)
@@ -118,7 +117,7 @@ class Ui_MainWindow(object):
         self.btnStart.setObjectName(u"btnStart")
         self.btnStart.setAutoFillBackground(False)
         icon4 = QIcon()
-        icon4.addFile(u":/images/images/icons8_start_64px.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon4.addFile(u":/images/resource/images/icons8_start_64px.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btnStart.setIcon(icon4)
         self.btnStart.setIconSize(QSize(40, 40))
 
@@ -136,7 +135,9 @@ class Ui_MainWindow(object):
         self.BTNSetIcon = QPushButton(self.tab)
         self.BTNSetIcon.setObjectName(u"BTNSetIcon")
         self.BTNSetIcon.setMinimumSize(QSize(0, 0))
-        self.BTNSetIcon.setIcon(icon1)
+        icon5 = QIcon()
+        icon5.addFile(u":/images/resource/images/icons8_wink_32px.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.BTNSetIcon.setIcon(icon5)
         self.BTNSetIcon.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_4.addWidget(self.BTNSetIcon)
@@ -154,9 +155,9 @@ class Ui_MainWindow(object):
 
         self.BTNPythonExePath = QPushButton(self.tab)
         self.BTNPythonExePath.setObjectName(u"BTNPythonExePath")
-        icon5 = QIcon()
-        icon5.addFile(u":/images/images/icons8_hand_right_32px.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.BTNPythonExePath.setIcon(icon5)
+        icon6 = QIcon()
+        icon6.addFile(u":/images/resource/images/icons8_hand_right_32px.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.BTNPythonExePath.setIcon(icon6)
         self.BTNPythonExePath.setIconSize(QSize(32, 32))
 
         self.gridLayout.addWidget(self.BTNPythonExePath, 1, 0, 1, 1)
@@ -165,9 +166,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.BTNSetOutputPath = QPushButton(self.tab)
         self.BTNSetOutputPath.setObjectName(u"BTNSetOutputPath")
-        icon6 = QIcon()
-        icon6.addFile(u":/images/images/icons8_external_32px.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.BTNSetOutputPath.setIcon(icon6)
+        icon7 = QIcon()
+        icon7.addFile(u":/images/resource/images/icons8_external_32px.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.BTNSetOutputPath.setIcon(icon7)
         self.BTNSetOutputPath.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_6.addWidget(self.BTNSetOutputPath)
@@ -208,7 +209,7 @@ class Ui_MainWindow(object):
 
         self.RBJRTop = QRadioButton(self.groupBox_5)
         self.RBJRTop.setObjectName(u"RBJRTop")
-        self.RBJRTop.setEnabled(False)
+        self.RBJRTop.setEnabled(True)
 
         self.horizontalLayout_3.addWidget(self.RBJRTop)
 
@@ -503,6 +504,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_14.addWidget(self.label_4)
 
         self.treeWidget = FileTree(self.scrollAreaWidgetContents_3)
+        __qtreewidgetitem = QTreeWidgetItem()
+        __qtreewidgetitem.setText(0, u"1");
+        self.treeWidget.setHeaderItem(__qtreewidgetitem)
         self.treeWidget.setObjectName(u"treeWidget")
 
         self.verticalLayout_14.addWidget(self.treeWidget)
