@@ -14,9 +14,9 @@ def isModuleBigger(moduleName: str, version: str) -> bool:
     except:
         return False
 
-def __downloadMoudle(moduleName: str):
+def installModule(moduleName: str):
     """下载模块"""
     try:
         subprocess.run([globalVar.pythonExePath, '-m', 'pip', 'install', moduleName, '-U'], creationflags=subprocess.CREATE_NEW_CONSOLE)
-    except:
-        pass
+    except Exception as e:
+        globalVar.logger.error(f'下载模块{moduleName}失败，原因：{e}')

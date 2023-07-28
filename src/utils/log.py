@@ -6,7 +6,7 @@ def initLogger():
     logger = logging.getLogger("logger")
 
     handler1 = logging.StreamHandler()
-    handler2 = logging.FileHandler(filename=f'log/{datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")}.txt', encoding="utf-8", mode="w")
+    handler2 = logging.FileHandler(filename=f'logs/{datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")}.txt', encoding="utf-8", mode="w")
     logger.setLevel(logging.DEBUG)
     handler1.setLevel(logging.DEBUG)
     handler2.setLevel(logging.DEBUG)

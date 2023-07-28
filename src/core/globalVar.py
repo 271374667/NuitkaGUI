@@ -1,11 +1,16 @@
-import typing
-import datetime
 import logging
+import typing
 from pathlib import Path
+
+from PySide6.QtWidgets import QApplication
+
 from conf.config import PLUGIN_LIST
 
 if typing.TYPE_CHECKING:
-    from src.start import MyWindow
+    from core.globalVar import MyWindow
+
+# 全局app对象
+app = QApplication([])
 
 # 全局窗口变量
 mainWindow: 'MyWindow' = None

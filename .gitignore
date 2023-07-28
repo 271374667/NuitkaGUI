@@ -9,3 +9,4 @@ error.txt
 tests/*
 **/.vscode/*
 **/__pycache__/*
+logs
