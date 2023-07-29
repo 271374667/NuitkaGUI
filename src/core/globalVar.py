@@ -4,16 +4,15 @@ from pathlib import Path
 
 from PySide6.QtWidgets import QApplication
 
-from conf.config import PLUGIN_LIST
 
 if typing.TYPE_CHECKING:
-    from core.globalVar import MyWindow
+    from conf.initVar import MyWindow
 
 # 全局app对象
-app = QApplication([])
+app: QApplication = None
 
 # 全局窗口变量
-mainWindow: 'MyWindow' = None
+mainWindow: "MyWindow" = None
 
 # 需要打包的Python文件路径
 entryFilePath: str = ''
@@ -49,13 +48,14 @@ argsDict = {
     '--windows-file-description': '',
     '--include-package': [],
 }
+
 # 添加插件列表
-for each in PLUGIN_LIST:
+pluginList = []
+for each in pluginList:
     argsDict[f'--plugin-enable={each}'] = False
 
 # 是否正在运行
 isRunning = False
 
 # 创建一个日志记录器
-logger:logging.Logger = None
-
+logger: logging.Logger = None

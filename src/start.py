@@ -11,4 +11,3 @@ if __name__ == "__main__":
 
     globalVar.mainWindow.show()
     globalVar.app.exec()
-    globalVar.logger.info('test')

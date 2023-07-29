@@ -1,4 +1,5 @@
 from enum import Enum
+from core import globalVar
 
 # 软件名称
 SOFTWARE_NAME = 'NuitkaGUI'
@@ -12,5 +13,10 @@ PLUGIN_LIST = ['pyside6', 'pyside2', 'pyqt5', 'pyqt6', 'tk-inter', 'matplotlib',
                'glfw', 'gevent', 'upx'
                ]
 
-# 需要的模块版本
-moduleVersion = {"nuitka": "1.7.0"}
+globalVar.pluginList = PLUGIN_LIST
+
+
+class ModuleVersion(Enum):
+    nuitka = "1.7.0"
+    pyside6 = "6.5.0"
+    pipreqs = "0.4.0"
