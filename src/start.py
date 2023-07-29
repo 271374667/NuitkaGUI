@@ -1,5 +1,4 @@
-from core import globalVar
-from conf import initVar
+from core import globalVar, initVar
 from pathlib import Path
 
 globalVar.homePath = Path(__file__).parent

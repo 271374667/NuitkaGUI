@@ -12,7 +12,7 @@ def initLogger():
     handler2.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter(
-        "%(levelname)s - %(lineno)d - %(asctime)s - %(message)s")
+        "%(levelname)s - %(filename)s - %(lineno)d - %(asctime)s - %(message)s")
     handler1.setFormatter(formatter)
     handler2.setFormatter(formatter)
 
@@ -24,7 +24,7 @@ def initLogger():
 
 # 检测日志文件夹内的日志文件数量，如果超过10个就删除最早的一个
 def deleteLog10More():
-    logPath = Path('log')
+    logPath = Path('logs')
     if not logPath.exists():
         logPath.mkdir()
     logList = list(logPath.glob('*.txt'))

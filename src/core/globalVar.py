@@ -4,9 +4,8 @@ from pathlib import Path
 
 from PySide6.QtWidgets import QApplication
 
-
 if typing.TYPE_CHECKING:
-    from conf.initVar import MyWindow
+    from core.initVar import MyWindow
 
 # 全局app对象
 app: QApplication = None
@@ -22,6 +21,18 @@ pythonExePath: str = ''
 
 # 项目根路径
 homePath: Path = None
+
+# 当前输入的参数
+inputArgs: list = []
+
+# 当前可能会扩展的参数
+inputArgsExtended: list = []
+
+# 是否正在运行
+isRunning = False
+
+# 创建一个日志记录器
+logger: logging.Logger = None
 
 # 当前默认的指令
 argsDict = {
@@ -50,12 +61,9 @@ argsDict = {
 }
 
 # 添加插件列表
-pluginList = []
+pluginList = ['pyside6', 'pyside2', 'pyqt5', 'pyqt6', 'tk-inter', 'matplotlib',
+               'tensorflow', 'pywebview', 'multiprocessing', 'trio', 'kivy', 'transformers',
+               'glfw', 'gevent', 'upx'
+               ]
 for each in pluginList:
     argsDict[f'--plugin-enable={each}'] = False
-
-# 是否正在运行
-isRunning = False
-
-# 创建一个日志记录器
-logger: logging.Logger = None

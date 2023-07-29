@@ -400,7 +400,7 @@
            <item>
             <widget class="QRadioButton" name="RBJRTop">
              <property name="enabled">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <property name="toolTip">
               <string>该功能测试中</string>
@@ -686,7 +686,13 @@
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
                <item row="0" column="0">
-                <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>200</number>
+                 </property>
                  <item>
                   <widget class="QLabel" name="label_3">
                    <property name="maximumSize">
@@ -714,6 +720,12 @@
                  </item>
                  <item>
                   <widget class="QSpinBox" name="jobs">
+                   <property name="maximumSize">
+                    <size>
+                     <width>60</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
                    <property name="minimum">
                     <number>1</number>
                    </property>
@@ -1149,7 +1161,22 @@ disable-ccache</string>
              <widget class="FileTree" name="treeWidget">
               <column>
                <property name="text">
-                <string notr="true">1</string>
+                <string>名称</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>绝对路径</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>相对路径</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>文件类型</string>
                </property>
               </column>
              </widget>

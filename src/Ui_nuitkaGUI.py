@@ -209,7 +209,7 @@ class Ui_MainWindow(object):
 
         self.RBJRTop = QRadioButton(self.groupBox_5)
         self.RBJRTop.setObjectName(u"RBJRTop")
-        self.RBJRTop.setEnabled(True)
+        self.RBJRTop.setEnabled(False)
 
         self.horizontalLayout_3.addWidget(self.RBJRTop)
 
@@ -333,7 +333,9 @@ class Ui_MainWindow(object):
         self.gridLayout_3 = QGridLayout(self.groupBox_2)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setSpacing(0)
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.horizontalLayout_7.setContentsMargins(-1, -1, 200, -1)
         self.label_3 = QLabel(self.groupBox_2)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setMaximumSize(QSize(78, 16777215))
@@ -343,6 +345,7 @@ class Ui_MainWindow(object):
 
         self.jobs = QSpinBox(self.groupBox_2)
         self.jobs.setObjectName(u"jobs")
+        self.jobs.setMaximumSize(QSize(60, 16777215))
         self.jobs.setMinimum(1)
         self.jobs.setMaximum(64)
         self.jobs.setValue(8)
@@ -504,9 +507,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_14.addWidget(self.label_4)
 
         self.treeWidget = FileTree(self.scrollAreaWidgetContents_3)
-        __qtreewidgetitem = QTreeWidgetItem()
-        __qtreewidgetitem.setText(0, u"1");
-        self.treeWidget.setHeaderItem(__qtreewidgetitem)
         self.treeWidget.setObjectName(u"treeWidget")
 
         self.verticalLayout_14.addWidget(self.treeWidget)
@@ -1014,6 +1014,11 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(whatsthis)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"\u9ad8\u7ea7\u53c2\u6570", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u5d4c\u5165\u6587\u4ef6\uff0c\u5728\u4e0b\u9762\u9009\u4e2d\u4f60\u9700\u8981\u6253\u5305\u7684\u6587\u4ef6\uff0c\u8fd9\u4e9b\u5185\u5bb9\u6700\u7ec8\u4f1a\u4f1a\u88ab\u7f16\u8bd1\u5230exe\u5f53\u4e2d\uff0c\u5176\u4e2d\u7684\u8def\u5f84\u5219\u662f\u91c7\u7528\u76f8\u5bf9\u6253\u5305\u6587\u4ef6\u7684\u8def\u5f84", None))
+        ___qtreewidgetitem = self.treeWidget.headerItem()
+        ___qtreewidgetitem.setText(3, QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u7c7b\u578b", None));
+        ___qtreewidgetitem.setText(2, QCoreApplication.translate("MainWindow", u"\u76f8\u5bf9\u8def\u5f84", None));
+        ___qtreewidgetitem.setText(1, QCoreApplication.translate("MainWindow", u"\u7edd\u5bf9\u8def\u5f84", None));
+        ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"\u540d\u79f0", None));
         self.BTNFlushDir.setText(QCoreApplication.translate("MainWindow", u"\u52a0\u8f7d\u76ee\u5f55", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"\u5d4c\u5165\u6587\u4ef6", None))
 #if QT_CONFIG(tooltip)
