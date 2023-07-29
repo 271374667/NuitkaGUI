@@ -71,8 +71,8 @@ class MyWindow(QMainWindow):
         # 检测是否安装nuitka
         try:
             import nuitka
-        except Exception:
-            subprocess.call([self.pythonExePath, '-m', 'pip',
+        except ImportError:
+            subprocess.call(['python', '-m', 'pip',
                             'install', 'nuitka', '-U'])
 
         # 删除listUnselect里所有的item，然后添加pluginList里的所有item
