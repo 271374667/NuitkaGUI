@@ -24,7 +24,7 @@ class MyWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.entryFilePath: str = ''
         self.pythonExePath: str = ''
-        self.extend_cmd_list = [] # TODO: 在将来会被保存到一个全局文件中,当前是折中的垃圾写法
+        self.extend_cmd_list = []  # TODO: 在将来会被保存到一个全局文件中,当前是折中的垃圾写法
         self.isRunning = False
         self.homePath = Path(__file__).parent
         self.ui.setupUi(self)
@@ -71,8 +71,8 @@ class MyWindow(QMainWindow):
         # 检测是否安装nuitka
         try:
             import nuitka
-        except Exception:
-            subprocess.call([self.pythonExePath, '-m', 'pip',
+        except ImportError:
+            subprocess.call(['python', '-m', 'pip',
                             'install', 'nuitka', '-U'])
 
         # 删除listUnselect里所有的item，然后添加pluginList里的所有item
@@ -234,7 +234,7 @@ class MyWindow(QMainWindow):
                 'CBClang': '--clang',
             }
             self.argsDict[senderIntToArgs[sender.objectName()]
-                          ] = sender.isChecked() # type: ignore
+                          ] = sender.isChecked()  # type: ignore
 
     def startNuitka(self):
         self.isRunning = True
@@ -293,7 +293,7 @@ class MyWindow(QMainWindow):
         @threadRun
         def run():
             process = subprocess.run(
-                    self.getArgs(), creationflags=subprocess.CREATE_NEW_CONSOLE)
+                self.getArgs(), creationflags=subprocess.CREATE_NEW_CONSOLE)
         run()
 
     def outputFinished(self):

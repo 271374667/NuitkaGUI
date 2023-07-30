@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="images">
+    <file>../resource/images/icons8_circled_3_c_32px.png</file>
+    <file>../resource/images/icons8_1st_32px.png</file>
+    <file>../resource/images/icons8_circled_2_c_32px.png</file>
+    <file>../resource/images/icons8_hand_right_32px.png</file>
+    <file>../resource/images/icons8_compass_30px.png</file>
+    <file>../resource/images/icons8_external_32px.png</file>
+    <file>../resource/images/icons8_warning_shield_32px.png</file>
+    <file>../resource/../resource/images/icons8_wink_32px.png</file>
+    <file>../resource/images/icons8_puzzled_32px.png</file>
+    <file>../resource/images/icons8_code_file_64px.png</file>
+    <file>../resource/images/icons8_py_32px.png</file>
+    <file>../resource/images/icons8_start_64px.png</file>
+  </qresource>
+</RCC>

@@ -57,6 +57,7 @@ class FileTree(QTreeWidget):
         print(path)
         if Path(path).exists() is False:
             return
+        
         for entry in Path(path).iterdir():
             if entry.is_dir():
                 child = QTreeWidgetItem(parent, [entry.name, str(

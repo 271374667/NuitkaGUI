@@ -15,8 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resource.qrc">
-    <normaloff>:/images/images/icons8_compass_30px.png</normaloff>
-    <normalon>:/images/images/icons8_compass_30px.png</normalon>:/images/images/icons8_compass_30px.png</iconset>
+    <normaloff>:/images/resource/images/icons8_compass_30px.png</normaloff>:/images/resource/images/icons8_compass_30px.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -40,7 +39,7 @@
           </property>
           <property name="icon">
            <iconset resource="resource.qrc">
-            <normaloff>:/images/images/icons8_code_file_64px.png</normaloff>:/images/images/icons8_code_file_64px.png</iconset>
+            <normaloff>:/images/resource/images/icons8_code_file_64px.png</normaloff>:/images/resource/images/icons8_code_file_64px.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -136,7 +135,7 @@
         </property>
         <property name="icon">
          <iconset resource="resource.qrc">
-          <normaloff>:/images/images/icons8_puzzled_32px.png</normaloff>:/images/images/icons8_puzzled_32px.png</iconset>
+          <normaloff>:/images/resource/images/icons8_puzzled_32px.png</normaloff>:/images/resource/images/icons8_puzzled_32px.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -173,7 +172,7 @@
       </property>
       <property name="icon">
        <iconset resource="resource.qrc">
-        <normaloff>:/images/images/icons8_start_64px.png</normaloff>:/images/images/icons8_start_64px.png</iconset>
+        <normaloff>:/images/resource/images/icons8_start_64px.png</normaloff>:/images/resource/images/icons8_start_64px.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -220,7 +219,7 @@
             </property>
             <property name="icon">
              <iconset resource="resource.qrc">
-              <normaloff>:/images/images/icons8_wink_32px.png</normaloff>:/images/images/icons8_wink_32px.png</iconset>
+              <normaloff>:/images/resource/images/icons8_wink_32px.png</normaloff>:/images/resource/images/icons8_wink_32px.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -267,7 +266,7 @@
           </property>
           <property name="icon">
            <iconset resource="resource.qrc">
-            <normaloff>:/images/images/icons8_hand_right_32px.png</normaloff>:/images/images/icons8_hand_right_32px.png</iconset>
+            <normaloff>:/images/resource/images/icons8_hand_right_32px.png</normaloff>:/images/resource/images/icons8_hand_right_32px.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -295,7 +294,7 @@
             </property>
             <property name="icon">
              <iconset resource="resource.qrc">
-              <normaloff>:/images/images/icons8_external_32px.png</normaloff>:/images/images/icons8_external_32px.png</iconset>
+              <normaloff>:/images/resource/images/icons8_external_32px.png</normaloff>:/images/resource/images/icons8_external_32px.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -687,7 +686,13 @@
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
                <item row="0" column="0">
-                <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>200</number>
+                 </property>
                  <item>
                   <widget class="QLabel" name="label_3">
                    <property name="maximumSize">
@@ -715,6 +720,12 @@
                  </item>
                  <item>
                   <widget class="QSpinBox" name="jobs">
+                   <property name="maximumSize">
+                    <size>
+                     <width>60</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
                    <property name="minimum">
                     <number>1</number>
                    </property>
@@ -1147,12 +1158,43 @@ disable-ccache</string>
              </widget>
             </item>
             <item>
-             <widget class="FileTree" name="treeWidget"/>
+             <widget class="FileTree" name="treeWidget">
+              <column>
+               <property name="text">
+                <string>名称</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>绝对路径</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>相对路径</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>文件类型</string>
+               </property>
+              </column>
+             </widget>
             </item>
             <item>
              <widget class="QPushButton" name="BTNFlushDir">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误&lt;/p&gt;&lt;p&gt;程序寻找这些额外的文件是使用相对路径进行寻找&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="statusTip">
+               <string>警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误 程序寻找这些额外的文件是使用相对路径进行寻找</string>
+              </property>
+              <property name="whatsThis">
+               <string>警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误
+程序寻找这些额外的文件是使用相对路径进行寻找</string>
+              </property>
               <property name="text">
-               <string>加载目录</string>
+               <string>打开一个新的目录</string>
               </property>
              </widget>
             </item>
@@ -1236,7 +1278,7 @@ disable-ccache</string>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="resource.qrc">
+    <iconset>
      <normaloff>:/images/images/icons8_wink_32px.png</normaloff>:/images/images/icons8_wink_32px.png</iconset>
    </property>
    <property name="text">
