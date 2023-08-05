@@ -1,0 +1,1420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>829</width>
+    <height>619</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>NuitkaGUI</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/images/resource/images/icons8_compass_30px.png</normaloff>:/images/resource/images/icons8_compass_30px.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="btnGetPy">
+          <property name="toolTip">
+           <string>点击这里打开一个py文件</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里打开一个py文件</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里打开一个py文件</string>
+          </property>
+          <property name="text">
+           <string>打开Python文件</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resource.qrc">
+            <normaloff>:/images/resource/images/icons8_code_file_64px.png</normaloff>:/images/resource/images/icons8_code_file_64px.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>28</width>
+            <height>28</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="LinePyFilePath">
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>这里会显示打包py入口文件的路径</string>
+          </property>
+          <property name="whatsThis">
+           <string>这里会显示打包py入口文件的路径</string>
+          </property>
+          <property name="text">
+           <string>当前没有选择任何py文件</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>选择您的打包策略</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QRadioButton" name="standalone">
+           <property name="toolTip">
+            <string>standalone</string>
+           </property>
+           <property name="statusTip">
+            <string>多文件打包，稳定性尚可（推荐）</string>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;生成一个文件夹，可运行文件在这个文件夹里面&lt;/p&gt;&lt;p&gt;同时这个文件夹里面还有很多其他的内容&lt;/p&gt;&lt;p&gt;使用这种方法相对于单文件不容易报错，但是新手可能找不到可执行文件&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>打包为多文件
+--standalone</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="onefile">
+           <property name="toolTip">
+            <string>onefile</string>
+           </property>
+           <property name="statusTip">
+            <string>打包成一个单个exe(不推荐)，推荐后期使用EVB自己打包，不要用nuitka的</string>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;打包出来的文件是单个exe文件，方便传播，但是不方便调试&lt;/p&gt;&lt;p&gt;通常都是多文件运行成功以后才会使用这个&lt;/p&gt;&lt;p&gt;该命令会同时开启--windows-onefile-tempdir-spec=./temp&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>打包为单文件
+--onefile</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton">
+        <property name="toolTip">
+         <string>点我进入这是什么WhatThis页面</string>
+        </property>
+        <property name="statusTip">
+         <string>点我进入这是什么WhatThis页面</string>
+        </property>
+        <property name="whatsThis">
+         <string>点我进入这是什么WhatThis页面</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/images/resource/images/icons8_puzzled_32px.png</normaloff>:/images/resource/images/icons8_puzzled_32px.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="autoRaise">
+         <bool>false</bool>
+        </property>
+        <property name="arrowType">
+         <enum>Qt::NoArrow</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>基础参数</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="2" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QPushButton" name="BTNSetIcon">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>点击这里可以设置打包之后Exe的图标</string>
+            </property>
+            <property name="statusTip">
+             <string>点击这里可以设置打包之后Exe的图标</string>
+            </property>
+            <property name="whatsThis">
+             <string>点击这里可以设置打包之后Exe的图标</string>
+            </property>
+            <property name="text">
+             <string>设置图标</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/images/resource/images/icons8_wink_32px.png</normaloff>:/images/resource/images/icons8_wink_32px.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1">
+         <widget class="DragableQLineEdit" name="LEPythonExePath">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>这里输入Python.exe的路径</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="BTNPythonExePath">
+          <property name="text">
+           <string>Python.exe的路径</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resource.qrc">
+            <normaloff>:/images/resource/images/icons8_hand_right_32px.png</normaloff>:/images/resource/images/icons8_hand_right_32px.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QPushButton" name="BTNSetOutputPath">
+            <property name="toolTip">
+             <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+            </property>
+            <property name="statusTip">
+             <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+            </property>
+            <property name="whatsThis">
+             <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+            </property>
+            <property name="text">
+             <string>设置输出路径</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/images/resource/images/icons8_external_32px.png</normaloff>:/images/resource/images/icons8_external_32px.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="3" column="1">
+         <widget class="DragableQLineEdit" name="LEOutpuPath">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="placeholderText">
+           <string>在这里设置输出路径，可以使用拖拽的方式</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="DragableQLineEdit" name="LEIcon">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>这里放置图标，可以直接拖入</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>兼容性</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QRadioButton" name="RBJRNone">
+             <property name="text">
+              <string>无</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="RBJRHigh">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>该功能测试中</string>
+             </property>
+             <property name="statusTip">
+              <string>该功能测试中</string>
+             </property>
+             <property name="whatsThis">
+              <string>该功能测试中</string>
+             </property>
+             <property name="text">
+              <string>加强兼容</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="RBJRTop">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>该功能测试中</string>
+             </property>
+             <property name="statusTip">
+              <string>该功能测试中</string>
+             </property>
+             <property name="whatsThis">
+              <string>该功能测试中</string>
+             </property>
+             <property name="text">
+              <string>最大兼容</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>开启插件</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>未启用的插件</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="listUnselect">
+              <property name="toolTip">
+               <string>这里是没有被启用的插件，你也可以上官网自己看有哪些其他的插件</string>
+              </property>
+              <property name="statusTip">
+               <string/>
+              </property>
+              <property name="whatsThis">
+               <string>这里是没有被启用的插件，你也可以上官网自己看有哪些其他的插件</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>pyside6</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>pyside2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>pyqt6</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>pyqt5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>matplotlib</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>tensorflow</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>tk-inter</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>pywebview</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>upx</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>multiprocessing</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>trio</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>kivy</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QToolButton" name="BTNAddPlugin">
+              <property name="toolTip">
+               <string>点击这里移动插件</string>
+              </property>
+              <property name="statusTip">
+               <string>点击这里移动插件</string>
+              </property>
+              <property name="whatsThis">
+               <string>点击这里移动插件</string>
+              </property>
+              <property name="text">
+               <string>...</string>
+              </property>
+              <property name="arrowType">
+               <enum>Qt::RightArrow</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="BTNRemovePlugin">
+              <property name="toolTip">
+               <string>点击这里移动插件</string>
+              </property>
+              <property name="statusTip">
+               <string>点击这里移动插件</string>
+              </property>
+              <property name="whatsThis">
+               <string>点击这里移动插件</string>
+              </property>
+              <property name="text">
+               <string>...</string>
+              </property>
+              <property name="arrowType">
+               <enum>Qt::LeftArrow</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>已经启用的插件</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="listSelect">
+              <property name="toolTip">
+               <string>这里是已经启用的插件</string>
+              </property>
+              <property name="statusTip">
+               <string/>
+              </property>
+              <property name="whatsThis">
+               <string>这里是已经启用的插件</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPlainTextEdit" name="plainTextEdit">
+          <property name="maximumSize">
+           <size>
+            <width>10000</width>
+            <height>86</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>这里是一些说明</string>
+          </property>
+          <property name="statusTip">
+           <string>这里是一些说明</string>
+          </property>
+          <property name="whatsThis">
+           <string>这里是一些说明</string>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="plainText">
+           <string>如果你导入了相应的模块，那么你需要从左边选择对应的插件，然后双击他或者点击按钮将它添加到右边
+
+这样做能够让你更快的编译，而且有的时候如果你没有开启插件最后甚至可能无法运行，比如PyQt
+</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>高级参数</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="midLineWidth">
+           <number>0</number>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContents</enum>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>768</width>
+             <height>556</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QGroupBox" name="groupBox_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="title">
+               <string>性能</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_3">
+               <item row="0" column="0">
+                <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>200</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_3">
+                   <property name="maximumSize">
+                    <size>
+                     <width>78</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+                   </property>
+                   <property name="statusTip">
+                    <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+                   </property>
+                   <property name="whatsThis">
+                    <string>请不要设置大于自己电脑核心的线程，通常设置为6或者8即可</string>
+                   </property>
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;开启的线程数&lt;br/&gt;jobs&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="jobs">
+                   <property name="maximumSize">
+                    <size>
+                     <width>60</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="minimum">
+                    <number>1</number>
+                   </property>
+                   <property name="maximum">
+                    <number>64</number>
+                   </property>
+                   <property name="value">
+                    <number>8</number>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="CBClang">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;速度最快，比mingw64最快能快5倍以上，但是打包报错概率提高，同时你需要自己下载clang编译器，第一次可以尝试，失败后再用mingw64&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>速度最快，比mingw64最快能快5倍以上，但是打包报错概率提高，同时你需要自己下载clang编译器，第一次可以尝试，失败后再用mingw64</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>速度最快，比mingw64最快能快5倍以上，但是打包报错概率提高，同时你需要自己下载clang编译器，第一次可以尝试，失败后再用mingw64</string>
+                 </property>
+                 <property name="text">
+                  <string>开启clang
+--clang</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QCheckBox" name="CBMingw64">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;该选项用来开启mingw64进行加速，nuitka会自动下载&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>该选项用来开启mingw64进行加速，nuitka会自动下载，该选项加上lto=no可以提高打包成功概率，如果该选项也失败可以取消勾选而用MSVC</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;该选项用来开启mingw64进行加速，nuitka会自动下载，该选项加上lto=no可以提高打包成功概率，如果该选项也失败可以取消勾选而用MSVC&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="text">
+                  <string>开启mingw64
+--mingw64 </string>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QCheckBox" name="CBLowMemory">
+                 <property name="toolTip">
+                  <string>该选项会降低打包速度</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>该选项会降低打包速度</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>该选项会降低打包速度</string>
+                 </property>
+                 <property name="text">
+                  <string>编译时占用更少的内存
+low-memory</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_4">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>220</height>
+               </size>
+              </property>
+              <property name="title">
+               <string>其他选项</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_5">
+               <item row="0" column="0">
+                <widget class="QCheckBox" name="CBRemoveOutput">
+                 <property name="toolTip">
+                  <string>remove-output</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>自动删除构建文件夹</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>自动删除构建文件夹</string>
+                 </property>
+                 <property name="text">
+                  <string>自动删除构建文件夹
+remove-output</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QCheckBox" name="CBDisableCcache">
+                 <property name="toolTip">
+                  <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>当你频繁打包失败的时候可以开起来，平时尽量关闭，关闭这个选项能加快打包速度</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>当你频繁打包失败的时候可以开起来，平时尽量关闭，关闭这个选项能加快打包速度</string>
+                 </property>
+                 <property name="text">
+                  <string>不使用上一次的缓存，防止打包失败
+disable-ccache</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="0">
+                <widget class="QCheckBox" name="CBShowMemory">
+                 <property name="toolTip">
+                  <string>显示内存</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>显示内存</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>显示内存</string>
+                 </property>
+                 <property name="text">
+                  <string>显示内存占用
+-show-memory</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QCheckBox" name="CBQuiet">
+                 <property name="toolTip">
+                  <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>这个选项只会输出错误</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>这个选项只会输出错误</string>
+                 </property>
+                 <property name="text">
+                  <string>开启安静打包模式(只输出错误)
+--quiet</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="CBDisableConsole">
+                 <property name="toolTip">
+                  <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>请不要在一开始直接使用，请确保自己的程序打包之后能够运行再开启这个选项</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>请不要在一开始直接使用，请确保自己的程序打包之后能够运行再开启这个选项</string>
+                 </property>
+                 <property name="text">
+                  <string>关闭命令行
+--windows-disable-console</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QCheckBox" name="CBLto">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;关闭LTO能避免来自编译器的错误，LTO在nuitka是默认开启的&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>关闭LTO能避免来自编译器的错误，LTO在nuitka是默认开启的</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>关闭LTO能避免来自编译器的错误，LTO在nuitka是默认开启的</string>
+                 </property>
+                 <property name="text">
+                  <string>关闭lto
+--lto=no</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QCheckBox" name="CBShowProgress">
+                 <property name="toolTip">
+                  <string>可以在打包的时候显示更多的进度条</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>可以在打包的时候显示更多的进度条</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>可以在打包的时候显示更多的进度条</string>
+                 </property>
+                 <property name="text">
+                  <string>显示进度条
+--show-progress</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="1">
+                <widget class="QCheckBox" name="CBCleanCache">
+                 <property name="toolTip">
+                  <string>remove-output</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>自动删除构建文件夹</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>自动删除构建文件夹</string>
+                 </property>
+                 <property name="text">
+                  <string>清除所有缓存
+--clean-cache</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="0">
+                <widget class="QCheckBox" name="CBwindowsUacAdmin">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;软件被运行的时候会向用户请求管理员权限运行(仅window)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>软件被运行的时候会向用户请求管理员权限运行(仅window)</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>软件被运行的时候会向用户请求管理员权限运行(仅window)</string>
+                 </property>
+                 <property name="text">
+                  <string>软件获取管理员权限
+--windows-uac-admin</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_3">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>197</height>
+               </size>
+              </property>
+              <property name="title">
+               <string>输出exe的信息</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_4">
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="LEFileVersion">
+                 <property name="toolTip">
+                  <string>文件版本</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>文件版本</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>文件版本</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>这里设置文件版本</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="LBProductVersion">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>产品的版本</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>产品的版本</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>产品的版本</string>
+                 </property>
+                 <property name="text">
+                  <string>产品版本
+--windows-product-version</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="LECompanyName">
+                 <property name="toolTip">
+                  <string>这里设置公司的名字</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>这里设置公司的名字</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>这里设置公司的名字</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>这里设置公司的名字</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="LBFileVersion">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>文件版本</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>文件版本</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>文件版本</string>
+                 </property>
+                 <property name="text">
+                  <string>文件版本
+--windows-file-version</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="LEProductVersion">
+                 <property name="toolTip">
+                  <string>产品的版本</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>产品的版本</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>产品的版本</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>这里设置产品版本</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="LBCompanyName">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>这里设置公司的名字</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>这里设置公司的名字</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>这里设置公司的名字</string>
+                 </property>
+                 <property name="text">
+                  <string>公司名称
+--windows-company-name</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="LBFileDescription">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>产品的描述</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>产品的描述</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>产品的描述</string>
+                 </property>
+                 <property name="text">
+                  <string>产品描述
+--windows-file-description</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="LEFileDescription">
+                 <property name="toolTip">
+                  <string>产品的描述</string>
+                 </property>
+                 <property name="statusTip">
+                  <string>产品的描述</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>产品的描述</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>这里设置产品描述</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>嵌入文件</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <item>
+         <widget class="QScrollArea" name="scrollArea_3">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_3">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>785</width>
+             <height>381</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_14">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>嵌入文件，在下面选中你需要打包的文件，这些内容最终会会被编译到exe当中，其中的路径则是采用相对打包文件的路径</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="FileTree" name="treeWidget">
+              <column>
+               <property name="text">
+                <string>名称</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>绝对路径</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>相对路径</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>文件类型</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="BTNFlushDir">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误&lt;/p&gt;&lt;p&gt;程序寻找这些额外的文件是使用相对路径进行寻找&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="statusTip">
+               <string>警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误 程序寻找这些额外的文件是使用相对路径进行寻找</string>
+              </property>
+              <property name="whatsThis">
+               <string>警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误
+程序寻找这些额外的文件是使用相对路径进行寻找</string>
+              </property>
+              <property name="text">
+               <string>打开一个新的目录</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>打包参数</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPlainTextEdit" name="PTEArgsOutput">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>这里会显示输出在命令行给nuitka的参数，通常你也可以手动复制到命令行执行</string>
+          </property>
+          <property name="statusTip">
+           <string>这里会显示输出在命令行给nuitka的参数，通常你也可以手动复制到命令行执行</string>
+          </property>
+          <property name="whatsThis">
+           <string>这里会显示输出在命令行给nuitka的参数，通常你也可以手动复制到命令行执行</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="placeholderText">
+           <string>这里会显示当前你选择的参数</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="btnStart">
+      <property name="toolTip">
+       <string>点击这个按钮就会开始打包，通常需要等待一段时间</string>
+      </property>
+      <property name="statusTip">
+       <string>点击这个按钮就会开始打包，通常需要等待一段时间</string>
+      </property>
+      <property name="whatsThis">
+       <string>点击这个按钮就会开始打包，通常需要等待一段时间</string>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>开始打包</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/images/resource/images/icons8_start_64px.png</normaloff>:/images/resource/images/icons8_start_64px.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>829</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>关于</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>更多</string>
+    </property>
+    <widget class="QMenu" name="menu_3">
+     <property name="title">
+      <string>更换皮肤</string>
+     </property>
+     <addaction name="action_Dark"/>
+     <addaction name="action_Bright"/>
+    </widget>
+    <addaction name="actionBatchMode"/>
+    <addaction name="menu_3"/>
+    <addaction name="actionShowArgs"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/images/icons8_wink_32px.png</normaloff>:/images/images/icons8_wink_32px.png</iconset>
+   </property>
+   <property name="text">
+    <string>关于</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionBatchMode">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>批处理模式</string>
+   </property>
+  </action>
+  <action name="action_Dark">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>暗黑</string>
+   </property>
+  </action>
+  <action name="action_Bright">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>明亮</string>
+   </property>
+  </action>
+  <action name="actionShowArgs">
+   <property name="text">
+    <string>查看当前参数</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DragableQLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>customWidget.dragableqlineedit</header>
+  </customwidget>
+  <customwidget>
+   <class>FileTree</class>
+   <extends>QTreeWidget</extends>
+   <header>customWidget.filetree</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CBClang</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CBMingw64</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>274</x>
+     <y>239</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>410</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CBMingw64</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CBClang</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>230</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>269</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>enterWhatsThisMode()</signal>
+ </slots>
+</ui>
