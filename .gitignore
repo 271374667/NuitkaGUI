@@ -1,0 +1,13 @@
+.idea/*
+logs/*
+*.pyc
+__pycache__
+__pycache__/*
+测试/*
+
+# 下面是文档,未来这些文件可能会被重新添加
+site/*
+assets/*
+demo/*
+*.yml
+docs/*

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>864</width>
+    <height>548</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>831</width>
+     <height>521</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="midLineWidth">
+    <number>0</number>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOn</enum>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-19</y>
+      <width>808</width>
+      <height>683</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>性能</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="2">
+         <widget class="CheckBox" name="CheckBox">
+          <property name="minimumSize">
+           <size>
+            <width>45</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>编译时占用更少的内存
+low-memory</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="CheckBox" name="CheckBox_2">
+          <property name="text">
+           <string>开启clang
+--clang</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="CheckBox" name="CheckBox_3">
+          <property name="minimumSize">
+           <size>
+            <width>45</width>
+            <height>44</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>开启mingw64
+--mingw64 </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="StrongBodyLabel" name="StrongBodyLabel">
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>开启的线程 jobs</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="SpinBox" name="SpinBox">
+          <property name="minimumSize">
+           <size>
+            <width>156</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>131</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_4">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>290</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>其他选项</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="6" column="1">
+         <widget class="CheckBox" name="CheckBox_10">
+          <property name="text">
+           <string>开启安静打包模式(只输出错误)
+--quiet</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="CheckBox" name="CheckBox_11">
+          <property name="text">
+           <string>清除所有缓存
+--clean-cache</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="CheckBox" name="CheckBox_12">
+          <property name="text">
+           <string>软件获取管理员权限
+--windows-uac-admin</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="CheckBox" name="CheckBox_5">
+          <property name="text">
+           <string>关闭命令行
+--windows-disable-console</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="CheckBox" name="CheckBox_8">
+          <property name="text">
+           <string>关闭lto
+--lto=no</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="CheckBox" name="CheckBox_4">
+          <property name="text">
+           <string>自动删除构建文件夹
+remove-output</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="CheckBox" name="CheckBox_7">
+          <property name="text">
+           <string>显示内存占用
+-show-memory</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="CheckBox" name="CheckBox_6">
+          <property name="text">
+           <string>不使用上一次的缓存，防止打包失败
+disable-ccache</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="CheckBox" name="CheckBox_9">
+          <property name="text">
+           <string>显示进度条
+--show-progress</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>224</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>输出exe的信息</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="StrongBodyLabel" name="StrongBodyLabel_2">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>公司名称
+--windows-company-name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="StrongBodyLabel" name="StrongBodyLabel_3">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>文件版本
+--windows-file-version</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="LineEdit" name="LineEdit">
+          <property name="toolTip">
+           <string extracomment="这里设置公司的名字">这里设置公司的名字</string>
+          </property>
+          <property name="statusTip">
+           <string>这里设置公司的名字</string>
+          </property>
+          <property name="whatsThis">
+           <string>这里设置公司的名字</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="StrongBodyLabel" name="StrongBodyLabel_5">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>产品描述
+--windows-file-description</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="StrongBodyLabel" name="StrongBodyLabel_4">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>产品版本
+--windows-product-version</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="LineEdit" name="LineEdit_2"/>
+        </item>
+        <item row="2" column="2">
+         <widget class="LineEdit" name="LineEdit_3"/>
+        </item>
+        <item row="3" column="2">
+         <widget class="LineEdit" name="LineEdit_4"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>StrongBodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
