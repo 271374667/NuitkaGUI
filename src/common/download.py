@@ -2,14 +2,13 @@ import subprocess
 import sys
 from pathlib import Path
 
+import loguru
 from PySide6.QtCore import QThread, Signal
 
-from src.common import logger as lg
-
-logger = lg.get_logger()
+from src.conf import config_path
 
 
-class DownloadModel(QThread):
+class Download(QThread):
     isFinished = Signal(bool)
     """
     Methods:
@@ -22,17 +21,17 @@ class DownloadModel(QThread):
             url: 下载链接
             target_dir: 下载目录
         """
-        logger.debug(f'下载链接: {url}')
+        loguru.logger.debug(f'下载链接: {url}')
         if not target_dir.exists():
-            logger.debug(f'创建下载目录: {target_dir}')
+            loguru.logger.debug(f'创建下载目录: {target_dir}')
             target_dir.mkdir(parents=True, exist_ok=True)
 
-        args_list = [Path('./aria2c.exe'), url, '-d', target_dir]
-        logger.debug(f'执行命令: {args_list}')
+        args_list = [config_path.ARIA2C_FILE, url, '-d', target_dir]
+        loguru.logger.debug(f'执行命令: {args_list}')
         subprocess.run(args_list,
                        stdin=sys.stdin,
                        stderr=sys.stderr,
                        stdout=sys.stdout,
                        encoding='gbk')
-        logger.debug(f'下载完成: {url}')
+        loguru.logger.debug(f'下载完成: {url}')
         self.isFinished.emit(True)

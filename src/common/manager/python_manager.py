@@ -1,17 +1,16 @@
+import pickle
 import subprocess
 from pathlib import Path
 from typing import List
 
+import loguru
+
 from src.conf import config
+from src.conf import config_path
 
 
-class PythonModel:
-    """
-    TODO:
-        [x] check current python is available
-        [x] get the available pyhton.exe path
-        [x] get current python version
-    """
+class PythonManager:
+    avaliable_python: List[Path] = []
 
     @staticmethod
     def is_python_available(python_path: Path) -> bool:
@@ -48,12 +47,15 @@ class PythonModel:
                                 encoding=system_encoding)
         # TODO: add loguru here
         result = result.stdout.splitlines()
-        available_python = []
+        available = []
         for each in result:
             current_python_path = Path(each)
             if self.is_python_available(current_python_path):
-                available_python.append(current_python_path)
-        return available_python
+                available.append(current_python_path)
+                self.avaliable_python.append(current_python_path)
+                loguru.logger.debug(f'寻找到可用的 Python: {current_python_path}')
+        loguru.logger.debug(f'一共有 {len(available)} 个可用的 Python')
+        return available
 
     @staticmethod
     def get_python_version(python_path: Path) -> str:
@@ -67,3 +69,16 @@ class PythonModel:
         """
         result = subprocess.check_output([python_path, "-V"], timeout=3, encoding=config.system_encoding)
         return result.strip('\r\n')
+
+    def initialize(self):
+        """初始化 Python 管理器, 保存可用的 Python 路径到文件中"""
+        if not self.avaliable_python:
+            self.find_available_python_exe_python()
+
+        if not self.avaliable_python:
+            loguru.logger.error(f'没有找到可用的 Python')
+            return
+
+        loguru.logger.debug(f'可用的 Python: {self.avaliable_python}')
+        with open(config_path.RUNTIME_PYTHON_FILE, 'wb') as f:
+            pickle.dump(self.avaliable_python, f)

@@ -1,4 +1,4 @@
-class PipreqsModel:
+class PipreqsManager:
     """
     TODO:
         [ ] analyse .py file dependency(could use --uselocal option)

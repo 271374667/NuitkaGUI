@@ -6,15 +6,12 @@ Methods:
 from concurrent.futures import ThreadPoolExecutor
 from typing import List
 
+import loguru
 import requests
-
-from src.common import logger as lg
-
-logger = lg.get_logger()
 
 
 def get_fastest_url(url_list: List[str]) -> str:
-    logger.debug(f'正在获取最快的链接: {url_list}')
+    loguru.logger.debug(f'正在获取最快的链接: {url_list}')
 
     def test_speed(url):
         try:
@@ -33,7 +30,7 @@ def get_fastest_url(url_list: List[str]) -> str:
                     fastest_url = url
                     fastest_time = response_time
                 print(f'{url} response time: {response_time}')
-        logger.debug(f'最快的链接: {fastest_url}')
+        loguru.logger.debug(f'最快的链接: {fastest_url}')
         return fastest_url
 
     return find_fastest_url(urlList)

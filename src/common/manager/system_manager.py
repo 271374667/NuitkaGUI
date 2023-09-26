@@ -3,12 +3,7 @@ import sys
 from pathlib import Path
 
 
-class SystemModel:
-    """
-    TODO:
-        [x] get a save path to save user data
-        [x] get current platform, if is not window, raise Error
-    """
+class SystemManager:
 
     def __init__(self):
         self.system_encoding = sys.getfilesystemencoding()

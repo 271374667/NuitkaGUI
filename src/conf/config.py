@@ -1,7 +1,4 @@
 from enum import Enum
-from pathlib import Path
-
-HOME = Path(__file__).parent.parent
 
 system_encoding = 'gbk'  # if chinese character in username, use utf8 will fail
 
@@ -13,12 +10,6 @@ __version__ = '0.0.7'
 
 # 设置输出命令行最大行号
 MAX_OUTPUT_LINE = 1500
-
-# 下载目录
-DOWNLOAD_DIR = HOME / 'download'
-
-# GCC 的安装目录
-GCC_DIR = HOME / 'resource' / 'gcc'
 
 
 class ModuleVersion(Enum):
