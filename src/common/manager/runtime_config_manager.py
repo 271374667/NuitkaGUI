@@ -3,50 +3,88 @@ import typing
 
 from src.conf import config_path
 
+T = typing.TypeVar('T', str, typing.Sequence, typing.Mapping, int, float, bool, object)
 
-class Runtime:
+
+class RuntimeManager:
     """
     这个类负责管理运行时的全局变量,将他们存储到本地
+    TODO:
+        [ ]: 增加一个记忆上一次设置的功能，每一次开始的时候不要直接清空，而是读取上一次的设置，当程序被成功运行的时候才清空
     """
     _instance = None
+
+    # 自带的属性
+    file_path = config_path.RUNTIME_PYTHON_FILE
+
+    # 下面是 config 可用参数
+    AVAILABLE_PYTHON_LIST = 'avaliable_python_list'
+    FASTEST_PIP_SOURCE = 'fastest_pip_source'
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self):
-        self.file_path = config_path.RUNTIME_PYTHON_FILE
-
-    def append(self, key: str, value: typing.Any):
-        with open(self.file_path, 'rb') as f:
-            data = pickle.load(f)
+    @staticmethod
+    def append(key: str, value: T):
+        with open(RuntimeManager.file_path, 'rb') as f:
+            data: dict = pickle.load(f)
         data[key] = value
-        with open(self.file_path, 'wb') as f:
+        with open(RuntimeManager.file_path, 'wb') as f:
             pickle.dump(data, f)
 
-    def read(self, key: str):
-        with open(self.file_path, 'rb') as f:
-            data = pickle.load(f)
-        return data[key]
+    @staticmethod
+    def insert2first(key: str, value: T):
+        with open(RuntimeManager.file_path, 'rb') as f:
+            data: dict = pickle.load(f)
 
-    def read_all(self):
-        with open(self.file_path, 'rb') as f:
-            data = pickle.load(f)
+        key_value = data.get(key, None)
+        if isinstance(key_value, list):
+            key_value.insert(0, value)
+        elif key_value is None:
+            return
+
+        with open(RuntimeManager.file_path, 'wb') as f:
+            pickle.dump(data, f)
+
+    @staticmethod
+    def set(key: str, value: T):
+        RuntimeManager.append(key, value)
+
+    @staticmethod
+    def read(key: str):
+        with open(RuntimeManager.file_path, 'rb') as f:
+            data: dict = pickle.load(f)
+        return data.get(key, None)
+
+    @staticmethod
+    def read_all():
+        with open(RuntimeManager.file_path, 'rb') as f:
+            data: dict = pickle.load(f)
         return data
 
-    def remove(self, key: str):
-        with open(self.file_path, 'rb') as f:
-            data = pickle.load(f)
+    @staticmethod
+    def remove(key: str):
+        with open(RuntimeManager.file_path, 'rb') as f:
+            data: dict = pickle.load(f)
         data.pop(key)
-        with open(self.file_path, 'wb') as f:
+        with open(RuntimeManager.file_path, 'wb') as f:
             pickle.dump(data, f)
 
-    def remove_all(self):
-        with open(self.file_path, 'wb') as f:
+    @staticmethod
+    def remove_all():
+        with open(RuntimeManager.file_path, 'wb') as f:
             pickle.dump({}, f)
 
-    def initialize(self):
-        if not self.file_path.exists():
-            self.file_path.touch()
-        self.remove_all()
+    @staticmethod
+    def initialize():
+        if not RuntimeManager.file_path.exists():
+            RuntimeManager.file_path.touch()
+        RuntimeManager.remove_all()
+
+
+if __name__ == '__main__':
+    RuntimeManager.initialize()
+    print(RuntimeManager.read_all())
+    print(RuntimeManager.read(RuntimeManager.AVAILABLE_PYTHON_LIST))

@@ -33,7 +33,7 @@ def get_fastest_url(url_list: List[str]) -> str:
         loguru.logger.debug(f'最快的链接: {fastest_url}')
         return fastest_url
 
-    return find_fastest_url(urlList)
+    return find_fastest_url(url_list)
 
 
 if __name__ == '__main__':

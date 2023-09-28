@@ -1,12 +1,11 @@
-import pickle
 import subprocess
 from pathlib import Path
 from typing import List
 
 import loguru
 
+from src.common.manager.runtime_config_manager import RuntimeManager
 from src.conf import config
-from src.conf import config_path
 
 
 class PythonManager:
@@ -45,7 +44,6 @@ class PythonManager:
                                 timeout=5,
                                 stdout=subprocess.PIPE,
                                 encoding=system_encoding)
-        # TODO: add loguru here
         result = result.stdout.splitlines()
         available = []
         for each in result:
@@ -76,9 +74,9 @@ class PythonManager:
             self.find_available_python_exe_python()
 
         if not self.avaliable_python:
-            loguru.logger.error(f'没有找到可用的 Python')
+            loguru.logger.error('没有找到可用的 Python')
             return
 
         loguru.logger.debug(f'可用的 Python: {self.avaliable_python}')
-        with open(config_path.RUNTIME_PYTHON_FILE, 'wb') as f:
-            pickle.dump(self.avaliable_python, f)
+        RuntimeManager.set(RuntimeManager.AVAILABLE_PYTHON_LIST,
+                           self.avaliable_python)
