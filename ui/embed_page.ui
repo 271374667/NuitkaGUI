@@ -36,7 +36,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_14">
      <item>
-      <widget class="StrongBodyLabel" name="StrongBodyLabel">
+      <widget class="StrongBodyLabel" name="label_4">
        <property name="font">
         <font>
          <family>等线</family>
@@ -75,7 +75,16 @@
       </widget>
      </item>
      <item>
-      <widget class="FilledPushButton" name="FilledPushButton">
+      <widget class="FilledPushButton" name="BTNFlushDir">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误&lt;/p&gt;&lt;p&gt;程序寻找这些额外的文件是使用相对路径进行寻找&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="statusTip">
+        <string>警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误 程序寻找这些额外的文件是使用相对路径进行寻找</string>
+       </property>
+       <property name="whatsThis">
+        <string>警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误 程序寻找这些额外的文件是使用相对路径进行寻找</string>
+       </property>
        <property name="text">
         <string>打开一个新的目录</string>
        </property>

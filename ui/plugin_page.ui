@@ -24,7 +24,7 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="TitleLabel" name="TitleLabel">
+     <widget class="TitleLabel" name="label">
       <property name="maximumSize">
        <size>
         <width>16777215</width>
@@ -51,7 +51,7 @@
      </widget>
     </item>
     <item row="4" column="1">
-     <widget class="FilledToolButton" name="FilledToolButton"/>
+     <widget class="FilledToolButton" name="BTNRemovePlugin"/>
     </item>
     <item row="2" column="0" rowspan="4">
      <widget class="QListWidget" name="listUnselect">
@@ -127,10 +127,10 @@
      </widget>
     </item>
     <item row="3" column="1">
-     <widget class="FilledToolButton" name="FilledToolButton_2"/>
+     <widget class="FilledToolButton" name="BTNAddPlugin"/>
     </item>
     <item row="0" column="2">
-     <widget class="TitleLabel" name="TitleLabel_2">
+     <widget class="TitleLabel" name="label_2">
       <property name="maximumSize">
        <size>
         <width>16777215</width>
@@ -154,7 +154,7 @@
      </widget>
     </item>
     <item row="2" column="2" rowspan="4">
-     <widget class="QListWidget" name="listWidget_2"/>
+     <widget class="QListWidget" name="listSelect"/>
     </item>
    </layout>
   </widget>
@@ -171,7 +171,7 @@
     <string>TIPS:</string>
    </property>
   </widget>
-  <widget class="TextEdit" name="TextEdit">
+  <widget class="TextEdit" name="plainTextEdit">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -191,7 +191,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="FilledPushButton" name="FilledPushButton">
+  <widget class="FilledPushButton" name="btnStart1">
    <property name="geometry">
     <rect>
      <x>20</x>

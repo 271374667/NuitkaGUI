@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>864</width>
+    <height>548</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>831</width>
+     <height>521</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="midLineWidth">
+    <number>0</number>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOn</enum>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>808</width>
+      <height>675</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>性能</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="2">
+         <widget class="CheckBox" name="CBLowMemory">
+          <property name="minimumSize">
+           <size>
+            <width>45</width>
+            <height>36</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>该选项会降低打包速度</string>
+          </property>
+          <property name="statusTip">
+           <string>该选项会降低打包速度</string>
+          </property>
+          <property name="whatsThis">
+           <string>该选项会降低打包速度</string>
+          </property>
+          <property name="text">
+           <string>编译时占用更少的内存
+low-memory</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="CheckBox" name="CBClang">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;速度最快，比mingw64最快能快5倍以上，但是打包报错概率提高，同时你需要自己下载clang编译器，第一次可以尝试，失败后再用mingw64&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="statusTip">
+           <string>速度最快，比mingw64最快能快5倍以上，但是打包报错概率提高，同时你需要自己下载clang编译器，第一次可以尝试，失败后再用mingw64</string>
+          </property>
+          <property name="whatsThis">
+           <string>速度最快，比mingw64最快能快5倍以上，但是打包报错概率提高，同时你需要自己下载clang编译器，第一次可以尝试，失败后再用mingw64</string>
+          </property>
+          <property name="text">
+           <string>开启clang
+--clang</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="CheckBox" name="CBMingw64">
+          <property name="minimumSize">
+           <size>
+            <width>45</width>
+            <height>36</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;该选项用来开启mingw64进行加速，nuitka会自动下载&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;该选项用来开启mingw64进行加速，nuitka会自动下载&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>开启mingw64
+--mingw64 </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="StrongBodyLabel" name="label_3">
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+          </property>
+          <property name="statusTip">
+           <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+          </property>
+          <property name="whatsThis">
+           <string>请不要设置大于自己电脑核心的线程，通常设置为6或者8即可</string>
+          </property>
+          <property name="text">
+           <string>开启的线程 jobs</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="SpinBox" name="jobs">
+          <property name="minimumSize">
+           <size>
+            <width>156</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>131</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_4">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>290</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>其他选项</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="6" column="1">
+         <widget class="CheckBox" name="CBQuiet">
+          <property name="toolTip">
+           <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+          </property>
+          <property name="statusTip">
+           <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+          </property>
+          <property name="whatsThis">
+           <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+          </property>
+          <property name="text">
+           <string>开启安静打包模式(只输出错误)
+--quiet</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="CheckBox" name="CBCleanCache">
+          <property name="toolTip">
+           <string>remove-output</string>
+          </property>
+          <property name="statusTip">
+           <string>自动删除构建文件夹</string>
+          </property>
+          <property name="whatsThis">
+           <string>自动删除构建文件夹</string>
+          </property>
+          <property name="text">
+           <string>清除所有缓存
+--clean-cache</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="CheckBox" name="CBwindowsUacAdmin">
+          <property name="toolTip">
+           <string>软件被运行的时候会向用户请求管理员权限运行(仅window)</string>
+          </property>
+          <property name="statusTip">
+           <string>软件被运行的时候会向用户请求管理员权限运行(仅window)</string>
+          </property>
+          <property name="whatsThis">
+           <string>软件被运行的时候会向用户请求管理员权限运行(仅window)</string>
+          </property>
+          <property name="text">
+           <string>软件获取管理员权限
+--windows-uac-admin</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="CheckBox" name="CBDisableConsole">
+          <property name="toolTip">
+           <string>请不要在一开始直接使用，请确保自己的程序打包之后能够运行再开启这个选项</string>
+          </property>
+          <property name="statusTip">
+           <string>请不要在一开始直接使用，请确保自己的程序打包之后能够运行再开启这个选项</string>
+          </property>
+          <property name="whatsThis">
+           <string>请不要在一开始直接使用，请确保自己的程序打包之后能够运行再开启这个选项</string>
+          </property>
+          <property name="text">
+           <string>关闭命令行
+--windows-disable-console</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="CheckBox" name="CBLto">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;关闭LTO能避免来自编译器的错误，LTO在nuitka是默认开启的&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="statusTip">
+           <string>关闭LTO能避免来自编译器的错误，LTO在nuitka是默认开启的</string>
+          </property>
+          <property name="whatsThis">
+           <string>关闭LTO能避免来自编译器的错误，LTO在nuitka是默认开启的</string>
+          </property>
+          <property name="text">
+           <string>关闭lto
+--lto=no</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="CheckBox" name="CBRemoveOutput">
+          <property name="toolTip">
+           <string>自动删除构建文件夹</string>
+          </property>
+          <property name="statusTip">
+           <string>自动删除构建文件夹</string>
+          </property>
+          <property name="whatsThis">
+           <string>自动删除构建文件夹</string>
+          </property>
+          <property name="text">
+           <string>自动删除构建文件夹
+remove-output</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="CheckBox" name="CBShowMemory">
+          <property name="toolTip">
+           <string>显示内存</string>
+          </property>
+          <property name="statusTip">
+           <string>显示内存</string>
+          </property>
+          <property name="whatsThis">
+           <string>显示内存</string>
+          </property>
+          <property name="text">
+           <string>显示内存占用
+-show-memory</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="CheckBox" name="CBDisableCcache">
+          <property name="toolTip">
+           <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+          </property>
+          <property name="statusTip">
+           <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+          </property>
+          <property name="whatsThis">
+           <string>该控件有更详细的说明，请点击右上角的小图标再点击这里</string>
+          </property>
+          <property name="text">
+           <string>不使用上一次的缓存，防止打包失败
+disable-ccache</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="CheckBox" name="CBShowProgress">
+          <property name="toolTip">
+           <string>可以在打包的时候显示更多的进度条</string>
+          </property>
+          <property name="statusTip">
+           <string>可以在打包的时候显示更多的进度条</string>
+          </property>
+          <property name="whatsThis">
+           <string>可以在打包的时候显示更多的进度条</string>
+          </property>
+          <property name="text">
+           <string>显示进度条
+--show-progress</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>224</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>输出exe的信息</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="StrongBodyLabel" name="LBCompanyName">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>这里设置公司的名字</string>
+          </property>
+          <property name="statusTip">
+           <string>这里设置公司的名字</string>
+          </property>
+          <property name="whatsThis">
+           <string>这里设置公司的名字</string>
+          </property>
+          <property name="text">
+           <string>公司名称
+--windows-company-name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="StrongBodyLabel" name="LBFileVersion">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>文件版本</string>
+          </property>
+          <property name="statusTip">
+           <string>文件版本</string>
+          </property>
+          <property name="whatsThis">
+           <string>文件版本</string>
+          </property>
+          <property name="text">
+           <string>文件版本
+--windows-file-version</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="LineEdit" name="LECompanyName">
+          <property name="toolTip">
+           <string extracomment="这里设置公司的名字">这里设置公司的名字</string>
+          </property>
+          <property name="statusTip">
+           <string>这里设置公司的名字</string>
+          </property>
+          <property name="whatsThis">
+           <string>这里设置公司的名字</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="StrongBodyLabel" name="LBFileDescription">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>产品的描述</string>
+          </property>
+          <property name="statusTip">
+           <string>产品的描述</string>
+          </property>
+          <property name="whatsThis">
+           <string>产品的描述</string>
+          </property>
+          <property name="text">
+           <string>产品描述
+--windows-file-description</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="StrongBodyLabel" name="LBProductVersion">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>产品的版本</string>
+          </property>
+          <property name="statusTip">
+           <string>产品的版本</string>
+          </property>
+          <property name="whatsThis">
+           <string>产品的版本</string>
+          </property>
+          <property name="text">
+           <string>产品版本
+--windows-product-version</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="LineEdit" name="LEFileVersion">
+          <property name="toolTip">
+           <string>文件版本</string>
+          </property>
+          <property name="statusTip">
+           <string>文件版本</string>
+          </property>
+          <property name="whatsThis">
+           <string>文件版本</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="LineEdit" name="LEProductVersion">
+          <property name="toolTip">
+           <string>产品的版本</string>
+          </property>
+          <property name="statusTip">
+           <string>产品的版本</string>
+          </property>
+          <property name="whatsThis">
+           <string>产品的版本</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="LineEdit" name="LEFileDescription">
+          <property name="toolTip">
+           <string>产品的描述</string>
+          </property>
+          <property name="statusTip">
+           <string>产品的描述</string>
+          </property>
+          <property name="whatsThis">
+           <string>产品的描述</string>
+          </property>
+          <property name="accessibleName">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>StrongBodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

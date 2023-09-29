@@ -80,3 +80,8 @@ class PythonManager:
         loguru.logger.debug(f'可用的 Python: {self.avaliable_python}')
         RuntimeManager.set(RuntimeManager.AVAILABLE_PYTHON_LIST,
                            self.avaliable_python)
+
+        if self.avaliable_python:
+            RuntimeManager.set(RuntimeManager.SELECTED_PYTHON,
+                               self.avaliable_python[0])
+            loguru.logger.debug(f'设置默认 Python: {self.avaliable_python[0]}')

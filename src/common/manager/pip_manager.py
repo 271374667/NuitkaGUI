@@ -22,16 +22,30 @@ class PipManager:
         if self.fastest_pip_source is None:
             self.fastest_pip_source = config.PipSource.QingHua.value
 
-        available_python = RuntimeManager.read(RuntimeManager.AVAILABLE_PYTHON_LIST[0])
-        command_args_list = [available_python, 'install', package_name, '-i',
-                self.fastest_pip_source]
+        available_python = RuntimeManager.read(RuntimeManager.SELECTED_PYTHON)
+        command_args_list = [available_python, '-m', 'pip', 'install', package_name, '-i',
+                self.fastest_pip_source, '-U']
         loguru.logger.debug(f'执行命令: {command_args_list}')
-        subprocess.run(command_args_list,
-                       stdin=subprocess.PIPE,
-                       stderr=subprocess.PIPE,
-                       stdout=subprocess.PIPE,
-                       encoding=config.system_encoding)
-        loguru.logger.debug(f'安装完成: {package_name}')
+
+        try:
+            subprocess.run(command_args_list,
+                           stdin=subprocess.PIPE,
+                           stderr=subprocess.PIPE,
+                           stdout=subprocess.PIPE,
+                           encoding=config.system_encoding)
+            loguru.logger.debug(f'安装完成: {package_name}')
+        except Exception as e:
+            loguru.logger.error(f'安装失败: {package_name} {e}')
+
+    @staticmethod
+    def get_module_version(module_name: str):
+        """该方法目前是冗余方法，没有实际上被使用"""
+        response = subprocess.run([RuntimeManager.SELECTED_PYTHON, '-m', 'pip', 'show', module_name],
+                                  stdout=subprocess.PIPE,
+                                  stderr=subprocess.PIPE, encoding='gbk')
+        if response.stderr:
+            return ''
+        return response.stdout.splitlines()[1].split(maxsplit=1)[1]
 
     def initialize(self):
         self.fastest_pip_source = get_fastest_url([x.value for x in config.PipSource])

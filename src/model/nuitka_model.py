@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from collections import ChainMap
 from enum import Enum
 from typing import List, Union
@@ -92,7 +90,7 @@ class NuitkaModel:
         for each in BoolCommands:
             current_value = self._commands_dict[each.value]
             if current_value is not False:
-                enable_cmd_list.append(current_value)
+                enable_cmd_list.append(each.value)
 
         for each in StrCommands:
             current_value = self._commands_dict[each.value]
@@ -124,18 +122,52 @@ class NuitkaModel:
         if isinstance(command, str):
             # only left option, remove python path and -m
             content = command.split()
+            for each in content:
+                if '=' in each:
+                    item_key, item_value = each.split('=')
+                    item_value_list = tuple(item_value.split(','))
+                    cmd_list.append((item_key, item_value_list))
+                    continue
             cmd_list.extend(
-                    each for each in content if 'python' not in each and each != '-m'
+                    each for each in content if ('python' not in each) and (each != '-m') and (each != 'nuitka')
                     )
         elif isinstance(command, List):
+            for each in command:
+                if '=' in each:
+                    item_key, item_value = each.split('=')
+                    item_value_list = tuple(item_value.split(','))
+                    cmd_list.append((item_key, item_value_list))
+                    continue
             cmd_list.extend(
-                    each for each in command if 'python' not in each and each != '-m'
+                    each for each in command if ('python' not in each) and (each != '-m') and (each != 'nuitka')
                     )
 
-        for available in self._commands_dict:
-            for current in cmd_list:
-                if current == available.value:
-                    available_cmd.append(current)
+        for each in cmd_list:
+            if isinstance(each, tuple):
+                if each[0] in self._commands_dict:
+                    available_cmd.append(each)
                     continue
-                unavailable_cmd.append(current)
+                unavailable_cmd.append(each)
+                continue
+
+            if each in self._commands_dict:
+                available_cmd.append(each)
+                continue
+            unavailable_cmd.append(each)
         return available_cmd, unavailable_cmd
+
+
+if __name__ == '__main__':
+    from pprint import pprint
+
+    m = NuitkaModel()
+    # m.set_value(BoolCommands.onefile, True)
+    # m.set_value(BoolCommands.standalone, True)
+    # m.set_value(BoolCommands.show_progress, True)
+    # m.set_value(BoolCommands.show_memory, True)
+    # m.set_value(StrCommands.output_dir, 'output_dir')
+    # m.set_value(IntCommands.jobs, 4)
+    #
+    # print(m.get_cmd())
+    commmd = 'nuitka --mingw64 --windows-disable-console --standalone --show-progress --show-memory --plugin-enable=qt-plugins --plugin-enable=pylint-warnings --recurse-all --recurse-not-to=numpy,jinja2,matplotlib,scipy,sqlalchemy,pandas,pygal,pyzbar,pubunit,qtunit,dataunit --output-dir=D:\打包结果\数据处理工具 testDtsRun.py'
+    pprint(m.analysis_cmd(commmd))

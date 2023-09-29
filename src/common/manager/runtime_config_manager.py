@@ -19,6 +19,7 @@ class RuntimeManager:
 
     # 下面是 config 可用参数
     AVAILABLE_PYTHON_LIST = 'avaliable_python_list'
+    SELECTED_PYTHON = 'selected_python'
     FASTEST_PIP_SOURCE = 'fastest_pip_source'
 
     def __new__(cls, *args, **kwargs):
@@ -39,7 +40,7 @@ class RuntimeManager:
         with open(RuntimeManager.file_path, 'rb') as f:
             data: dict = pickle.load(f)
 
-        key_value = data.get(key, None)
+        key_value = data.get(key)
         if isinstance(key_value, list):
             key_value.insert(0, value)
         elif key_value is None:
@@ -56,7 +57,7 @@ class RuntimeManager:
     def read(key: str):
         with open(RuntimeManager.file_path, 'rb') as f:
             data: dict = pickle.load(f)
-        return data.get(key, None)
+        return data.get(key)
 
     @staticmethod
     def read_all():

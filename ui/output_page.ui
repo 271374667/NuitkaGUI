@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="TextEdit" name="TextEdit">
+  <widget class="TextEdit" name="PTEArgsOutput">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -21,6 +21,18 @@
      <width>821</width>
      <height>501</height>
     </rect>
+   </property>
+   <property name="toolTip">
+    <string>这里会显示输出在命令行给nuitka的参数，通常你也可以手动复制到命令行执行</string>
+   </property>
+   <property name="statusTip">
+    <string>这里会显示输出在命令行给nuitka的参数，通常你也可以手动复制到命令行执行</string>
+   </property>
+   <property name="whatsThis">
+    <string>这里会显示输出在命令行给nuitka的参数，通常你也可以手动复制到命令行执行</string>
+   </property>
+   <property name="accessibleName">
+    <string/>
    </property>
    <property name="html">
     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;

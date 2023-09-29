@@ -1,3 +1,5 @@
+import loguru
+
 from src.common.manager.pip_manager import PipManager
 from src.common.manager.runtime_config_manager import RuntimeManager
 from src.conf import config
@@ -9,8 +11,8 @@ class ModuleManager:
         self.avaliable_python_list = RuntimeManager.read(RuntimeManager.AVAILABLE_PYTHON_LIST)
         self.pip_manager = PipManager()
 
-    def _install_nuitka(self):
-        self.pip_manager.install(f'{config.ModuleVersion.nuitka.name}=={config.ModuleVersion.nuitka.value}')
-
     def initialize(self):
-        pass
+        module_list = [x.name for x in config.ModuleVersion]  # ['nuitka', 'pipreqs']
+        for each in module_list:
+            self.pip_manager.install(each)
+        loguru.logger.debug('第三方库模块初始化完成!')

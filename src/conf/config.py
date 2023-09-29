@@ -13,8 +13,8 @@ MAX_OUTPUT_LINE = 1500
 
 
 class ModuleVersion(Enum):
-    nuitka = "1.7.9"
-    pipreqs = "0.4.0"
+    nuitka = "1.8.0"
+    pipreqs = "0.4.10"
 
 
 class PipSource(Enum):
