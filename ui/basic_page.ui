@@ -1,138 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>home_page</class>
- <widget class="QWidget" name="home_page">
+ <class>basic_page</class>
+ <widget class="QWidget" name="basic_page">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>866</width>
+    <width>785</width>
     <height>551</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>home_page</string>
+   <string>basic_page</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3">
+  <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="ElevatedPushButton" name="btnGetPy">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>点击这里打开一个py文件</string>
-       </property>
-       <property name="statusTip">
-        <string>点击这里打开一个py文件</string>
-       </property>
-       <property name="whatsThis">
-        <string>点击这里打开一个py文件</string>
-       </property>
-       <property name="text">
-        <string>选择打包文件</string>
-       </property>
-       <property name="borderRadius">
-        <number>10</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox">
-       <property name="title">
-        <string>选择您的打包策略</string>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+    <widget class="CardWidget" name="CardWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="IconWidget" name="IWSelectedFile">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="icon">
+         <iconset resource="../assets/res.qrc">
+          <normaloff>:/Icons/materialIcons/no_file.svg</normaloff>:/Icons/materialIcons/no_file.svg</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="RadioButton" name="standalone">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>-1</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-            <kerning>true</kerning>
-           </font>
-          </property>
-          <property name="toolTip">
-           <string>standalone</string>
-          </property>
-          <property name="statusTip">
-           <string>多文件打包，稳定性尚可（推荐）</string>
-          </property>
-          <property name="whatsThis">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;生成一个文件夹，可运行文件在这个文件夹里面&lt;/p&gt;&lt;p&gt;同时这个文件夹里面还有很多其他的内容&lt;/p&gt;&lt;p&gt;使用这种方法相对于单文件不容易报错，但是新手可能找不到可执行文件&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
+         <widget class="StrongBodyLabel" name="StrongBodyLabel">
           <property name="text">
-           <string>打包为多文件
---standalone</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
+           <string>选择一个Python文件</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="RadioButton" name="onefile">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>onefile</string>
-          </property>
-          <property name="statusTip">
-           <string>打包成一个单个exe(不推荐)，推荐后期使用EVB自己打包，不要用nuitka的</string>
-          </property>
-          <property name="whatsThis">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;打包出来的文件是单个exe文件，方便传播，但是不方便调试&lt;/p&gt;&lt;p&gt;通常都是多文件运行成功以后才会使用这个&lt;/p&gt;&lt;p&gt;该命令会同时开启--windows-onefile-tempdir-spec=./temp&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
+         <widget class="CaptionLabel" name="LBPyFilePath">
           <property name="text">
-           <string>打包为单文件
---onefile</string>
+           <string>在这里选择需要被打包的 .py 文件</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="FilledPushButton" name="BTNGetPy">
+        <property name="text">
+         <string>选择文件</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>30</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="spacing">
+      <number>30</number>
+     </property>
+     <property name="leftMargin">
+      <number>30</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>30</number>
+     </property>
+     <item>
+      <widget class="CardWidget" name="CardWidget_2">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="SubtitleLabel" name="SubtitleLabel">
+          <property name="text">
+           <string>Python.exe路径</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="BodyLabel" name="LBPythonExePath">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;软件的运转需要使用python.exe&lt;/p&gt;&lt;p&gt;请确保您电脑里面至少有一个可以使用的Python环境&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::RichText</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignHCenter|Qt::AlignTop</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <property name="strikeOut" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="OutlinedPushButton" name="BTNPythonExePath">
+          <property name="text">
+           <string>选择路径</string>
+          </property>
+          <property name="borderRadius">
+           <number>10</number>
           </property>
          </widget>
         </item>
@@ -140,249 +144,163 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btn_question">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../assets/res.qrc">
-         <normaloff>:/Icons/materialIcons/help.svg</normaloff>:/Icons/materialIcons/help.svg</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>36</width>
-         <height>36</height>
-        </size>
-       </property>
+      <widget class="CardWidget" name="CardWidget_3">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="SubtitleLabel" name="SubtitleLabel_2">
+          <property name="text">
+           <string>输出路径</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="BodyLabel" name="LBOutputPath">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;您的程序被打包之后存放的位置&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::RichText</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignHCenter|Qt::AlignTop</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <property name="strikeOut" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="OutlinedPushButton" name="BTNOutputPath">
+          <property name="text">
+           <string>选择路径</string>
+          </property>
+          <property name="borderRadius">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="CardWidget" name="CardWidget_4">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="SubtitleLabel" name="SubtitleLabel_3">
+          <property name="text">
+           <string>设置图标</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="BodyLabel" name="LBIcon">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;为您的程序加上心爱的图标&lt;/p&gt;&lt;p&gt;您也可以忽视该选项，软件默认会提供一个图标&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::RichText</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignHCenter|Qt::AlignTop</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <property name="strikeOut" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="OutlinedPushButton" name="BTNIcon">
+          <property name="text">
+           <string>选择图标</string>
+          </property>
+          <property name="borderRadius">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <property name="sizeConstraint">
-      <enum>QLayout::SetDefaultConstraint</enum>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <property name="spacing">
-        <number>6</number>
-       </property>
-       <property name="sizeConstraint">
-        <enum>QLayout::SetFixedSize</enum>
-       </property>
-       <item>
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="title">
-          <string>兼容性</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="RadioButton" name="RBJRNone">
-            <property name="text">
-             <string>无</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="RadioButton" name="RBJRHigh">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>该功能测试中</string>
-            </property>
-            <property name="statusTip">
-             <string>该功能测试中</string>
-            </property>
-            <property name="whatsThis">
-             <string>该功能测试中</string>
-            </property>
-            <property name="text">
-             <string>加强兼容</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="RadioButton" name="RBJRTop">
-            <property name="toolTip">
-             <string>该功能测试中</string>
-            </property>
-            <property name="statusTip">
-             <string>该功能测试中</string>
-            </property>
-            <property name="whatsThis">
-             <string>该功能测试中</string>
-            </property>
-            <property name="text">
-             <string>最大兼容</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="3" column="0">
-        <widget class="TonalPushButton" name="BTNSetIcon">
-         <property name="toolTip">
-          <string>点击这里可以设置打包之后Exe的图标</string>
-         </property>
-         <property name="statusTip">
-          <string>点击这里可以设置打包之后Exe的图标</string>
-         </property>
-         <property name="whatsThis">
-          <string>点击这里可以设置打包之后Exe的图标</string>
-         </property>
-         <property name="text">
-          <string>设置图标</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="TonalPushButton" name="BTNPythonExePath">
-         <property name="text">
-          <string>Python.exe的路径</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="TonalPushButton" name="BTNSetOutputPath">
-         <property name="toolTip">
-          <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-         </property>
-         <property name="statusTip">
-          <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-         </property>
-         <property name="whatsThis">
-          <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-         </property>
-         <property name="text">
-          <string>设置输出路径</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="LineEdit" name="LEPythonExePath">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>204</width>
-           <height>40</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>点击这里可以设置python.exe的路径</string>
-         </property>
-         <property name="statusTip">
-          <string>点击这里可以设置python.exe的路径</string>
-         </property>
-         <property name="whatsThis">
-          <string>点击这里可以设置python.exe的路径</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0" colspan="2">
-        <widget class="LineEdit" name="LEOutpuPath">
-         <property name="toolTip">
-          <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-         </property>
-         <property name="statusTip">
-          <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-         </property>
-         <property name="whatsThis">
-          <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="LineEdit" name="LEIcon">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>40</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-         </property>
-         <property name="statusTip">
-          <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-         </property>
-         <property name="whatsThis">
-          <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>10</width>
+       <height>30</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item>
-    <widget class="FilledPushButton" name="btnStart">
-     <property name="toolTip">
-      <string>点击这个按钮就会开始打包，通常需要等待一段时间</string>
+    <widget class="ElevatedCardWidget" name="ElevatedCardWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="statusTip">
-      <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-     </property>
-     <property name="whatsThis">
-      <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-     </property>
-     <property name="text">
-      <string>点我打包</string>
-     </property>
-     <property name="borderRadius">
-      <number>10</number>
-     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="SwitchButton" name="SwitchButton">
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>当前:多文件</string>
+        </property>
+        <property name="onText">
+         <string>当前:单文件</string>
+        </property>
+        <property name="offText">
+         <string>当前:多文件</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="FilledPushButton" name="BTNStart">
+        <property name="text">
+         <string>开始打包</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TonalPushButton</class>
-   <extends>FilledPushButton</extends>
-   <header>qmaterialwidgets</header>
-  </customwidget>
-  <customwidget>
-   <class>ElevatedPushButton</class>
-   <extends>FilledPushButton</extends>
+   <class>OutlinedPushButton</class>
+   <extends>QPushButton</extends>
    <header>qmaterialwidgets</header>
   </customwidget>
   <customwidget>
@@ -391,13 +309,51 @@
    <header>qmaterialwidgets</header>
   </customwidget>
   <customwidget>
-   <class>RadioButton</class>
-   <extends>QRadioButton</extends>
+   <class>SwitchButton</class>
+   <extends>QWidget</extends>
    <header>qmaterialwidgets</header>
   </customwidget>
   <customwidget>
-   <class>LineEdit</class>
-   <extends>QLineEdit</extends>
+   <class>IconWidget</class>
+   <extends>QWidget</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CardWidget</class>
+   <extends>QFrame</extends>
+   <header>qmaterialwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OutlinedCardWidget</class>
+   <extends>CardWidget</extends>
+   <header>qmaterialwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ElevatedCardWidget</class>
+   <extends>OutlinedCardWidget</extends>
+   <header>qmaterialwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CaptionLabel</class>
+   <extends>QLabel</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>BodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>StrongBodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SubtitleLabel</class>
+   <extends>QLabel</extends>
    <header>qmaterialwidgets</header>
   </customwidget>
  </customwidgets>

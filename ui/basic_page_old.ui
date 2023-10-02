@@ -6,44 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>866</width>
-    <height>551</height>
+    <width>850</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>home_page</string>
   </property>
-  <widget class="FilledPushButton" name="btnStart">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>440</y>
-     <width>131</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>点击这个按钮就会开始打包，通常需要等待一段时间</string>
-   </property>
-   <property name="statusTip">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-   <property name="whatsThis">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-   <property name="text">
-    <string>点我打包</string>
-   </property>
-   <property name="borderRadius">
-    <number>10</number>
-   </property>
-  </widget>
   <widget class="ElevatedPushButton" name="btnGetPy">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>20</x>
      <y>60</y>
-     <width>131</width>
+     <width>201</width>
      <height>36</height>
     </rect>
    </property>
@@ -66,9 +41,9 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>260</x>
      <y>30</y>
-     <width>401</width>
+     <width>511</width>
      <height>81</height>
     </rect>
    </property>
@@ -81,7 +56,7 @@
       <property name="minimumSize">
        <size>
         <width>0</width>
-        <height>50</height>
+        <height>30</height>
        </size>
       </property>
       <property name="maximumSize">
@@ -129,7 +104,7 @@
       <property name="minimumSize">
        <size>
         <width>0</width>
-        <height>50</height>
+        <height>30</height>
        </size>
       </property>
       <property name="maximumSize">
@@ -158,7 +133,7 @@
   <widget class="TransparentToolButton" name="toolButton">
    <property name="geometry">
     <rect>
-     <x>700</x>
+     <x>770</x>
      <y>50</y>
      <width>36</width>
      <height>36</height>
@@ -177,196 +152,196 @@
     <string/>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="../assets/res.qrc">
      <normaloff>:/Icons/materialIcons/help.svg</normaloff>:/Icons/materialIcons/help.svg</iconset>
    </property>
    <property name="checkable">
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="RadioButton" name="RBJRNone">
+  <widget class="CaptionLabel" name="LinePyFilePath">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>210</y>
-     <width>116</width>
-     <height>30</height>
+     <x>20</x>
+     <y>110</y>
+     <width>401</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>无</string>
+    <string>当前没有选择任何py文件</string>
    </property>
   </widget>
-  <widget class="RadioButton" name="RBJRHigh">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>280</y>
-     <width>116</width>
-     <height>30</height>
+     <x>10</x>
+     <y>160</y>
+     <width>831</width>
+     <height>381</height>
     </rect>
    </property>
-   <property name="toolTip">
-    <string>该功能测试中</string>
-   </property>
-   <property name="statusTip">
-    <string>该功能测试中</string>
-   </property>
-   <property name="whatsThis">
-    <string>该功能测试中</string>
-   </property>
-   <property name="text">
-    <string>加强兼容</string>
-   </property>
-  </widget>
-  <widget class="RadioButton" name="RBJRTop">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>350</y>
-     <width>116</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>该功能测试中</string>
-   </property>
-   <property name="statusTip">
-    <string>该功能测试中</string>
-   </property>
-   <property name="whatsThis">
-    <string>该功能测试中</string>
-   </property>
-   <property name="text">
-    <string>最大兼容</string>
-   </property>
-  </widget>
-  <widget class="TonalPushButton" name="BTNPythonExePath">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>140</y>
-     <width>160</width>
-     <height>36</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Python.exe的路径</string>
-   </property>
-  </widget>
-  <widget class="TonalPushButton" name="BTNSetIcon">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>270</y>
-     <width>160</width>
-     <height>36</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>点击这里可以设置打包之后Exe的图标</string>
-   </property>
-   <property name="statusTip">
-    <string>点击这里可以设置打包之后Exe的图标</string>
-   </property>
-   <property name="whatsThis">
-    <string>点击这里可以设置打包之后Exe的图标</string>
-   </property>
-   <property name="text">
-    <string>设置图标</string>
-   </property>
-  </widget>
-  <widget class="TonalPushButton" name="BTNSetOutputPath">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>390</y>
-     <width>160</width>
-     <height>36</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-   <property name="statusTip">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-   <property name="whatsThis">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-   <property name="text">
-    <string>设置输出路径</string>
-   </property>
-  </widget>
-  <widget class="LineEdit" name="LEPythonExePath">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>190</y>
-     <width>571</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>点击这里可以设置python.exe的路径</string>
-   </property>
-   <property name="statusTip">
-    <string>点击这里可以设置python.exe的路径</string>
-   </property>
-   <property name="whatsThis">
-    <string>点击这里可以设置python.exe的路径</string>
-   </property>
-  </widget>
-  <widget class="LineEdit" name="LEIcon">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>320</y>
-     <width>571</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-   <property name="statusTip">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-   <property name="whatsThis">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-  </widget>
-  <widget class="LineEdit" name="LEOutpuPath">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>440</y>
-     <width>571</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-   <property name="statusTip">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-   <property name="whatsThis">
-    <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_2">
-   <property name="geometry">
-    <rect>
-     <x>690</x>
-     <y>180</y>
-     <width>151</width>
-     <height>241</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>兼容性</string>
-   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="maximumSize">
+         <size>
+          <width>122</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>兼容性</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="RadioButton" name="RBJRNone">
+           <property name="text">
+            <string>无</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="RadioButton" name="RBJRHigh">
+           <property name="toolTip">
+            <string>该功能测试中</string>
+           </property>
+           <property name="statusTip">
+            <string>该功能测试中</string>
+           </property>
+           <property name="whatsThis">
+            <string>该功能测试中</string>
+           </property>
+           <property name="text">
+            <string>加强兼容</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="RadioButton" name="RBJRTop">
+           <property name="toolTip">
+            <string>该功能测试中</string>
+           </property>
+           <property name="statusTip">
+            <string>该功能测试中</string>
+           </property>
+           <property name="whatsThis">
+            <string>该功能测试中</string>
+           </property>
+           <property name="text">
+            <string>最大兼容</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="1" column="0" colspan="2">
+         <widget class="LineEdit" name="LEPythonExePath">
+          <property name="toolTip">
+           <string>点击这里可以设置python.exe的路径</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里可以设置python.exe的路径</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里可以设置python.exe的路径</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="TonalPushButton" name="BTNSetIcon">
+          <property name="toolTip">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里可以设置打包之后Exe的图标</string>
+          </property>
+          <property name="text">
+           <string>设置图标</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="TonalPushButton" name="BTNSetOutputPath">
+          <property name="toolTip">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="text">
+           <string>设置输出路径</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="2">
+         <widget class="LineEdit" name="LEOutpuPath">
+          <property name="toolTip">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="TonalPushButton" name="BTNPythonExePath">
+          <property name="text">
+           <string>Python.exe的路径</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="LineEdit" name="LEIcon">
+          <property name="toolTip">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="statusTip">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+          <property name="whatsThis">
+           <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="FilledPushButton" name="btnStart">
+      <property name="toolTip">
+       <string>点击这个按钮就会开始打包，通常需要等待一段时间</string>
+      </property>
+      <property name="statusTip">
+       <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+      </property>
+      <property name="whatsThis">
+       <string>点击这里设置输出路径，不过一般都会默认output文件夹</string>
+      </property>
+      <property name="text">
+       <string>点我打包</string>
+      </property>
+      <property name="borderRadius">
+       <number>10</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <customwidgets>
@@ -393,6 +368,11 @@
   <customwidget>
    <class>RadioButton</class>
    <extends>QRadioButton</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CaptionLabel</class>
+   <extends>QLabel</extends>
    <header>qmaterialwidgets</header>
   </customwidget>
   <customwidget>

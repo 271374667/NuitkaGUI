@@ -1,12 +1,11 @@
 # coding:utf-8
-import sys
-
-from PySide6.QtCore import Qt, QUrl
-from PySide6.QtGui import QIcon, QDesktopServices
+from PySide6.QtCore import QUrl, Qt
+from PySide6.QtGui import QDesktopServices, QIcon
 from PySide6.QtWidgets import QApplication, QFrame, QHBoxLayout
-from qmaterialwidgets import (NavigationItemPosition, MessageBox, setTheme, Theme, SplitMaterialWindow,
-                              SubtitleLabel, setFont, setThemeColor)
 from qmaterialwidgets import FluentIcon as FIF
+from qmaterialwidgets import MaterialWindow, MessageBox, NavigationItemPosition, SubtitleLabel, setFont
+
+from src.view.basic_view import BasicPage
 
 
 class Widget(QFrame):
@@ -22,13 +21,13 @@ class Widget(QFrame):
         self.setObjectName(text.replace(' ', '-'))
 
 
-class Window(SplitMaterialWindow):
+class Window(MaterialWindow):
 
     def __init__(self):
         super().__init__()
 
         # create sub interface
-        self.homeInterface = Widget('Home Interface', self)
+        self.homeInterface = BasicPage()
         self.appInterface = Widget('Application Interface', self)
         self.videoInterface = Widget('Video Interface', self)
         self.libraryInterface = Widget('library Interface', self)
@@ -37,9 +36,9 @@ class Window(SplitMaterialWindow):
         self.initWindow()
 
     def initNavigation(self):
-        self.addSubInterface(self.homeInterface, FIF.HOME, '主页', FIF.HOME_FILL)
-        self.addSubInterface(self.appInterface, FIF.APPLICATION, '应用')
-        self.addSubInterface(self.videoInterface, FIF.VIDEO, '视频')
+        self.addSubInterface(self.homeInterface, FIF.HOME, '基础', FIF.HOME_FILL)
+        self.addSubInterface(self.appInterface, FIF.APPLICATION, '进阶')
+        self.addSubInterface(self.videoInterface, FIF.VIDEO, '插件')
 
         self.addSubInterface(self.libraryInterface, FIF.BOOK_SHELF, '库', FIF.LIBRARY_FILL,
                              NavigationItemPosition.BOTTOM)
@@ -55,8 +54,8 @@ class Window(SplitMaterialWindow):
         self.navigationInterface.setCurrentItem(self.homeInterface.objectName())
 
     def initWindow(self):
-        self.resize(900, 700)
-        self.setWindowIcon(QIcon(':/qmaterialwidgets/images/logo.png'))
+        self.resize(1000, 650)
+        self.setWindowIcon(QIcon(':/Icons/materialIcons/software_icon.svg'))
         self.setWindowTitle('NuitkaGUI')
 
         desktop = QApplication.screens()[0].availableGeometry()
@@ -77,14 +76,7 @@ class Window(SplitMaterialWindow):
 
 
 if __name__ == '__main__':
-    QApplication.setHighDpiScaleFactorRoundingPolicy(
-            Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
-    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-    QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
-
-    # setTheme(Theme.DARK)
-
-    app = QApplication(sys.argv)
+    app = QApplication([])
     w = Window()
     w.show()
     app.exec()

@@ -119,18 +119,26 @@ class NuitkaModel:
         available_cmd = []
         unavailable_cmd = []
 
+        def _append_condition(x: str):
+            return ('python' not in x) and (x != '-m') and (x != 'nuitka') and (x.endswith('.py') is False)
+
+        # 根据是字符串还是列表进行不同的处理
         if isinstance(command, str):
-            # only left option, remove python path and -m
+            # 先根据空格分割，再根据等号分割，最后根据逗号分割，删去nuitka和python和-m和.py结尾的
+            # 这里只负责往cmd_list里面添加，不负责判断是否可用
             content = command.split()
             for each in content:
+                # 因为命令有两种一种是有等号的需要赋值的，这里使用split将 key 和 value 分别变成元组
+                # 他们看起来像是这样的 ('--output-dir', ('D:\\打包结果\\数据处理工具', 'haha', '66'))
+                # 一种是没有等号的,这里直接添加到列表里面
                 if '=' in each:
                     item_key, item_value = each.split('=')
                     item_value_list = tuple(item_value.split(','))
                     cmd_list.append((item_key, item_value_list))
                     continue
-            cmd_list.extend(
-                    each for each in content if ('python' not in each) and (each != '-m') and (each != 'nuitka')
-                    )
+                elif _append_condition(each):
+                    cmd_list.append(each)
+
         elif isinstance(command, List):
             for each in command:
                 if '=' in each:
@@ -138,10 +146,10 @@ class NuitkaModel:
                     item_value_list = tuple(item_value.split(','))
                     cmd_list.append((item_key, item_value_list))
                     continue
-            cmd_list.extend(
-                    each for each in command if ('python' not in each) and (each != '-m') and (each != 'nuitka')
-                    )
+                elif _append_condition(each):
+                    cmd_list.append(each)
 
+        # 根据cmd_list里面的内容判断是否可用
         for each in cmd_list:
             if isinstance(each, tuple):
                 if each[0] in self._commands_dict:
@@ -150,7 +158,7 @@ class NuitkaModel:
                 unavailable_cmd.append(each)
                 continue
 
-            if each in self._commands_dict:
+            elif each in self._commands_dict:
                 available_cmd.append(each)
                 continue
             unavailable_cmd.append(each)
@@ -169,5 +177,5 @@ if __name__ == '__main__':
     # m.set_value(IntCommands.jobs, 4)
     #
     # print(m.get_cmd())
-    commmd = 'nuitka --mingw64 --windows-disable-console --standalone --show-progress --show-memory --plugin-enable=qt-plugins --plugin-enable=pylint-warnings --recurse-all --recurse-not-to=numpy,jinja2,matplotlib,scipy,sqlalchemy,pandas,pygal,pyzbar,pubunit,qtunit,dataunit --output-dir=D:\打包结果\数据处理工具 testDtsRun.py'
+    commmd = r'python -m nuitka --output-dir=D:\打包结果\数据处理工具,haha,66 testDtsRun.py'
     pprint(m.analysis_cmd(commmd))
