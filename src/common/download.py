@@ -5,7 +5,7 @@ from pathlib import Path
 import loguru
 from PySide6.QtCore import QThread, Signal
 
-from src.conf import config_path
+from src.conf import config, config_path
 
 
 class Download(QThread):
@@ -28,10 +28,11 @@ class Download(QThread):
 
         args_list = [config_path.ARIA2C_FILE, url, '-d', target_dir]
         loguru.logger.debug(f'执行命令: {args_list}')
+
         subprocess.run(args_list,
-                       stdin=sys.stdin,
-                       stderr=sys.stderr,
-                       stdout=sys.stdout,
-                       encoding='gbk')
+                       encoding=config.system_encoding,
+                       errors='ignore',
+                       creationflags=subprocess.CREATE_NEW_CONSOLE,
+                       )
         loguru.logger.debug(f'下载完成: {url}')
         self.isFinished.emit(True)

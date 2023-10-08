@@ -6,7 +6,7 @@ import loguru
 from src.common.download import Download
 from src.conf import config
 from src.conf import config_path
-from src.utils import get_fastest_url
+from src.utils import get_fastest_url, get_gcc_url
 
 
 class GccManager:
@@ -16,6 +16,13 @@ class GccManager:
     def download(self):
         """下载 gcc"""
         loguru.logger.info('开始下载 GCC')
+
+        # 首先尝试蓝奏云直链
+        # lanzou_url = get_gcc_url.get_gcc_url()
+        # if lanzou_url is not None:
+        #     return lanzou_url
+
+        # 如果蓝奏云直链不可用，则使用镜像源的 Github
         fastest_url = get_fastest_url.get_fastest_url([x.value for x in config.GCC])
 
         if not config_path.GCC_DIR.exists():
@@ -49,14 +56,16 @@ class GccManager:
         return output.startswith(b"gcc") if output else False
 
     def initialize(self):
-        if GccManager.is_gcc_available():
-            loguru.logger.debug('GCC 已安装，跳过安装')
-            return
+        # if GccManager.is_gcc_available():
+        #     loguru.logger.debug('GCC 已安装，跳过安装')
+        #     return
 
         self.download()
-        self.install()
+        # self.install()
         loguru.logger.debug('GCC 初始化完成!')
 
 
 if __name__ == '__main__':
+    gcc = GccManager()
+    gcc.download()
     print(GccManager.is_gcc_available())

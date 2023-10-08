@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QApplication, QWidget
 from src.interface.Ui_basic_page import Ui_basic_page
 
 
-class BasicPage(QWidget):
+class BasicView(QWidget):
     def __init__(self):
         super().__init__()
         # 一些内置的状态
@@ -99,7 +99,7 @@ class BasicPage(QWidget):
 
 if __name__ == '__main__':
     app = QApplication([])
-    window = BasicPage()
+    window = BasicView()
     # window.set_mode(True)
     # window.set_file_icon_status(True)
     window.show()

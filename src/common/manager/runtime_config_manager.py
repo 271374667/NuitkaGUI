@@ -66,6 +66,13 @@ class RuntimeManager:
         return data
 
     @staticmethod
+    def get(key: str):
+        return RuntimeManager.read(key)
+
+    def __getitem__(self, item):
+        return RuntimeManager.read(item)
+
+    @staticmethod
     def remove(key: str):
         with open(RuntimeManager.file_path, 'rb') as f:
             data: dict = pickle.load(f)

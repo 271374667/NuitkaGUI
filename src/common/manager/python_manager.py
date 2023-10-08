@@ -1,6 +1,6 @@
 import subprocess
 from pathlib import Path
-from typing import List
+from typing import List, Union
 
 import loguru
 
@@ -12,7 +12,7 @@ class PythonManager:
     avaliable_python: List[Path] = []
 
     @staticmethod
-    def is_python_available(python_path: Path) -> bool:
+    def is_python_available(python_path: Union[Path, str]) -> bool:
         """check current python is available
 
         Args:

@@ -15,7 +15,7 @@ def get_fastest_url(url_list: List[str]) -> str:
 
     def test_speed(url):
         try:
-            response = requests.get(url, timeout=5)
+            response = requests.get(url, timeout=3, stream=True)
             return url, response.elapsed.total_seconds()
         except Exception:
             return url, float('inf')
@@ -37,5 +37,7 @@ def get_fastest_url(url_list: List[str]) -> str:
 
 
 if __name__ == '__main__':
-    urlList = ['https://www.baidu.com', 'https://www.google.com', 'https://www.bing.com']
+    # urlList = ['https://www.baidu.com', 'https://www.google.com', 'https://www.bing.com']
+    urlList = ['https://download.yzuu.cf/skeeto/w64devkit/releases/download/v1.20.0/w64devkit-1.20.0.zip',
+            "https://hub.yzuu.cf/skeeto/w64devkit/releases/download/v1.20.0/w64devkit-1.20.0.zip"]
     print(get_fastest_url(urlList))

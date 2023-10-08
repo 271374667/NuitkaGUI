@@ -11,3 +11,5 @@ assets/*
 demo/*
 *.yml
 docs/*
+
+download/*

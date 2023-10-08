@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QApplication, QFrame, QHBoxLayout
 from qmaterialwidgets import FluentIcon as FIF
 from qmaterialwidgets import MaterialWindow, MessageBox, NavigationItemPosition, SubtitleLabel, setFont
 
-from src.view.basic_view import BasicPage
+from src.view.basic_view import BasicView
 
 
 class Widget(QFrame):
@@ -21,13 +21,13 @@ class Widget(QFrame):
         self.setObjectName(text.replace(' ', '-'))
 
 
-class Window(MaterialWindow):
+class MainView(MaterialWindow):
 
     def __init__(self):
         super().__init__()
 
         # create sub interface
-        self.homeInterface = BasicPage()
+        self.homeInterface = BasicView()
         self.appInterface = Widget('Application Interface', self)
         self.videoInterface = Widget('Video Interface', self)
         self.libraryInterface = Widget('library Interface', self)
@@ -77,6 +77,6 @@ class Window(MaterialWindow):
 
 if __name__ == '__main__':
     app = QApplication([])
-    w = Window()
+    w = MainView()
     w.show()
     app.exec()

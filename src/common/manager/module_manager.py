@@ -16,3 +16,8 @@ class ModuleManager:
         for each in module_list:
             self.pip_manager.install(each)
         loguru.logger.debug('第三方库模块初始化完成!')
+
+
+if __name__ == '__main__':
+    m = ModuleManager()
+    m.initialize()
