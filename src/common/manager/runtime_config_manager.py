@@ -2,10 +2,12 @@ import pickle
 import typing
 
 from src.conf import config_path
+from src.utils.singleton import Singleton
 
 T = typing.TypeVar('T', str, typing.Sequence, typing.Mapping, int, float, bool, object)
 
 
+@Singleton
 class RuntimeManager:
     """
     这个类负责管理运行时的全局变量,将他们存储到本地

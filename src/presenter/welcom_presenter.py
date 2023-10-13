@@ -1,12 +1,16 @@
+from PySide6.QtCore import Slot
+
 from src.model.welcome_model import WelcomeModel
 from src.utils.run_in_thread import RunInThread
+from src.utils.singleton import Singleton
 from src.view.welcome_view import WelcomeView
 
 
+@Singleton
 class WelcomePresenter:
     def __init__(self):
-        self._view = WelcomeView()
         self._model = WelcomeModel()
+        self._view = WelcomeView()
 
         self._is_pythonexe_finished = False
         self._is_gcc_finished = False
@@ -21,14 +25,14 @@ class WelcomePresenter:
         self.auto_pip_btn = self._view.get_auto_pip_btn()
         self.bind()
 
-    def show(self):
-        self._view.show()
+    def get_model(self) -> WelcomeModel:
+        return self._model
 
     def get_view(self) -> WelcomeView:
         return self._view
 
-    def get_model(self) -> WelcomeModel:
-        return self._model
+    def show(self):
+        self._view.show()
 
     def _get_finished_count(self) -> int:
         finished_count = self._is_pythonexe_finished + self._is_gcc_finished + self._is_pip_finished
@@ -38,6 +42,7 @@ class WelcomePresenter:
         self._view.set_finish_status(False)
         return finished_count
 
+    @Slot()
     def pythonexe_by_hand(self) -> None:
         """手动选择 python.exe"""
         # 正确以后需要设置badge,进度条,成功提示,失败则反之
@@ -47,12 +52,14 @@ class WelcomePresenter:
             self._view.set_pythonexe_status(True)
             self._view.progress_set_value(self._get_finished_count())
             self._view.show_success_info('python.exe 可用:', result)
+            self._model.set_pythonexe_path(result)
             return
         self._view.show_error_info('python.exe 不可用', '请重新选择 python.exe')
         self._is_pythonexe_finished = False
         self._view.set_pythonexe_status(False)
         self._view.progress_set_value(self._get_finished_count())
 
+    @Slot()
     def pythonexe_by_auto(self) -> None:
         """自动选择 python.exe"""
         self._view.get_auto_pythonexe_btn().setEnabled(False)
@@ -64,6 +71,7 @@ class WelcomePresenter:
                 self._view.show_success_info('找到可用 python.exe', result)
                 self._view.set_pythonexe_status(True)
                 self._view.progress_set_value(self._get_finished_count())
+                self._model.set_pythonexe_path(result)
                 btn.setEnabled(True)
                 return
             self._is_pythonexe_finished = False
@@ -76,14 +84,16 @@ class WelcomePresenter:
         self.t.set_finished_func(run)
         self.t.start()
 
+    @Slot()
     def use_defualt_pip_source(self):
         """使用默认的 pip 源"""
-        self._model.set_pip_source()
+        self._model.set_pip_source(self._model.get_default_pip_source())
         self._view.show_success_info('设置默认 pip 源成功', f'默认 pip 源为: {self._model.get_default_pip_source()}')
         self._is_pip_finished = True
         self._view.set_pip_status(True)
         self._view.progress_set_value(self._get_finished_count())
 
+    @Slot()
     def use_auto_pip_source(self):
         """获取最快的 pip 源"""
         self._view.get_auto_pip_btn().setEnabled(False)
@@ -95,6 +105,7 @@ class WelcomePresenter:
                 self._view.show_success_info('找到最快的 pip 源', result)
                 self._view.set_pip_status(True)
                 self._view.progress_set_value(self._get_finished_count())
+                self._model.set_pip_source(result)
                 btn.setEnabled(True)
                 return
             self._is_pip_finished = False
@@ -107,6 +118,7 @@ class WelcomePresenter:
         self.t1.set_finished_func(run)
         self.t1.start()
 
+    @Slot()
     def detect_gcc(self):
         """判断当前gcc是否可用"""
         self._view.get_detect_gcc_btn().setEnabled(False)
@@ -131,6 +143,7 @@ class WelcomePresenter:
         self.t2.set_finished_func(run)
         self.t2.start()
 
+    @Slot()
     def download_gcc(self):
         """下载gcc，警告该选项会修改系统环境变量"""
         self._view.get_download_gcc_btn().setEnabled(False)
@@ -147,6 +160,7 @@ class WelcomePresenter:
         self.t3.set_finished_func(run)
         self.t3.start()
 
+    @Slot()
     def bind(self) -> None:
         """绑定所有的信号槽"""
         self.pythonexe_by_hand_btn.clicked.connect(self.pythonexe_by_hand)

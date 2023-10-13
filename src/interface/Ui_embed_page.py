@@ -15,47 +15,106 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHeaderView, QScrollArea, QSizePolicy,
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QSizePolicy,
     QTreeWidgetItem, QVBoxLayout, QWidget)
 
-from customWidget.filetree import FileTree
-from qmaterialwidgets import (FilledPushButton, StrongBodyLabel)
+from qmaterialwidgets import (BodyLabel, CardWidget, ElevatedCardWidget, FilledPushButton,
+    IconWidget, OutlinedCardWidget, ScrollArea, TitleLabel)
+from src.component.embedFileTree import EmbedFileTree
+from src.resource import rc_res
 
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(861, 546)
-        self.scrollArea_3 = QScrollArea(Form)
-        self.scrollArea_3.setObjectName(u"scrollArea_3")
-        self.scrollArea_3.setGeometry(QRect(10, 10, 841, 521))
-        self.scrollArea_3.setWidgetResizable(True)
-        self.scrollAreaWidgetContents_3 = QWidget()
-        self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 839, 519))
-        self.verticalLayout_14 = QVBoxLayout(self.scrollAreaWidgetContents_3)
-        self.verticalLayout_14.setObjectName(u"verticalLayout_14")
-        self.label_4 = StrongBodyLabel(self.scrollAreaWidgetContents_3)
-        self.label_4.setObjectName(u"label_4")
-        font = QFont()
-        font.setFamilies([u"\u7b49\u7ebf"])
-        font.setPointSize(9)
-        font.setBold(False)
-        self.label_4.setFont(font)
+        Form.resize(870, 584)
+        self.verticalLayout = QVBoxLayout(Form)
+        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.ScrollArea = ScrollArea(Form)
+        self.ScrollArea.setObjectName(u"ScrollArea")
+        self.ScrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 868, 582))
+        self.verticalLayout_3 = QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_3.setSpacing(15)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(30, 10, 30, 30)
+        self.ElevatedCardWidget = ElevatedCardWidget(self.scrollAreaWidgetContents)
+        self.ElevatedCardWidget.setObjectName(u"ElevatedCardWidget")
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.ElevatedCardWidget.sizePolicy().hasHeightForWidth())
+        self.ElevatedCardWidget.setSizePolicy(sizePolicy)
+        self.horizontalLayout_2 = QHBoxLayout(self.ElevatedCardWidget)
+        self.horizontalLayout_2.setSpacing(9)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(15, 15, 15, 15)
+        self.IconWidget = IconWidget(self.ElevatedCardWidget)
+        self.IconWidget.setObjectName(u"IconWidget")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.IconWidget.sizePolicy().hasHeightForWidth())
+        self.IconWidget.setSizePolicy(sizePolicy1)
+        self.IconWidget.setMinimumSize(QSize(64, 64))
+        self.IconWidget.setMaximumSize(QSize(64, 64))
+        self.IconWidget.setStyleSheet(u"")
+        icon = QIcon()
+        icon.addFile(u":/Icons/materialIcons/icons8_archive.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.IconWidget.setIcon(icon)
 
-        self.verticalLayout_14.addWidget(self.label_4)
+        self.horizontalLayout_2.addWidget(self.IconWidget)
 
-        self.treeWidget = FileTree(self.scrollAreaWidgetContents_3)
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.TitleLabel = TitleLabel(self.ElevatedCardWidget)
+        self.TitleLabel.setObjectName(u"TitleLabel")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.TitleLabel.sizePolicy().hasHeightForWidth())
+        self.TitleLabel.setSizePolicy(sizePolicy2)
+        self.TitleLabel.setStyleSheet(u"")
+
+        self.verticalLayout_2.addWidget(self.TitleLabel)
+
+        self.BodyLabel = BodyLabel(self.ElevatedCardWidget)
+        self.BodyLabel.setObjectName(u"BodyLabel")
+        sizePolicy2.setHeightForWidth(self.BodyLabel.sizePolicy().hasHeightForWidth())
+        self.BodyLabel.setSizePolicy(sizePolicy2)
+        self.BodyLabel.setWordWrap(False)
+        self.BodyLabel.setProperty("lightColor", QColor(96, 96, 96))
+
+        self.verticalLayout_2.addWidget(self.BodyLabel)
+
+
+        self.horizontalLayout_2.addLayout(self.verticalLayout_2)
+
+
+        self.verticalLayout_3.addWidget(self.ElevatedCardWidget)
+
+        self.treeWidget = EmbedFileTree(self.scrollAreaWidgetContents)
         self.treeWidget.setObjectName(u"treeWidget")
 
-        self.verticalLayout_14.addWidget(self.treeWidget)
+        self.verticalLayout_3.addWidget(self.treeWidget)
 
-        self.BTNFlushDir = FilledPushButton(self.scrollAreaWidgetContents_3)
+        self.BTNFlushDir = FilledPushButton(self.scrollAreaWidgetContents)
         self.BTNFlushDir.setObjectName(u"BTNFlushDir")
+        icon1 = QIcon()
+        icon1.addFile(u":/Icons/materialIcons/icons8_double_down.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.BTNFlushDir.setIcon(icon1)
+        self.BTNFlushDir.setIconSize(QSize(16, 16))
 
-        self.verticalLayout_14.addWidget(self.BTNFlushDir)
+        self.verticalLayout_3.addWidget(self.BTNFlushDir)
 
-        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
+        self.ScrollArea.setWidget(self.scrollAreaWidgetContents)
+
+        self.verticalLayout.addWidget(self.ScrollArea)
+
 
         self.retranslateUi(Form)
 
@@ -64,7 +123,8 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label_4.setText(QCoreApplication.translate("Form", u"\u5d4c\u5165\u6587\u4ef6\uff0c\u5728\u4e0b\u9762\u9009\u4e2d\u4f60\u9700\u8981\u6253\u5305\u7684\u6587\u4ef6\uff0c\u8fd9\u4e9b\u5185\u5bb9\u6700\u7ec8\u4f1a\u4f1a\u88ab\u7f16\u8bd1\u5230exe\u5f53\u4e2d\uff0c\u5176\u4e2d\u7684\u8def\u5f84\u5219\u662f\u91c7\u7528\u76f8\u5bf9\u6253\u5305\u6587\u4ef6\u7684\u8def\u5f84", None))
+        self.TitleLabel.setText(QCoreApplication.translate("Form", u"\u5d4c\u5165\u6587\u4ef6", None))
+        self.BodyLabel.setText(QCoreApplication.translate("Form", u"<html><head/><body><p>\u5728\u4e0b\u9762\u9009\u4e2d\u4f60\u9700\u8981\u5d4c\u5165\u7684\u6587\u4ef6\uff0c\u8fd9\u4e9b\u5185\u5bb9\u6700\u7ec8\u4f1a\u4f1a\u88ab\u7f16\u8bd1\u5230exe\u5f53\u4e2d(\u5982\u679c\u4f7f\u7528\u5355\u6587\u4ef6\u6253\u5305)<br/>\u5176\u4e2d\u7684\u8def\u5f84\u5219\u662f\u91c7\u7528\u76f8\u5bf9\u6253\u5305\u6587\u4ef6\u7684\u8def\u5f84</p></body></html>", None))
         ___qtreewidgetitem = self.treeWidget.headerItem()
         ___qtreewidgetitem.setText(3, QCoreApplication.translate("Form", u"\u6587\u4ef6\u7c7b\u578b", None));
         ___qtreewidgetitem.setText(2, QCoreApplication.translate("Form", u"\u76f8\u5bf9\u8def\u5f84", None));
@@ -79,6 +139,6 @@ class Ui_Form(object):
 #if QT_CONFIG(whatsthis)
         self.BTNFlushDir.setWhatsThis(QCoreApplication.translate("Form", u"\u8b66\u544a:\u5c3d\u53ef\u80fd\u4e0d\u8981\u4f7f\u7528\u9664\u4e86\u9879\u76ee\u8def\u5f84\u5916\u7684\u5176\u4ed6\u8def\u5f84\uff0c\u53ef\u80fd\u4f1a\u5bfc\u81f4\u610f\u6599\u4e4b\u5916\u7684\u9519\u8bef \u7a0b\u5e8f\u5bfb\u627e\u8fd9\u4e9b\u989d\u5916\u7684\u6587\u4ef6\u662f\u4f7f\u7528\u76f8\u5bf9\u8def\u5f84\u8fdb\u884c\u5bfb\u627e", None))
 #endif // QT_CONFIG(whatsthis)
-        self.BTNFlushDir.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u4e00\u4e2a\u65b0\u7684\u76ee\u5f55", None))
+        self.BTNFlushDir.setText(QCoreApplication.translate("Form", u"\u8f7d\u5165", None))
     # retranslateUi
 

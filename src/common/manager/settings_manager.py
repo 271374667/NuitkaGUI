@@ -7,20 +7,15 @@ import json
 from typing import Union
 
 from src.conf import config_path
+from src.utils.singleton import Singleton
 
 
+@Singleton
 class SettingsManager:
     PYTHONEXE = 'pythonexe'
     FASTEST_PIP_SOURCE = 'pypi_url'
     GCC_AVAILABLE = 'gcc_available'
     FIRST_RUN = 'first_run'
-
-    __instance = None
-
-    def __new__(cls, *args, **kwargs):
-        if not cls.__instance:
-            cls.__instance = super().__new__(cls, *args, **kwargs)
-        return cls.__instance
 
     def __init__(self):
         self._settings = {
@@ -30,6 +25,7 @@ class SettingsManager:
                 self.FIRST_RUN: True
                 }
         self._settings_file = config_path.SETTINGS_FILE
+        self.initialize()
 
     def get(self, key: str) -> Union[str, bool]:
         """获取配置信息, key 可以从当前类的属性中获取"""

@@ -14,6 +14,21 @@
    <string>basic_page</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
+   <property name="spacing">
+    <number>15</number>
+   </property>
+   <property name="leftMargin">
+    <number>30</number>
+   </property>
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <property name="rightMargin">
+    <number>30</number>
+   </property>
+   <property name="bottomMargin">
+    <number>30</number>
+   </property>
    <item>
     <widget class="CardWidget" name="CardWidget">
      <property name="sizePolicy">
@@ -51,6 +66,13 @@
           <property name="text">
            <string>在这里选择需要被打包的 .py 文件</string>
           </property>
+          <property name="lightColor" stdset="0">
+           <color>
+            <red>96</red>
+            <green>96</green>
+            <blue>96</blue>
+           </color>
+          </property>
          </widget>
         </item>
        </layout>
@@ -60,26 +82,14 @@
         <property name="text">
          <string>选择文件</string>
         </property>
+        <property name="icon">
+         <iconset resource="../assets/res.qrc">
+          <normaloff>:/Icons/materialIcons/icons8_double_down.svg</normaloff>:/Icons/materialIcons/icons8_double_down.svg</iconset>
+        </property>
        </widget>
       </item>
      </layout>
     </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>30</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -87,67 +97,46 @@
       <number>30</number>
      </property>
      <property name="leftMargin">
-      <number>30</number>
+      <number>0</number>
      </property>
      <property name="topMargin">
       <number>0</number>
      </property>
      <property name="rightMargin">
-      <number>30</number>
+      <number>0</number>
      </property>
      <item>
-      <widget class="CardWidget" name="CardWidget_2">
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="SubtitleLabel" name="SubtitleLabel">
-          <property name="text">
-           <string>Python.exe路径</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="BodyLabel" name="LBPythonExePath">
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;软件的运转需要使用python.exe&lt;/p&gt;&lt;p&gt;请确保您电脑里面至少有一个可以使用的Python环境&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="textFormat">
-           <enum>Qt::RichText</enum>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignHCenter|Qt::AlignTop</set>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-          <property name="margin">
-           <number>0</number>
-          </property>
-          <property name="strikeOut" stdset="0">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="OutlinedPushButton" name="BTNPythonExePath">
-          <property name="text">
-           <string>选择路径</string>
-          </property>
-          <property name="borderRadius">
-           <number>10</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
       <widget class="CardWidget" name="CardWidget_3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>15</number>
+        </property>
+        <property name="leftMargin">
+         <number>30</number>
+        </property>
+        <property name="topMargin">
+         <number>30</number>
+        </property>
+        <property name="rightMargin">
+         <number>30</number>
+        </property>
+        <property name="bottomMargin">
+         <number>30</number>
+        </property>
         <item>
          <widget class="SubtitleLabel" name="SubtitleLabel_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>输出路径</string>
           </property>
@@ -194,8 +183,29 @@
      <item>
       <widget class="CardWidget" name="CardWidget_4">
        <layout class="QVBoxLayout" name="verticalLayout_5">
+        <property name="spacing">
+         <number>15</number>
+        </property>
+        <property name="leftMargin">
+         <number>30</number>
+        </property>
+        <property name="topMargin">
+         <number>30</number>
+        </property>
+        <property name="rightMargin">
+         <number>30</number>
+        </property>
+        <property name="bottomMargin">
+         <number>30</number>
+        </property>
         <item>
          <widget class="SubtitleLabel" name="SubtitleLabel_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>设置图标</string>
           </property>
@@ -242,22 +252,6 @@
     </layout>
    </item>
    <item>
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>10</width>
-       <height>30</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
     <widget class="ElevatedCardWidget" name="ElevatedCardWidget">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -289,6 +283,10 @@
        <widget class="FilledPushButton" name="BTNStart">
         <property name="text">
          <string>开始打包</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../assets/res.qrc">
+          <normaloff>:/Icons/materialIcons/icons8_load_cargo.svg</normaloff>:/Icons/materialIcons/icons8_load_cargo.svg</iconset>
         </property>
        </widget>
       </item>

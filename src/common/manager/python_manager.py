@@ -6,29 +6,12 @@ import loguru
 
 from src.common.manager.runtime_config_manager import RuntimeManager
 from src.conf import config
+from src.utils.singleton import Singleton
 
 
+@Singleton
 class PythonManager:
     avaliable_python: List[Path] = []
-
-    @staticmethod
-    def is_python_available(python_path: Union[Path, str]) -> bool:
-        """check current python is available
-
-        Args:
-            python_path: the python.exe path
-
-        Returns:
-            bool: is current python.exe is avialable
-        """
-        if isinstance(python_path, str):
-            python_path = Path(python_path)
-
-        try:
-            output = subprocess.check_output([python_path, "-V"], timeout=3)
-        except (TimeoutError, FileNotFoundError, subprocess.CalledProcessError):
-            output = b""
-        return output.startswith(b"Python 3.")
 
     def find_available_python_exe_python(self) -> List[Path]:
         """get available python.exe Path
@@ -67,6 +50,25 @@ class PythonManager:
         """
         result = subprocess.check_output([python_path, "-V"], timeout=3, encoding=config.system_encoding)
         return result.strip('\r\n')
+
+    @staticmethod
+    def is_python_available(python_path: Union[Path, str]) -> bool:
+        """check current python is available
+
+        Args:
+            python_path: the python.exe path
+
+        Returns:
+            bool: is current python.exe is avialable
+        """
+        if isinstance(python_path, str):
+            python_path = Path(python_path)
+
+        try:
+            output = subprocess.check_output([python_path, "-V"], timeout=3)
+        except (TimeoutError, FileNotFoundError, subprocess.CalledProcessError):
+            output = b""
+        return output.startswith(b"Python 3.")
 
     def initialize(self):
         """初始化 Python 管理器, 保存可用的 Python 路径到文件中"""

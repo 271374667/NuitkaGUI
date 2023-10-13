@@ -34,9 +34,7 @@ class PipManager:
 
         try:
             subprocess.run(command_args_list,
-                           stdin=subprocess.PIPE,
-                           stderr=subprocess.PIPE,
-                           stdout=subprocess.PIPE,
+                           creationflags=subprocess.CREATE_NEW_CONSOLE,
                            encoding=config.system_encoding)
             loguru.logger.debug(f'安装完成: {package_name}')
         except Exception as e:

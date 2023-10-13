@@ -169,12 +169,12 @@ if __name__ == '__main__':
     from pprint import pprint
 
     m = NuitkaModel()
-    # m.set_value(BoolCommands.onefile, True)
-    # m.set_value(BoolCommands.standalone, True)
-    # m.set_value(BoolCommands.show_progress, True)
-    # m.set_value(BoolCommands.show_memory, True)
-    # m.set_value(StrCommands.output_dir, 'output_dir')
-    # m.set_value(IntCommands.jobs, 4)
+    # m.set_option_value(BoolCommands.onefile, True)
+    # m.set_option_value(BoolCommands.standalone, True)
+    # m.set_option_value(BoolCommands.show_progress, True)
+    # m.set_option_value(BoolCommands.show_memory, True)
+    # m.set_option_value(StrCommands.output_dir, 'output_dir')
+    # m.set_option_value(IntCommands.jobs, 4)
     #
     # print(m.get_cmd())
     commmd = r'python -m nuitka --output-dir=D:\打包结果\数据处理工具,haha,66 testDtsRun.py'

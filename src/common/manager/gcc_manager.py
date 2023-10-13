@@ -6,9 +6,11 @@ import loguru
 from src.common.download import Download
 from src.conf import config
 from src.conf import config_path
-from src.utils import get_fastest_url, get_gcc_url
+from src.utils import get_fastest_url
+from src.utils.singleton import Singleton
 
 
+@Singleton
 class GccManager:
     def __init__(self):
         self.download_base = Download()
@@ -56,12 +58,12 @@ class GccManager:
         return output.startswith(b"gcc") if output else False
 
     def initialize(self):
-        # if GccManager.is_gcc_available():
-        #     loguru.logger.debug('GCC 已安装，跳过安装')
-        #     return
+        if GccManager.is_gcc_available():
+            loguru.logger.debug('GCC 已安装，跳过安装')
+            return
 
         self.download()
-        # self.install()
+        self.install()
         loguru.logger.debug('GCC 初始化完成!')
 
 

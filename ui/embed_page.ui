@@ -6,93 +6,213 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>861</width>
-    <height>546</height>
+    <width>870</width>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QScrollArea" name="scrollArea_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>841</width>
-     <height>521</height>
-    </rect>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
    </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
+   <property name="leftMargin">
+    <number>0</number>
    </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents_3">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>839</width>
-      <height>519</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_14">
-     <item>
-      <widget class="StrongBodyLabel" name="label_4">
-       <property name="font">
-        <font>
-         <family>等线</family>
-         <pointsize>9</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="ScrollArea" name="ScrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>868</width>
+        <height>582</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>15</number>
        </property>
-       <property name="text">
-        <string>嵌入文件，在下面选中你需要打包的文件，这些内容最终会会被编译到exe当中，其中的路径则是采用相对打包文件的路径</string>
+       <property name="leftMargin">
+        <number>30</number>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="FileTree" name="treeWidget">
-       <column>
-        <property name="text">
-         <string>名称</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>绝对路径</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>相对路径</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>文件类型</string>
-        </property>
-       </column>
-      </widget>
-     </item>
-     <item>
-      <widget class="FilledPushButton" name="BTNFlushDir">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误&lt;/p&gt;&lt;p&gt;程序寻找这些额外的文件是使用相对路径进行寻找&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <property name="topMargin">
+        <number>10</number>
        </property>
-       <property name="statusTip">
-        <string>警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误 程序寻找这些额外的文件是使用相对路径进行寻找</string>
+       <property name="rightMargin">
+        <number>30</number>
        </property>
-       <property name="whatsThis">
-        <string>警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误 程序寻找这些额外的文件是使用相对路径进行寻找</string>
+       <property name="bottomMargin">
+        <number>30</number>
        </property>
-       <property name="text">
-        <string>打开一个新的目录</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
+       <item>
+        <widget class="ElevatedCardWidget" name="ElevatedCardWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
+           <number>9</number>
+          </property>
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="IconWidget" name="IconWidget">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>64</width>
+              <height>64</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>64</width>
+              <height>64</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="icon">
+             <iconset resource="../assets/res.qrc">
+              <normaloff>:/Icons/materialIcons/icons8_archive.svg</normaloff>:/Icons/materialIcons/icons8_archive.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="TitleLabel" name="TitleLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>嵌入文件</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="BodyLabel" name="BodyLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在下面选中你需要嵌入的文件，这些内容最终会会被编译到exe当中(如果使用单文件打包)&lt;br/&gt;其中的路径则是采用相对打包文件的路径&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="wordWrap">
+               <bool>false</bool>
+              </property>
+              <property name="lightColor" stdset="0">
+               <color>
+                <red>96</red>
+                <green>96</green>
+                <blue>96</blue>
+               </color>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="EmbedFileTree" name="treeWidget">
+         <column>
+          <property name="text">
+           <string>名称</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>绝对路径</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>相对路径</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>文件类型</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <widget class="FilledPushButton" name="BTNFlushDir">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误&lt;/p&gt;&lt;p&gt;程序寻找这些额外的文件是使用相对路径进行寻找&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="statusTip">
+          <string>警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误 程序寻找这些额外的文件是使用相对路径进行寻找</string>
+         </property>
+         <property name="whatsThis">
+          <string>警告:尽可能不要使用除了项目路径外的其他路径，可能会导致意料之外的错误 程序寻找这些额外的文件是使用相对路径进行寻找</string>
+         </property>
+         <property name="text">
+          <string>载入</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../assets/res.qrc">
+           <normaloff>:/Icons/materialIcons/icons8_double_down.svg</normaloff>:/Icons/materialIcons/icons8_double_down.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>
@@ -101,16 +221,52 @@
    <header>qmaterialwidgets</header>
   </customwidget>
   <customwidget>
-   <class>StrongBodyLabel</class>
+   <class>IconWidget</class>
+   <extends>QWidget</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CardWidget</class>
+   <extends>QFrame</extends>
+   <header>qmaterialwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OutlinedCardWidget</class>
+   <extends>CardWidget</extends>
+   <header>qmaterialwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ElevatedCardWidget</class>
+   <extends>OutlinedCardWidget</extends>
+   <header>qmaterialwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ScrollArea</class>
+   <extends>QScrollArea</extends>
+   <header>qmaterialwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BodyLabel</class>
    <extends>QLabel</extends>
    <header>qmaterialwidgets</header>
   </customwidget>
   <customwidget>
-   <class>FileTree</class>
+   <class>TitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>EmbedFileTree</class>
    <extends>QTreeWidget</extends>
-   <header>customWidget.filetree</header>
+   <header>src.component.embedFileTree</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../assets/res.qrc"/>
+ </resources>
  <connections/>
 </ui>

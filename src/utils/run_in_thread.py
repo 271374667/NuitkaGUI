@@ -11,13 +11,11 @@ class WorkThread(QObject):
 
     def __init__(self):
         super().__init__()
-        loguru.logger.debug('线程对象被创建了')
         self.kwargs = None
         self.args = None
         self.func = None
 
     def set_start_func(self, func, *args, **kwargs):
-        loguru.logger.debug(f'设置线程函数{func}, 参数{args}, 关键字参数{kwargs}')
         self.func = func
         self.args = args
         self.kwargs = kwargs
@@ -62,7 +60,6 @@ class RunInThread(QObject):
         self.worker.result.connect(self._done_callback)
 
     def _done_callback(self, *args, **kwargs):
-        loguru.logger.debug(f'线程函数返回值为{args}, {kwargs}，即将调用回调函数')
         if args != (None,) or kwargs:
             self.finished_func(*args, **kwargs)
         else:

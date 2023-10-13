@@ -6,7 +6,7 @@ from PySide6.QtCore import QProcess, QTextStream, QTimer
 from PySide6.QtWidgets import QApplication, QPlainTextEdit, QVBoxLayout, QWidget
 
 from src.conf import config
-from src.custom_widget.bubble_tip import BubbleLabel
+from src.component.bubble_tip import BubbleLabel
 
 
 class ProcessWindow(QWidget):

@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QSizePolicy, QVBoxLayout,
+    QWidget)
 
 from qmaterialwidgets import (BodyLabel, CaptionLabel, CardWidget, ElevatedCardWidget,
     FilledPushButton, IconWidget, OutlinedCardWidget, OutlinedPushButton,
@@ -29,7 +29,9 @@ class Ui_basic_page(object):
             basic_page.setObjectName(u"basic_page")
         basic_page.resize(785, 551)
         self.verticalLayout_4 = QVBoxLayout(basic_page)
+        self.verticalLayout_4.setSpacing(15)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(30, 10, 30, 30)
         self.CardWidget = CardWidget(basic_page)
         self.CardWidget.setObjectName(u"CardWidget")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
@@ -57,6 +59,7 @@ class Ui_basic_page(object):
 
         self.LBPyFilePath = CaptionLabel(self.CardWidget)
         self.LBPyFilePath.setObjectName(u"LBPyFilePath")
+        self.LBPyFilePath.setProperty("lightColor", QColor(96, 96, 96))
 
         self.verticalLayout.addWidget(self.LBPyFilePath)
 
@@ -65,55 +68,34 @@ class Ui_basic_page(object):
 
         self.BTNGetPy = FilledPushButton(self.CardWidget)
         self.BTNGetPy.setObjectName(u"BTNGetPy")
+        icon1 = QIcon()
+        icon1.addFile(u":/Icons/materialIcons/icons8_double_down.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.BTNGetPy.setIcon(icon1)
 
         self.horizontalLayout.addWidget(self.BTNGetPy)
 
 
         self.verticalLayout_4.addWidget(self.CardWidget)
 
-        self.verticalSpacer = QSpacerItem(20, 30, QSizePolicy.Minimum, QSizePolicy.Fixed)
-
-        self.verticalLayout_4.addItem(self.verticalSpacer)
-
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setSpacing(30)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.horizontalLayout_3.setContentsMargins(30, 0, 30, -1)
-        self.CardWidget_2 = CardWidget(basic_page)
-        self.CardWidget_2.setObjectName(u"CardWidget_2")
-        self.verticalLayout_2 = QVBoxLayout(self.CardWidget_2)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.SubtitleLabel = SubtitleLabel(self.CardWidget_2)
-        self.SubtitleLabel.setObjectName(u"SubtitleLabel")
-        self.SubtitleLabel.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_2.addWidget(self.SubtitleLabel)
-
-        self.LBPythonExePath = BodyLabel(self.CardWidget_2)
-        self.LBPythonExePath.setObjectName(u"LBPythonExePath")
-        self.LBPythonExePath.setTextFormat(Qt.RichText)
-        self.LBPythonExePath.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.LBPythonExePath.setWordWrap(True)
-        self.LBPythonExePath.setMargin(0)
-        self.LBPythonExePath.setProperty("strikeOut", False)
-
-        self.verticalLayout_2.addWidget(self.LBPythonExePath)
-
-        self.BTNPythonExePath = OutlinedPushButton(self.CardWidget_2)
-        self.BTNPythonExePath.setObjectName(u"BTNPythonExePath")
-        self.BTNPythonExePath.setBorderRadius(10)
-
-        self.verticalLayout_2.addWidget(self.BTNPythonExePath)
-
-
-        self.horizontalLayout_3.addWidget(self.CardWidget_2)
-
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, -1)
         self.CardWidget_3 = CardWidget(basic_page)
         self.CardWidget_3.setObjectName(u"CardWidget_3")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.CardWidget_3.sizePolicy().hasHeightForWidth())
+        self.CardWidget_3.setSizePolicy(sizePolicy1)
         self.verticalLayout_3 = QVBoxLayout(self.CardWidget_3)
+        self.verticalLayout_3.setSpacing(15)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(30, 30, 30, 30)
         self.SubtitleLabel_2 = SubtitleLabel(self.CardWidget_3)
         self.SubtitleLabel_2.setObjectName(u"SubtitleLabel_2")
+        sizePolicy.setHeightForWidth(self.SubtitleLabel_2.sizePolicy().hasHeightForWidth())
+        self.SubtitleLabel_2.setSizePolicy(sizePolicy)
         self.SubtitleLabel_2.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_3.addWidget(self.SubtitleLabel_2)
@@ -140,9 +122,13 @@ class Ui_basic_page(object):
         self.CardWidget_4 = CardWidget(basic_page)
         self.CardWidget_4.setObjectName(u"CardWidget_4")
         self.verticalLayout_5 = QVBoxLayout(self.CardWidget_4)
+        self.verticalLayout_5.setSpacing(15)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(30, 30, 30, 30)
         self.SubtitleLabel_3 = SubtitleLabel(self.CardWidget_4)
         self.SubtitleLabel_3.setObjectName(u"SubtitleLabel_3")
+        sizePolicy.setHeightForWidth(self.SubtitleLabel_3.sizePolicy().hasHeightForWidth())
+        self.SubtitleLabel_3.setSizePolicy(sizePolicy)
         self.SubtitleLabel_3.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.SubtitleLabel_3)
@@ -169,10 +155,6 @@ class Ui_basic_page(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_3)
 
-        self.verticalSpacer_2 = QSpacerItem(10, 30, QSizePolicy.Minimum, QSizePolicy.Fixed)
-
-        self.verticalLayout_4.addItem(self.verticalSpacer_2)
-
         self.ElevatedCardWidget = ElevatedCardWidget(basic_page)
         self.ElevatedCardWidget.setObjectName(u"ElevatedCardWidget")
         sizePolicy.setHeightForWidth(self.ElevatedCardWidget.sizePolicy().hasHeightForWidth())
@@ -187,6 +169,9 @@ class Ui_basic_page(object):
 
         self.BTNStart = FilledPushButton(self.ElevatedCardWidget)
         self.BTNStart.setObjectName(u"BTNStart")
+        icon2 = QIcon()
+        icon2.addFile(u":/Icons/materialIcons/icons8_load_cargo.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.BTNStart.setIcon(icon2)
 
         self.horizontalLayout_2.addWidget(self.BTNStart)
 
@@ -204,9 +189,6 @@ class Ui_basic_page(object):
         self.StrongBodyLabel.setText(QCoreApplication.translate("basic_page", u"\u9009\u62e9\u4e00\u4e2aPython\u6587\u4ef6", None))
         self.LBPyFilePath.setText(QCoreApplication.translate("basic_page", u"\u5728\u8fd9\u91cc\u9009\u62e9\u9700\u8981\u88ab\u6253\u5305\u7684 .py \u6587\u4ef6", None))
         self.BTNGetPy.setText(QCoreApplication.translate("basic_page", u"\u9009\u62e9\u6587\u4ef6", None))
-        self.SubtitleLabel.setText(QCoreApplication.translate("basic_page", u"Python.exe\u8def\u5f84", None))
-        self.LBPythonExePath.setText(QCoreApplication.translate("basic_page", u"<html><head/><body><p>\u8f6f\u4ef6\u7684\u8fd0\u8f6c\u9700\u8981\u4f7f\u7528python.exe</p><p>\u8bf7\u786e\u4fdd\u60a8\u7535\u8111\u91cc\u9762\u81f3\u5c11\u6709\u4e00\u4e2a\u53ef\u4ee5\u4f7f\u7528\u7684Python\u73af\u5883</p></body></html>", None))
-        self.BTNPythonExePath.setText(QCoreApplication.translate("basic_page", u"\u9009\u62e9\u8def\u5f84", None))
         self.SubtitleLabel_2.setText(QCoreApplication.translate("basic_page", u"\u8f93\u51fa\u8def\u5f84", None))
         self.LBOutputPath.setText(QCoreApplication.translate("basic_page", u"<html><head/><body><p>\u60a8\u7684\u7a0b\u5e8f\u88ab\u6253\u5305\u4e4b\u540e\u5b58\u653e\u7684\u4f4d\u7f6e</p></body></html>", None))
         self.BTNOutputPath.setText(QCoreApplication.translate("basic_page", u"\u9009\u62e9\u8def\u5f84", None))

@@ -13,44 +13,213 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="TextEdit" name="PTEArgsOutput">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>821</width>
-     <height>501</height>
-    </rect>
+  <layout class="QVBoxLayout" name="verticalLayout_4">
+   <property name="spacing">
+    <number>15</number>
    </property>
-   <property name="toolTip">
-    <string>这里会显示输出在命令行给nuitka的参数，通常你也可以手动复制到命令行执行</string>
+   <property name="leftMargin">
+    <number>30</number>
    </property>
-   <property name="statusTip">
-    <string>这里会显示输出在命令行给nuitka的参数，通常你也可以手动复制到命令行执行</string>
+   <property name="topMargin">
+    <number>10</number>
    </property>
-   <property name="whatsThis">
-    <string>这里会显示输出在命令行给nuitka的参数，通常你也可以手动复制到命令行执行</string>
+   <property name="rightMargin">
+    <number>30</number>
    </property>
-   <property name="accessibleName">
-    <string/>
+   <property name="bottomMargin">
+    <number>30</number>
    </property>
-   <property name="html">
-    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Roboto','Segoe UI','Microsoft YaHei','PingFang SC','SimSun'; font-size:14px; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;这里会显示当前你选择的参数&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-  </widget>
+   <item>
+    <widget class="ElevatedCardWidget" name="ElevatedCardWidget">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="IconWidget" name="IconWidget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>64</horstretch>
+          <verstretch>64</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>64</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="icon">
+         <iconset resource="../assets/res.qrc">
+          <normaloff>:/Icons/materialIcons/icons8_code.svg</normaloff>:/Icons/materialIcons/icons8_code.svg</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
+        <item>
+         <widget class="TitleLabel" name="TitleLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>打包参数</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="BodyLabel" name="BodyLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在这里可以获取Nuitka当前的参数&lt;/p&gt;&lt;p&gt;或者你可以在这里输入其他人的参数,NuitkaGUI将转换到界面上&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <property name="lightColor" stdset="0">
+           <color>
+            <red>96</red>
+            <green>96</green>
+            <blue>96</blue>
+           </color>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="CardWidget" name="CardWidget">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="TextEdit" name="TextEdit">
+          <property name="toolTip">
+           <string>复制这里的代码在命令行内手动执行或者分享给别人</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Nuitka的命令在这里输出</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="CardWidget" name="CardWidget_2">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="TextEdit" name="TextEdit_2">
+          <property name="toolTip">
+           <string>当前不支持自动开启插件，在未来的版本会进行更新</string>
+          </property>
+          <property name="placeholderText">
+           <string>复制其他人的Nuitka命令到这里</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="TextPushButton" name="TextPushButton">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;红色的代表不在GUI的选项内&lt;br/&gt;蓝色的表示成功选择&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>分析命令</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="FilledPushButton" name="FilledPushButton">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="text">
+      <string>清空所有参数</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../assets/res.qrc">
+       <normaloff>:/Icons/materialIcons/icons8_broom.svg</normaloff>:/Icons/materialIcons/icons8_broom.svg</iconset>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>OutlinedPushButton</class>
+   <extends>QPushButton</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TextPushButton</class>
+   <extends>OutlinedPushButton</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>FilledPushButton</class>
+   <extends>QPushButton</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>IconWidget</class>
+   <extends>QWidget</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CardWidget</class>
+   <extends>QFrame</extends>
+   <header>qmaterialwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OutlinedCardWidget</class>
+   <extends>CardWidget</extends>
+   <header>qmaterialwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ElevatedCardWidget</class>
+   <extends>OutlinedCardWidget</extends>
+   <header>qmaterialwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qmaterialwidgets</header>
+  </customwidget>
   <customwidget>
    <class>TextEdit</class>
    <extends>QTextEdit</extends>
    <header>qmaterialwidgets</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../assets/res.qrc"/>
+ </resources>
  <connections/>
 </ui>

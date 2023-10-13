@@ -1,5 +1,7 @@
-from PySide6.QtCore import QProcess
 from typing import List
+
+from PySide6.QtCore import QProcess
+
 
 class ProcessManager:
     def __init__(self):

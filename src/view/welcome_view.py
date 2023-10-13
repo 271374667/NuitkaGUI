@@ -101,17 +101,17 @@ class WelcomeView(FramelessWindow):
         self.ui.OutlinedPushButton.setEnabled(False)
         self.ui.OutlinedPushButton.setText('您需要先完成设置')
 
-    def show_info(self, title: str, content: str) -> None:
-        InfoBar.info(title, content, parent=self, duration=-1)
+    def show_info(self, title: str, content: str, duration: int = -1) -> None:
+        InfoBar.info(title, content, parent=self, duration=duration)
 
-    def show_warning_info(self, title: str, content: str) -> None:
-        InfoBar.warning(title, content, parent=self, duration=-1)
+    def show_warning_info(self, title: str, content: str, duration: int = -1) -> None:
+        InfoBar.warning(title, content, parent=self, duration=duration)
 
-    def show_success_info(self, title: str, content: str) -> None:
-        InfoBar.success(title, content, parent=self, duration=15000)
+    def show_success_info(self, title: str, content: str, duration: int = 15000) -> None:
+        InfoBar.success(title, content, parent=self, duration=duration)
 
-    def show_error_info(self, title: str, content: str) -> None:
-        InfoBar.error(title, content, parent=self, duration=-1)
+    def show_error_info(self, title: str, content: str, duration: int = -1) -> None:
+        InfoBar.error(title, content, parent=self, duration=duration)
 
 
 if __name__ == '__main__':

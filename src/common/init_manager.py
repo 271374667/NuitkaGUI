@@ -18,4 +18,4 @@ gcc_available = settings_manager.get(SettingsManager.GCC_AVAILABLE)
 python_manager = PythonManager()
 PythonManager().initialize()
 ModuleManager().initialize()  # 初始化第三方库模块
-# GccManager().initialize()  # 初始化 GCC 管理器
+# GccManager().enable_default_options()  # 初始化 GCC 管理器

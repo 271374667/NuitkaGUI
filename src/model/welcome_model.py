@@ -1,3 +1,5 @@
+import loguru
+
 from src.common.manager.gcc_manager import GccManager
 from src.common.manager.pip_manager import PipManager
 from src.common.manager.python_manager import PythonManager
@@ -19,6 +21,7 @@ class WelcomeModel:
     def set_pythonexe_path(self, pythonexe: str) -> None:
         """将 python.exe 路径写入配置文件"""
         self._settings_manager.set(SettingsManager.PYTHONEXE, pythonexe)
+        loguru.logger.info(f'设置本地配置文件的 python.exe 路径: {pythonexe}')
 
     def is_pythonexe_avialable(self, pythonexe: str) -> bool:
         """检查当前的 python.exe 是否可用"""
@@ -32,9 +35,9 @@ class WelcomeModel:
         """获取一个最快的 pip 源"""
         return self._pip_manager.get_fastest_pip_source_by_network()
 
-    def set_pip_source(self) -> None:
+    def set_pip_source(self, value: str) -> None:
         """设置 pip 源"""
-        self._pip_manager.set_pip_source(PipManager.DEFAULT_PIP_SOURCE)
+        self._pip_manager.set_pip_source(value)
 
     def get_gcc_available(self) -> bool:
         """检查当前的 gcc 是否可用"""

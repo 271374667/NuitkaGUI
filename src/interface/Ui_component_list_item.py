@@ -24,21 +24,27 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(530, 90)
-        Form.setMinimumSize(QSize(450, 0))
-        self.horizontalLayout = QHBoxLayout(Form)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.verticalLayout = QVBoxLayout()
+        Form.resize(696, 139)
+        Form.setMinimumSize(QSize(0, 0))
+        Form.setMaximumSize(QSize(16777215, 300))
+        self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(35, 0, 0, -1)
-        self.LBTitle = TitleLabel(Form)
+        self.CardWidget = CardWidget(Form)
+        self.CardWidget.setObjectName(u"CardWidget")
+        self.CardWidget.setMaximumSize(QSize(16777215, 16777215))
+        self.horizontalLayout = QHBoxLayout(self.CardWidget)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(30, -1, 30, -1)
+        self.LBTitle = TitleLabel(self.CardWidget)
         self.LBTitle.setObjectName(u"LBTitle")
         self.LBTitle.setTextFormat(Qt.PlainText)
         self.LBTitle.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
 
-        self.verticalLayout.addWidget(self.LBTitle)
+        self.verticalLayout_2.addWidget(self.LBTitle)
 
-        self.LBinfo = BodyLabel(Form)
+        self.LBinfo = BodyLabel(self.CardWidget)
         self.LBinfo.setObjectName(u"LBinfo")
         self.LBinfo.setTextFormat(Qt.PlainText)
         self.LBinfo.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
@@ -46,17 +52,20 @@ class Ui_Form(object):
         self.LBinfo.setProperty("lightColor", QColor(96, 96, 96))
         self.LBinfo.setProperty("darkColor", QColor(210, 210, 210))
 
-        self.verticalLayout.addWidget(self.LBinfo)
+        self.verticalLayout_2.addWidget(self.LBinfo)
 
 
-        self.horizontalLayout.addLayout(self.verticalLayout)
+        self.horizontalLayout.addLayout(self.verticalLayout_2)
 
-        self.SwitchButton = SwitchButton(Form)
+        self.SwitchButton = SwitchButton(self.CardWidget)
         self.SwitchButton.setObjectName(u"SwitchButton")
         self.SwitchButton.setMaximumSize(QSize(90, 24))
         self.SwitchButton.setChecked(False)
 
         self.horizontalLayout.addWidget(self.SwitchButton)
+
+
+        self.verticalLayout.addWidget(self.CardWidget)
 
 
         self.retranslateUi(Form)

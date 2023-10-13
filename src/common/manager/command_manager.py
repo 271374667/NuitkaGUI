@@ -1,68 +1,60 @@
 from collections import ChainMap
-from enum import Enum
-from typing import List, Union
+from typing import List, Tuple, Union
+
+from src.core import BoolCommands, IntCommands, StrCommands
+from src.utils.singleton import Singleton
 
 
-class BoolCommands(Enum):
-    onefile = '--onefile'
-    standalone = '--standalone'
-    show_progress = '--show-progress'
-    show_memory = '--show-memory'
-    remove_output = '--remove-output'
-    windows_disable_console = '--windows-disable-console'
-    mingw64 = '--mingw64'
-    quiet = '--quiet'
-    lto_no = '--lto=no'
-    disable_ccache = '--disable-ccache'
-    assume_yes_for_downloads = '--assume-yes-for-downloads'
-    clang = '--clang'
-    windows_uac_admin = '--windows-uac-admin'
-
-
-class StrCommands(Enum):
-    output_dir = '--output-dir'
-    main = '--main'
-    nofollow_import_to = '--nofollow-import-to'
-    include_package = '--include-package'
-    windows_icon_from_ico = '--windows-icon-from-ico'
-    windows_company_name = '--windows-company-command_enum'
-    windows_file_version = '--windows-file-version'
-    windows_product_version = '--windows-product-version'
-    windows_file_description = '--windows-file-description'
-    onefile_tempdir_spec = '--onefile-tempdir-spec'
-
-
-class IntCommands(Enum):
-    jobs = '--jobs'
-
-
+@Singleton
 class CommandManager:
-    _instance = None
-
-    def __new__(cls, *args, **kwargs):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
+    """
+    设置的时候通过 set_option_value 和 枚举类 设置，获取的时候通过 get_option_value 和 枚举类 获取
+    如果是枚举类里面没有的，可以通过 add_command 添加，通过 remove_command 删除
+    """
 
     def __init__(self):
         # create a dict to save state
-        self._str_commands_dict = {x.value: "" for x in StrCommands}
-        self._int_commands_dict = {x.value: 0 for x in IntCommands}
-        self._bool_commands_dict = {x.value: False for x in BoolCommands}
+        self._str_commands_dict = {x: "" for x in StrCommands}
+        self._int_commands_dict = {x: 0 for x in IntCommands}
+        self._bool_commands_dict = {x: False for x in BoolCommands}
         self._plugins_dict = {}
-        self.extra_cmd = []
+        self._extra_cmd = ['--assume-yes-for-downloads']
 
         # self._commands_dict = str_commands_dict | bool_commands_dict | int_commands_dict
         self._commands_dict = ChainMap(self._bool_commands_dict, self._str_commands_dict, self._int_commands_dict)
 
-    def __set_onefile(self, value: bool) -> None:
-        # disable standalone mode selection
-        self._commands_dict[BoolCommands.standalone.value] = False
-        self._commands_dict[BoolCommands.onefile.value] = value
+    def get_cmd(self) -> List[str]:
+        """
+        get nuitka cmd about current enable option
 
-    def __set_standalone(self, value: bool) -> None:
-        self._commands_dict[BoolCommands.onefile.value] = False
-        self._commands_dict[BoolCommands.standalone.value] = value
+        Returns:
+            List[str]: the command list current enable
+        """
+        if (self._commands_dict[BoolCommands.standalone] is False
+                and self._commands_dict[BoolCommands.onefile] is False):
+            # standalone and onefile must have one is True
+            self._commands_dict[BoolCommands.standalone] = True
+
+        # use a small for-loop 3 times to replace a big for-loop with many if
+        enable_cmd_list = []
+        for each in BoolCommands:
+            current_value = self._commands_dict[each]
+            if current_value is not False:
+                enable_cmd_list.append(each.value)
+
+        for each in StrCommands:
+            current_value = self._commands_dict[each]
+            if current_value != "":
+                enable_cmd_list.append(f'{each.value}={current_value}')
+
+        for each in IntCommands:
+            current_value = self._commands_dict[each]
+            if current_value != 0:
+                enable_cmd_list.append(f'{each.value}={current_value}')
+
+        # 增加额外的命令
+        enable_cmd_list.extend(self._extra_cmd)
+        return enable_cmd_list
 
     def add_command(self, command: Union[str, List[str]]) -> None:
         """
@@ -75,9 +67,9 @@ class CommandManager:
             None
         """
         if isinstance(command, str):
-            self.extra_cmd.append(command.split())
+            self._extra_cmd.extend(command.split())
             return
-        self.extra_cmd.extend(command)
+        self._extra_cmd.extend(command)
 
     def remove_command(self, command: Union[str, List[str]]) -> None:
         """删除额外的命令
@@ -91,33 +83,27 @@ class CommandManager:
             None
         """
         if isinstance(command, str):
-            if command in self.extra_cmd:
-                self.extra_cmd.remove(command)
+            if command in self._extra_cmd:
+                self._extra_cmd.remove(command)
             return
         for each in command:
-            if each in self.extra_cmd:
-                self.extra_cmd.remove(each)
+            if each in self._extra_cmd:
+                self._extra_cmd.remove(each)
 
-    def get_extra_cmd(self) -> List[str]:
-        """获取额外的命令"""
-        return self.extra_cmd
-
-    def set_plugin(self, plugin_name: str, plugin_status: bool) -> None:
-        """添加插件
-
-        通过字典的方式添加插件，插件的名字作为键，插件的状态作为值，True 为启用，False 为禁用
+    def get_option_value(self, command_enum: Union[IntCommands, StrCommands, BoolCommands]) -> Union[bool, str, int]:
+        """
+        get current option enable or not
 
         Args:
-            plugin_name: 插件的名字
-            plugin_status: 插件的状态
+            command_enum: enum type about IntCommands, Strcommands, BoolCommands
 
         Returns:
-            None
+            bool, str, int: current option value
         """
-        self._plugins_dict[plugin_name] = plugin_status
+        return self._commands_dict.get(command_enum)
 
-    def set_value(self, command_enum: Union[IntCommands, StrCommands, BoolCommands],
-                  value: Union[int, str, bool]) -> None:
+    def set_option_value(self, command_enum: Union[IntCommands, StrCommands, BoolCommands],
+                         value: Union[int, str, bool]) -> None:
         """
         control nuikta options enable and value
 
@@ -133,49 +119,27 @@ class CommandManager:
         elif command_enum == BoolCommands.standalone:
             self.__set_standalone(value)
         else:
-            self._commands_dict[command_enum.value] = value
+            self._commands_dict[command_enum] = value
 
-    def get_cmd(self) -> List[str]:
+    def clear_option_value(self, command_enum: Union[IntCommands, StrCommands, BoolCommands]) -> None:
         """
-        get nuitka cmd about current enable option
+        clear option value
+
+        Args:
+            command_enum: enum type about IntCommands, Strcommands, BoolCommands
 
         Returns:
-            List[str]: the command list current enable
+            None
         """
-        if (self._commands_dict[BoolCommands.standalone.value] is False
-                and self._commands_dict[BoolCommands.onefile.value] is False):
-            # standalone and onefile must have one is True
-            self._commands_dict[BoolCommands.standalone.value] = True
+        if isinstance(command_enum, BoolCommands):
+            self._commands_dict[command_enum] = False
+            return
+        elif isinstance(command_enum, StrCommands):
+            self._commands_dict[command_enum] = ""
+            return
+        self._commands_dict[command_enum] = 0
 
-        # use a small for-loop 3 times to replace a big for-loop with many if
-        enable_cmd_list = []
-        for each in BoolCommands:
-            current_value = self._commands_dict[each.value]
-            if current_value is not False:
-                enable_cmd_list.append(each.value)
-
-        for each in StrCommands:
-            current_value = self._commands_dict[each.value]
-            if current_value != "":
-                enable_cmd_list.append(f'{each.value}={current_value}')
-
-        for each in IntCommands:
-            current_value = self._commands_dict[each.value]
-            if current_value != 0:
-                enable_cmd_list.append(f'{each.value}={current_value}')
-
-        # 增加额外的命令
-        enable_cmd_list.extend(self.extra_cmd)
-
-        # 增加插件
-        enable_plugin_list = [
-                key for key, value in self._plugins_dict.items() if value is True
-                ]
-        enable_cmd_list.extend(f'--enable-plugin={",".join(enable_plugin_list)}')
-
-        return enable_cmd_list
-
-    def analysis_cmd(self, command: Union[str, List]) -> (List[str], List[str]):
+    def analysis_cmd(self, command: Union[str, list]) -> Tuple[List[str], List[str]]:
         """parse str or list cmd and return current support options and not supported
 
         this func is to distinguish options current nuitkaGUI is supported and not supported
@@ -184,8 +148,8 @@ class CommandManager:
             command: nuitka options, notice this options need to have nuitka version > 1.7.0
 
         Returns:
-            List: available cmd about nuitkaGUI,because I didn't put all options in nuitkaGUI
-            List: available cmd about nuitkaGUI
+            List[str]: available cmd about nuitkaGUI,because I didn't put all options in nuitkaGUI
+            List[str]: unavailable cmd about nuitkaGUI
         """
         cmd_list = []
         available_cmd = []
@@ -224,30 +188,56 @@ class CommandManager:
         # 根据cmd_list里面的内容判断是否可用
         for each in cmd_list:
             if isinstance(each, tuple):
-                if each[0] in self._commands_dict:
+                # 因为现在的key是enum所以需要将str转换成enum
+                if self.str_command2enum(each[0]) in self._commands_dict:
                     available_cmd.append(each)
                     continue
                 unavailable_cmd.append(each)
                 continue
 
-            elif each in self._commands_dict:
+            elif self.str_command2enum(each) in self._commands_dict:
                 available_cmd.append(each)
                 continue
             unavailable_cmd.append(each)
         return available_cmd, unavailable_cmd
+
+    def get_extra_cmd(self) -> List[str]:
+        """获取额外的命令"""
+        return self._extra_cmd
+
+    def str_command2enum(self, command: str) -> Union[IntCommands, StrCommands, BoolCommands]:
+        """将字符串命令转换成枚举类"""
+        command_key_dict = {x.value: x for x in self._commands_dict.keys()}
+        if command in command_key_dict:
+            return command_key_dict[command]
+
+    def __set_onefile(self, value: bool) -> None:
+        # disable standalone mode selection
+        self._commands_dict[BoolCommands.standalone] = False
+        self._commands_dict[BoolCommands.onefile] = value
+
+    def __set_standalone(self, value: bool) -> None:
+        self._commands_dict[BoolCommands.onefile] = False
+        self._commands_dict[BoolCommands.standalone] = value
 
 
 if __name__ == '__main__':
     from pprint import pprint
 
     m = CommandManager()
-    # m.set_value(BoolCommands.onefile, True)
-    # m.set_value(BoolCommands.standalone, True)
-    # m.set_value(BoolCommands.show_progress, True)
-    # m.set_value(BoolCommands.show_memory, True)
-    # m.set_value(StrCommands.output_dir, 'output_dir')
-    # m.set_value(IntCommands.jobs, 4)
-    #
+    # m.set_option_value(BoolCommands.onefile, True)
+    # m.set_option_value(BoolCommands.standalone, True)
+    # m.set_option_value(BoolCommands.show_progress, True)
+    # m.set_option_value(BoolCommands.show_memory, True)
+    # m.set_option_value(StrCommands.output_dir, 'output_dir')
+    # m.set_option_value(IntCommands.jobs, 4)
+    # m.add_command('--assume-yes-for-downloads')
+    # m.add_command('--windows-icon-from-ico=icon.ico')
+    # m.add_command('--windows-company-name=company_name')
+    # m.remove_command('--windows-company-name=company_name')
     # print(m.get_cmd())
+    # print(m.get_option_value(BoolCommands.onefile))
     commmd = r'python -m nuitka --output-dir=D:\打包结果\数据处理工具,haha,66 testDtsRun.py'
-    pprint(m.analysis_cmd(commmd))
+    commmd2 = r'nuitka --mingw64 --standalone --show-progress --show-memory --enable-plugin=pyqt5 --output-dir=out 你的.py'
+    pprint(m.analysis_cmd(commmd2))
+    print(m.str_command2enum('--nofollow-import-to'))
