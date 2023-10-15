@@ -2,11 +2,13 @@ from pathlib import Path
 from typing import List
 
 from src.common.manager.plugin_manager import PluginManager
+from src.common.manager.command_manager import CommandManager
 
 
 class PluginModel:
     def __init__(self):
-        self._plugin_manager = PluginManager()
+        self._plugin_manager: PluginManager = PluginManager()
+        self._command_manager: CommandManager = CommandManager()
 
     def get_plugin_manager(self) -> PluginManager:
         return self._plugin_manager
@@ -16,6 +18,7 @@ class PluginModel:
 
     def set_plugin_status(self, plugin_name: str, status: bool) -> None:
         self._plugin_manager.set_plugin_status(plugin_name, status)
+        self._command_manager.set_plugins_cmd(self._plugin_manager.get_cmd())
 
     def fetch_plugin_from_cmd(self) -> List[tuple[str, str]]:
         return self._plugin_manager.fetch_plugin_from_cmd()
@@ -24,7 +27,7 @@ class PluginModel:
         return self._plugin_manager.get_selected_plugins()
 
     def get_cmd(self) -> List[str]:
-        return [self._plugin_manager.get_plugins_command()]
+        return [self._plugin_manager.get_cmd()]
 
     def initialize(self):
         self._plugin_manager.initialize()

@@ -4,6 +4,7 @@ import loguru
 
 from src.common.manager.settings_manager import SettingsManager
 from src.conf import config
+from src.core import JsonSettings
 from src.utils.get_fastest_url import get_fastest_url
 
 
@@ -13,8 +14,8 @@ class PipManager:
     def __init__(self):
         self.settings_manager = SettingsManager()
 
-        self.fastest_pip_source = self.settings_manager.get(SettingsManager.FASTEST_PIP_SOURCE)
-        self.pythonexe = self.settings_manager.get(SettingsManager.PYTHONEXE)
+        self.fastest_pip_source = self.settings_manager.get(JsonSettings.FASTEST_PIP_SOURCE.value)
+        self.pythonexe = self.settings_manager.get(JsonSettings.PYTHONEXE.value)
 
     def install(self, package_name: str):
         """安装 pip 包
@@ -59,7 +60,7 @@ class PipManager:
         return self.fastest_pip_source
 
     def set_pip_source(self, value: str) -> None:
-        self.settings_manager.set(SettingsManager.FASTEST_PIP_SOURCE, value)
+        self.settings_manager.set(JsonSettings.FASTEST_PIP_SOURCE.value, value)
 
     @staticmethod
     def get_default_pip_source() -> str:
@@ -68,7 +69,7 @@ class PipManager:
 
     def initialize(self):
         self.fastest_pip_source = get_fastest_url([x.value for x in config.PipSource])
-        self.settings_manager.set(SettingsManager.FASTEST_PIP_SOURCE, self.fastest_pip_source)
+        self.settings_manager.set(JsonSettings.FASTEST_PIP_SOURCE.value, self.fastest_pip_source)
         loguru.logger.debug(f'pip 源初始化完成!最快的 pip 源: {self.fastest_pip_source}')
 
 

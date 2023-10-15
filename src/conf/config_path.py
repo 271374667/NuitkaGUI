@@ -5,7 +5,7 @@ SRC_HOME = Path(__file__).parent.parent
 
 # 文件夹路径
 PROJECT_DIR = SRC_HOME.parent  # 项目目录
-ASSSETS_DIR = PROJECT_DIR / 'assets'  # 资源目录
+ASSETS_DIR = PROJECT_DIR / 'assets'  # 资源目录
 DOWNLOAD_DIR = SRC_HOME / 'download'  # 下载目录
 RESOURCE_DIR = SRC_HOME / 'resource'  # 资源目录
 LOG_DIR = PROJECT_DIR / 'logs'  # 日志目录

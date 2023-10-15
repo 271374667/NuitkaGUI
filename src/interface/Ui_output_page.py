@@ -90,6 +90,11 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addWidget(self.TextEdit)
 
+        self.TextPushButton_2 = TextPushButton(self.CardWidget)
+        self.TextPushButton_2.setObjectName(u"TextPushButton_2")
+
+        self.verticalLayout_2.addWidget(self.TextPushButton_2)
+
 
         self.horizontalLayout.addWidget(self.CardWidget)
 
@@ -136,9 +141,13 @@ class Ui_Form(object):
 #endif // QT_CONFIG(tooltip)
         self.TextEdit.setPlaceholderText(QCoreApplication.translate("Form", u"Nuitka\u7684\u547d\u4ee4\u5728\u8fd9\u91cc\u8f93\u51fa", None))
 #if QT_CONFIG(tooltip)
+        self.TextPushButton_2.setToolTip(QCoreApplication.translate("Form", u"<html><head/><body><p>\u7ea2\u8272\u7684\u4ee3\u8868\u4e0d\u5728GUI\u7684\u9009\u9879\u5185<br/>\u84dd\u8272\u7684\u8868\u793a\u6210\u529f\u9009\u62e9</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.TextPushButton_2.setText(QCoreApplication.translate("Form", u"\u83b7\u53d6\u547d\u4ee4", None))
+#if QT_CONFIG(tooltip)
         self.TextEdit_2.setToolTip(QCoreApplication.translate("Form", u"\u5f53\u524d\u4e0d\u652f\u6301\u81ea\u52a8\u5f00\u542f\u63d2\u4ef6\uff0c\u5728\u672a\u6765\u7684\u7248\u672c\u4f1a\u8fdb\u884c\u66f4\u65b0", None))
 #endif // QT_CONFIG(tooltip)
-        self.TextEdit_2.setPlaceholderText(QCoreApplication.translate("Form", u"\u590d\u5236\u5176\u4ed6\u4eba\u7684Nuitka\u547d\u4ee4\u5230\u8fd9\u91cc", None))
+        self.TextEdit_2.setPlaceholderText(QCoreApplication.translate("Form", u"\u590d\u5236\u5176\u4ed6\u4eba\u7684Nuitka\u547d\u4ee4\u5230\u8fd9\u91cc,\u7ea2\u8272\u7684\u4ee3\u8868\u4e0d\u5728GUI\u7684\u9009\u9879\u5185,\u84dd\u8272\u7684\u8868\u793a\u6210\u529f\u9009\u62e9", None))
 #if QT_CONFIG(tooltip)
         self.TextPushButton.setToolTip(QCoreApplication.translate("Form", u"<html><head/><body><p>\u7ea2\u8272\u7684\u4ee3\u8868\u4e0d\u5728GUI\u7684\u9009\u9879\u5185<br/>\u84dd\u8272\u7684\u8868\u793a\u6210\u529f\u9009\u62e9</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)

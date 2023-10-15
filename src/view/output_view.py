@@ -12,6 +12,8 @@ class OutputView(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
+        self.setObjectName('OutputView')
+
         self.initialize()
 
     def get_output_textedit(self) -> TextEdit:
@@ -43,6 +45,9 @@ class OutputView(QWidget):
 
     def get_clear_btn(self) -> FilledPushButton:
         return self.ui.FilledPushButton
+
+    def get_get_cmd_btn(self) -> TextPushButton:
+        return self.ui.TextPushButton_2
 
     def set_text_color(self, text: str, color: Qt.GlobalColor) -> None:
         # 创建一个QTextCharFormat对象，并设置所需的颜色
@@ -81,8 +86,10 @@ if __name__ == '__main__':
 
     app = QApplication([])
     window = OutputView()
+    window.set_output_text('测试')
     window.set_input_text('1234567890')
     window.set_text_color_red('123')
     window.set_text_color_blue('456')
+    window.get_get_cmd_btn().clicked.connect(lambda: print(window.get_output_text()))
     window.show()
     app.exec()

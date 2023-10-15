@@ -1,7 +1,13 @@
+"""
+这是一个文件拖入窗口的全屏遮罩，同时会显示图标和文字，请在主窗口内实例化 MaskDialogBase
+注意该窗口实例化需要在窗体 setupUi 之后
+
+"""
+
 from PySide6.QtCore import QEasingCurve, QEvent, QPropertyAnimation, Qt, Signal
-from PySide6.QtGui import QColor, QDragEnterEvent, QDragLeaveEvent, QResizeEvent
-from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QGraphicsDropShadowEffect, QGraphicsOpacityEffect,
-                               QHBoxLayout, QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+from PySide6.QtGui import QColor, QDragLeaveEvent, QResizeEvent
+from PySide6.QtWidgets import (QDialog, QFrame, QGraphicsDropShadowEffect, QGraphicsOpacityEffect,
+                               QHBoxLayout, QSizePolicy, QVBoxLayout, QWidget)
 from qmaterialwidgets import FluentIcon as FIF
 from qmaterialwidgets.components import IconWidget, TitleLabel
 
@@ -130,36 +136,5 @@ class MaskDialogBase(QDialog):
 
     def dropEvent(self, e):
         path = e.mimeData().urls()[0].toLocalFile()
-        print(path)
+        self.droped_file_url.emit(path)
         self.hide()
-
-
-class MyWindow(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.resize(500, 500)
-        self.setAcceptDrops(True)
-        self.dialog_mask = MaskDialogBase(self, '文件拖入', FIF.ZIP_FOLDER)
-        self.dialog_mask.hide()
-
-        self.main_layout = QVBoxLayout()
-        self.main_layout.setAlignment(Qt.AlignmentFlag.AlignBottom)
-        self.btn1 = QPushButton('show mask')
-        self.btn1.clicked.connect(self.dialog_mask.show)
-
-        self.btn2 = QPushButton('close mask')
-        self.btn2.clicked.connect(self.dialog_mask.hide)
-        self.main_layout.addWidget(self.btn1)
-        self.main_layout.addWidget(self.btn2)
-        self.setLayout(self.main_layout)
-
-    def dragEnterEvent(self, e: QDragEnterEvent):
-        if e.mimeData().hasText():
-            self.dialog_mask.show()
-
-
-if __name__ == '__main__':
-    app = QApplication([])
-    window = MyWindow()
-    window.show()
-    app.exec()

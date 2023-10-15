@@ -1,29 +1,27 @@
 """
-TODO:
 负责管理默认的配置文件，这个配置文件是一个json文件，里面包含了一些默认的配置信息，
 包括 python.exe 的位置, 默认的下载源，以及一些其他的配置信息
 """
 import json
+from copy import deepcopy
 from typing import Union
 
-from src.conf import config_path
+from src.conf import config, config_path
+from src.core import JsonSettings
 from src.utils.singleton import Singleton
 
 
 @Singleton
 class SettingsManager:
-    PYTHONEXE = 'pythonexe'
-    FASTEST_PIP_SOURCE = 'pypi_url'
-    GCC_AVAILABLE = 'gcc_available'
-    FIRST_RUN = 'first_run'
-
     def __init__(self):
-        self._settings = {
-                self.PYTHONEXE: '',
-                self.FASTEST_PIP_SOURCE: 'https://pypi.org/simple',
-                self.GCC_AVAILABLE: False,
-                self.FIRST_RUN: True
-                }
+        self._settings = deepcopy(config.JSON_SETTINGS_DICT)
+        # self._settings = {
+        #         JsonSettings.PYTHONEXE.value: '',
+        #         JsonSettings.FASTEST_PIP_SOURCE.value: 'https://pypi.org/simple',
+        #         JsonSettings.GCC_AVAILABLE.value: False,
+        #         JsonSettings.FIRST_RUN.value: True,
+        #         JsonSettings.OPTIMIZATION_ENABLED.value: True
+        #         }
         self._settings_file = config_path.SETTINGS_FILE
         self.initialize()
 
@@ -48,7 +46,7 @@ class SettingsManager:
     def initialize(self) -> None:
         if not self._settings_file.exists():
             self._settings_file.touch()
-            self._settings_file.write_text('{"first_run": true}', encoding='utf-8')
+            self._settings_file.write_text(json.dumps(self._settings, indent=4), encoding='utf-8')
 
         content = self._settings_file.read_text(encoding='utf-8')
         if content == '':
@@ -67,4 +65,4 @@ if __name__ == '__main__':
     sm.initialize()
     sm.set('first_run', True)
     print(sm.get('first_run'))
-    print(sm.get(SettingsManager.FASTEST_PIP_SOURCE))
+    print(sm.get(JsonSettings.FASTEST_PIP_SOURCE.value))

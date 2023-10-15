@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QSizePolicy, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QSizePolicy,
+    QVBoxLayout, QWidget)
 
 from qmaterialwidgets import (BodyLabel, CardWidget, ElevatedCardWidget, FilledPushButton,
     IconWidget, OutlinedCardWidget, SmoothScrollArea, TitleLabel,
@@ -29,7 +29,9 @@ class Ui_Form(object):
             Form.setObjectName(u"Form")
         Form.resize(816, 493)
         self.verticalLayout_3 = QVBoxLayout(Form)
+        self.verticalLayout_3.setSpacing(15)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(30, 15, 30, 30)
         self.ElevatedCardWidget = ElevatedCardWidget(Form)
         self.ElevatedCardWidget.setObjectName(u"ElevatedCardWidget")
         self.horizontalLayout = QHBoxLayout(self.ElevatedCardWidget)
@@ -89,10 +91,11 @@ class Ui_Form(object):
 
         self.SmoothScrollArea = SmoothScrollArea(Form)
         self.SmoothScrollArea.setObjectName(u"SmoothScrollArea")
+        self.SmoothScrollArea.setFrameShape(QFrame.NoFrame)
         self.SmoothScrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 796, 351))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 756, 317))
         self.verticalLayout = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.widget = QWidget(self.scrollAreaWidgetContents)

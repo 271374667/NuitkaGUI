@@ -4,8 +4,12 @@ from PySide6.QtWidgets import QApplication, QHBoxLayout, QWidget
 from qmaterialwidgets import FluentIcon as FIF
 from qmaterialwidgets import MaterialWindow, MessageBox, NavigationItemPosition, SubtitleLabel
 
+from src.view.advanced_view import AdvancedView
 from src.view.basic_view import BasicView
+from src.view.embed_view import EmbedView
+from src.view.output_view import OutputView
 from src.view.plugin_view import PluginView
+from src.view.settings_view import SettingsView
 
 
 class Widget(QWidget):
@@ -20,50 +24,25 @@ class Widget(QWidget):
 
 
 class MainView(MaterialWindow):
-    def __init__(self):
+    def __init__(self, basic_view: BasicView,
+                 advanced_view: AdvancedView,
+                 plugins_view: PluginView,
+                 embed_view: EmbedView,
+                 output_view: OutputView,
+                 settings_view: SettingsView):
         super().__init__()
 
         # create sub interface
-        self.basic_interface = BasicView()
-        self.app_interface = Widget('基础', self)
-        self.plugins_interface = PluginView()
-        self.embed_interface = Widget('嵌入式', self)
-        self.args_interface = Widget('打包参数', self)
-        self.settings_interface = Widget('设置', self)
-        self.about_interface = Widget('关于', self)
+        self.basic_view = basic_view
+        self.advanced_view = advanced_view
+        self.plugins_view = plugins_view
+        self.embed_view = embed_view
+        self.output_view = output_view
+        self.settings_view = settings_view
+        self.about_view = Widget('关于', self)
 
         self.initNavigation()
         self.initWindow()
-
-    def initNavigation(self):
-        self.addSubInterface(self.basic_interface, FIF.HOME, '基础', FIF.HOME_FILL)
-        self.addSubInterface(self.app_interface, FIF.DEVELOPER_TOOLS, '高级')
-        self.addSubInterface(self.plugins_interface, FIF.APPLICATION, '插件')
-        self.addSubInterface(self.embed_interface, FIF.ZIP_FOLDER, '嵌入')
-        self.addSubInterface(self.args_interface, FIF.COMMAND_PROMPT, '参数')
-
-        self.addSubInterface(self.settings_interface, FIF.SETTING, '设置',
-                             position=NavigationItemPosition.BOTTOM)
-        self.addSubInterface(self.about_interface, FIF.INFO, '关于', position=NavigationItemPosition.BOTTOM)
-        # self.navigationInterface.addItem(
-        #         routeKey='Help',
-        #         icon=FIF.HELP,
-        #         text='帮助',
-        #         onClick=self.showMessageBox,
-        #         selectable=False,
-        #         position=NavigationItemPosition.BOTTOM,
-        #         )
-
-        self.navigationInterface.setCurrentItem(self.basic_interface.objectName())
-
-    def initWindow(self):
-        self.resize(1000, 650)
-        self.setWindowIcon(QIcon(':/Icons/materialIcons/software_icon.svg'))
-        self.setWindowTitle('NuitkaGUI')
-
-        desktop = QApplication.screens()[0].availableGeometry()
-        w, h = desktop.width(), desktop.height()
-        self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
 
     def showMessageBox(self):
         w = MessageBox(
@@ -77,14 +56,36 @@ class MainView(MaterialWindow):
         if w.exec():
             print('yes')
 
+    def initNavigation(self):
+        self.addSubInterface(self.basic_view, FIF.HOME, '基础', FIF.HOME_FILL)
+        self.addSubInterface(self.advanced_view, FIF.DEVELOPER_TOOLS, '高级')
+        self.addSubInterface(self.plugins_view, FIF.APPLICATION, '插件')
+        self.addSubInterface(self.embed_view, FIF.ZIP_FOLDER, '嵌入')
+        self.addSubInterface(self.output_view, FIF.COMMAND_PROMPT, '参数')
+
+        self.addSubInterface(self.settings_view, FIF.SETTING, '设置',
+                             position=NavigationItemPosition.BOTTOM)
+        self.addSubInterface(self.about_view, FIF.INFO, '关于', position=NavigationItemPosition.BOTTOM)
+
+        self.navigationInterface.setCurrentItem(self.basic_view.objectName())
+
+    def initWindow(self):
+        self.resize(1200, 800)
+        self.setWindowIcon(QIcon(':/Icons/materialIcons/software_icon.svg'))
+        self.setWindowTitle('NuitkaGUI')
+
+        desktop = QApplication.screens()[0].availableGeometry()
+        w, h = desktop.width(), desktop.height()
+        self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
+
 
 if __name__ == '__main__':
     app = QApplication([])
-    w = MainView()
+    w = MainView(BasicView(), AdvancedView(), PluginView(), EmbedView(), OutputView(), SettingsView())
     options = [('--standalone', '生成独立的可执行文件'), ('--onefile', '生成一个文件'),
             ('--console', '生成一个控制台程序'), ('--noconsole', '生成一个非控制台程序')]
 
-    window = w.plugins_interface
+    window = w.plugins_view
     for each in options:
         x = window.add_plugin(each[0], each[1])
         x.plugin_changed.connect(lambda x, y: print(x, y))

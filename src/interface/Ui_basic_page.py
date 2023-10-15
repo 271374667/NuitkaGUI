@@ -97,6 +97,7 @@ class Ui_basic_page(object):
         sizePolicy.setHeightForWidth(self.SubtitleLabel_2.sizePolicy().hasHeightForWidth())
         self.SubtitleLabel_2.setSizePolicy(sizePolicy)
         self.SubtitleLabel_2.setAlignment(Qt.AlignCenter)
+        self.SubtitleLabel_2.setProperty("pixelFontSize", 28)
 
         self.verticalLayout_3.addWidget(self.SubtitleLabel_2)
 
@@ -130,6 +131,7 @@ class Ui_basic_page(object):
         sizePolicy.setHeightForWidth(self.SubtitleLabel_3.sizePolicy().hasHeightForWidth())
         self.SubtitleLabel_3.setSizePolicy(sizePolicy)
         self.SubtitleLabel_3.setAlignment(Qt.AlignCenter)
+        self.SubtitleLabel_3.setProperty("pixelFontSize", 28)
 
         self.verticalLayout_5.addWidget(self.SubtitleLabel_3)
 
@@ -187,13 +189,22 @@ class Ui_basic_page(object):
     def retranslateUi(self, basic_page):
         basic_page.setWindowTitle(QCoreApplication.translate("basic_page", u"basic_page", None))
         self.StrongBodyLabel.setText(QCoreApplication.translate("basic_page", u"\u9009\u62e9\u4e00\u4e2aPython\u6587\u4ef6", None))
-        self.LBPyFilePath.setText(QCoreApplication.translate("basic_page", u"\u5728\u8fd9\u91cc\u9009\u62e9\u9700\u8981\u88ab\u6253\u5305\u7684 .py \u6587\u4ef6", None))
+        self.LBPyFilePath.setText(QCoreApplication.translate("basic_page", u"\u62d6\u52a8\u6587\u4ef6\u8fdb\u5165\u7a97\u4f53\u9009\u62e9\u88ab\u6253\u5305\u7684 .py \u6587\u4ef6", None))
+#if QT_CONFIG(tooltip)
+        self.BTNGetPy.setToolTip(QCoreApplication.translate("basic_page", u"\u5f53\u524d\u672a\u9009\u62e9\u4efb\u4f55\u6587\u4ef6", None))
+#endif // QT_CONFIG(tooltip)
         self.BTNGetPy.setText(QCoreApplication.translate("basic_page", u"\u9009\u62e9\u6587\u4ef6", None))
         self.SubtitleLabel_2.setText(QCoreApplication.translate("basic_page", u"\u8f93\u51fa\u8def\u5f84", None))
-        self.LBOutputPath.setText(QCoreApplication.translate("basic_page", u"<html><head/><body><p>\u60a8\u7684\u7a0b\u5e8f\u88ab\u6253\u5305\u4e4b\u540e\u5b58\u653e\u7684\u4f4d\u7f6e</p></body></html>", None))
+        self.LBOutputPath.setText(QCoreApplication.translate("basic_page", u"<html><head/><body><p>\u60a8\u7684\u7a0b\u5e8f\u88ab\u6253\u5305\u4e4b\u540e\u5b58\u653e\u7684\u4f4d\u7f6e</p><p><br/></p><p><span style=\" font-style:italic;\">\u5982\u679c\u60a8\u672a\u8fdb\u884c\u9009\u62e9\uff0c\u5219\u9ed8\u8ba4\u4f1a\u5728\u88ab\u6253\u5305\u7684 Python \u6587\u4ef6\u76ee\u5f55\u4e0b\u65b0\u5efa\u4e00\u4e2a output \u6587\u4ef6\u5939\u8fdb\u884c\u4fdd\u5b58</span></p></body></html>", None))
+#if QT_CONFIG(tooltip)
+        self.BTNOutputPath.setToolTip(QCoreApplication.translate("basic_page", u"\u5f53\u524d\u672a\u9009\u62e9\u4efb\u4f55\u6587\u4ef6", None))
+#endif // QT_CONFIG(tooltip)
         self.BTNOutputPath.setText(QCoreApplication.translate("basic_page", u"\u9009\u62e9\u8def\u5f84", None))
         self.SubtitleLabel_3.setText(QCoreApplication.translate("basic_page", u"\u8bbe\u7f6e\u56fe\u6807", None))
-        self.LBIcon.setText(QCoreApplication.translate("basic_page", u"<html><head/><body><p>\u4e3a\u60a8\u7684\u7a0b\u5e8f\u52a0\u4e0a\u5fc3\u7231\u7684\u56fe\u6807</p><p>\u60a8\u4e5f\u53ef\u4ee5\u5ffd\u89c6\u8be5\u9009\u9879\uff0c\u8f6f\u4ef6\u9ed8\u8ba4\u4f1a\u63d0\u4f9b\u4e00\u4e2a\u56fe\u6807</p></body></html>", None))
+        self.LBIcon.setText(QCoreApplication.translate("basic_page", u"<html><head/><body><p>\u4e3a\u60a8\u7684\u7a0b\u5e8f\u52a0\u4e0a\u5fc3\u7231\u7684\u56fe\u6807</p><p>\u60a8\u4e5f\u53ef\u4ee5\u5ffd\u89c6\u8be5\u9009\u9879\uff0c\u8f6f\u4ef6\u9ed8\u8ba4\u4f1a\u63d0\u4f9b\u4e00\u4e2a\u56fe\u6807</p><p><br/><span style=\" font-style:italic;\">\u9ed8\u8ba4\u56fe\u6807\u6837\u5f0f\u5982\u4e0b</span></p><p><img src=\":/Icons/materialIcons/logo-small.png\"/></p></body></html>", None))
+#if QT_CONFIG(tooltip)
+        self.BTNIcon.setToolTip(QCoreApplication.translate("basic_page", u"\u5f53\u524d\u4f7f\u7528\u9ed8\u8ba4\u56fe\u6807", None))
+#endif // QT_CONFIG(tooltip)
         self.BTNIcon.setText(QCoreApplication.translate("basic_page", u"\u9009\u62e9\u56fe\u6807", None))
         self.SwitchButton.setText(QCoreApplication.translate("basic_page", u"\u5f53\u524d:\u591a\u6587\u4ef6", None))
         self.SwitchButton.setOnText(QCoreApplication.translate("basic_page", u"\u5f53\u524d:\u5355\u6587\u4ef6", None))

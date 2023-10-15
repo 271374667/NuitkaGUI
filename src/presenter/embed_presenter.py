@@ -36,6 +36,7 @@ class EmbedPresenter:
     def bind(self) -> None:
         self.get_model().set_file_tree(self.get_view().get_file_tree())
         self.get_view().get_open_new_dir_btn().clicked.connect(self._load_filetree)
+        self.get_view().get_file_tree().itemClicked.connect(lambda: self.get_model().set_cmd(self.get_cmd()))
 
 
 if __name__ == '__main__':

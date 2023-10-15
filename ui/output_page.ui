@@ -116,6 +116,16 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="TextPushButton" name="TextPushButton_2">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;红色的代表不在GUI的选项内&lt;br/&gt;蓝色的表示成功选择&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>获取命令</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
@@ -128,7 +138,7 @@
            <string>当前不支持自动开启插件，在未来的版本会进行更新</string>
           </property>
           <property name="placeholderText">
-           <string>复制其他人的Nuitka命令到这里</string>
+           <string>复制其他人的Nuitka命令到这里,红色的代表不在GUI的选项内,蓝色的表示成功选择</string>
           </property>
          </widget>
         </item>

@@ -54,8 +54,8 @@ class GccManager:
         try:
             output = subprocess.check_output(['gcc', "--version"], timeout=5)
         except Exception:
-            output = b""
-        return output.startswith(b"gcc") if output else False
+            output = r""
+        return output.startswith(r"gcc") if output else False
 
     def initialize(self):
         if GccManager.is_gcc_available():

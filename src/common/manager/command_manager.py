@@ -1,8 +1,9 @@
 from collections import ChainMap
 from typing import List, Tuple, Union
 
-from src.core import BoolCommands, IntCommands, StrCommands
+from src.core import BoolCommands, IntCommands, StrCommands, JsonSettings
 from src.utils.singleton import Singleton
+from src.common.manager.settings_manager import SettingsManager
 
 
 @Singleton
@@ -13,12 +14,15 @@ class CommandManager:
     """
 
     def __init__(self):
+        self.settings_manager = SettingsManager()
+
         # create a dict to save state
         self._str_commands_dict = {x: "" for x in StrCommands}
         self._int_commands_dict = {x: 0 for x in IntCommands}
         self._bool_commands_dict = {x: False for x in BoolCommands}
-        self._plugins_dict = {}
+        self._plugins_cmd = []
         self._extra_cmd = ['--assume-yes-for-downloads']
+        self._embed_file_cmd = []
 
         # self._commands_dict = str_commands_dict | bool_commands_dict | int_commands_dict
         self._commands_dict = ChainMap(self._bool_commands_dict, self._str_commands_dict, self._int_commands_dict)
@@ -37,6 +41,12 @@ class CommandManager:
 
         # use a small for-loop 3 times to replace a big for-loop with many if
         enable_cmd_list = []
+        # 获取 python 路径，以及填写 nuitka 起手式
+        pythonexe_path = self.settings_manager.get(JsonSettings.PYTHONEXE.value)
+        if pythonexe_path == '':
+            enable_cmd_list.extend(['nuitka'])
+        else:
+            enable_cmd_list.extend([pythonexe_path, '-m', 'nuitka'])
         for each in BoolCommands:
             current_value = self._commands_dict[each]
             if current_value is not False:
@@ -53,7 +63,11 @@ class CommandManager:
                 enable_cmd_list.append(f'{each.value}={current_value}')
 
         # 增加额外的命令
+        # TODO: 这一部分未来可以重构，目前为了方便先这样写，到时候需要把这些都用 add_command 来代替
         enable_cmd_list.extend(self._extra_cmd)
+        enable_cmd_list.extend(self._embed_file_cmd)
+        enable_cmd_list.extend(self._plugins_cmd)
+
         return enable_cmd_list
 
     def add_command(self, command: Union[str, List[str]]) -> None:
@@ -200,6 +214,14 @@ class CommandManager:
                 continue
             unavailable_cmd.append(each)
         return available_cmd, unavailable_cmd
+
+    def set_embed_file_cmd(self, cmd: List[str]) -> None:
+        """设置嵌入文件命令"""
+        self._embed_file_cmd = cmd
+
+    def set_plugins_cmd(self, cmd: List[str]) -> None:
+        """设置插件命令"""
+        self._plugins_cmd = cmd
 
     def get_extra_cmd(self) -> List[str]:
         """获取额外的命令"""

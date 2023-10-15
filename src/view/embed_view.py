@@ -12,6 +12,8 @@ class EmbedView(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
+        self.setObjectName('EmbedView')
+
     def get_open_new_dir_btn(self) -> FilledPushButton:
         return self.ui.BTNFlushDir
 

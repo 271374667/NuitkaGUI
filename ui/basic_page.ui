@@ -64,7 +64,7 @@
         <item>
          <widget class="CaptionLabel" name="LBPyFilePath">
           <property name="text">
-           <string>在这里选择需要被打包的 .py 文件</string>
+           <string>拖动文件进入窗体选择被打包的 .py 文件</string>
           </property>
           <property name="lightColor" stdset="0">
            <color>
@@ -79,6 +79,9 @@
       </item>
       <item>
        <widget class="FilledPushButton" name="BTNGetPy">
+        <property name="toolTip">
+         <string>当前未选择任何文件</string>
+        </property>
         <property name="text">
          <string>选择文件</string>
         </property>
@@ -143,12 +146,15 @@
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
+          <property name="pixelFontSize" stdset="0">
+           <number>28</number>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="BodyLabel" name="LBOutputPath">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;您的程序被打包之后存放的位置&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;您的程序被打包之后存放的位置&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;如果您未进行选择，则默认会在被打包的 Python 文件目录下新建一个 output 文件夹进行保存&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="textFormat">
            <enum>Qt::RichText</enum>
@@ -169,6 +175,9 @@
         </item>
         <item>
          <widget class="OutlinedPushButton" name="BTNOutputPath">
+          <property name="toolTip">
+           <string>当前未选择任何文件</string>
+          </property>
           <property name="text">
            <string>选择路径</string>
           </property>
@@ -212,12 +221,15 @@
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
+          <property name="pixelFontSize" stdset="0">
+           <number>28</number>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="BodyLabel" name="LBIcon">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;为您的程序加上心爱的图标&lt;/p&gt;&lt;p&gt;您也可以忽视该选项，软件默认会提供一个图标&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;为您的程序加上心爱的图标&lt;/p&gt;&lt;p&gt;您也可以忽视该选项，软件默认会提供一个图标&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;默认图标样式如下&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/Icons/materialIcons/logo-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="textFormat">
            <enum>Qt::RichText</enum>
@@ -238,6 +250,9 @@
         </item>
         <item>
          <widget class="OutlinedPushButton" name="BTNIcon">
+          <property name="toolTip">
+           <string>当前使用默认图标</string>
+          </property>
           <property name="text">
            <string>选择图标</string>
           </property>

@@ -8,6 +8,7 @@ import loguru
 from src.common.manager.settings_manager import SettingsManager
 from src.core import Plugin
 from src.utils.singleton import Singleton
+from src.core import JsonSettings
 
 
 @Singleton
@@ -15,7 +16,7 @@ class PluginManager:
     def __init__(self):
         self._plugin_list = None
         self.settings_manager = SettingsManager()
-        self._pythonexe_path = self.settings_manager.get(SettingsManager.PYTHONEXE)
+        self._pythonexe_path = self.settings_manager.get(JsonSettings.PYTHONEXE.value)
         self._plugin_enable_dict: Dict[Union[Plugin, str], bool] = {}
 
         self.trans = {'PySide6': 'pyside6',
@@ -37,14 +38,14 @@ class PluginManager:
         """
         return [key for key, value in self._plugin_enable_dict.items() if value is True]
 
-    def get_plugins_command(self) -> str:
+    def get_cmd(self) -> List[str]:
         """获取插件命令
 
         获取插件命令，比如 --enable-plugin=tk-inter,pyside6,pyqt5
 
         """
         enable_plugin_list = self.get_selected_plugins()
-        return f'--enable-plugin={",".join(enable_plugin_list)}'
+        return [f'--enable-plugin={",".join(enable_plugin_list)}']
 
     def get_all_plugin_in_dir(self, dir_path: Path) -> list[str]:
         """获取目录下所有可能用到的插件
@@ -186,7 +187,7 @@ if __name__ == '__main__':
     a.set_plugin_status(Plugin.TK_INTER, True)
     a.set_plugin_status(Plugin.PYQT5, True)
     a.set_plugin_status(Plugin.ANTI_BLOAT, False)
-    print(a.get_plugins_command())
+    print(a.get_cmd())
     # result = a.get_all_plugin_in_dir(config_path.SRC_HOME)
     # print(result)
     # a.set_plugins_enable(result)

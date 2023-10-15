@@ -14,6 +14,21 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="spacing">
+    <number>15</number>
+   </property>
+   <property name="leftMargin">
+    <number>30</number>
+   </property>
+   <property name="topMargin">
+    <number>15</number>
+   </property>
+   <property name="rightMargin">
+    <number>30</number>
+   </property>
+   <property name="bottomMargin">
+    <number>30</number>
+   </property>
    <item>
     <widget class="ElevatedCardWidget" name="ElevatedCardWidget">
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -109,6 +124,9 @@
    </item>
    <item>
     <widget class="SmoothScrollArea" name="SmoothScrollArea">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -117,8 +135,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>796</width>
-        <height>351</height>
+        <width>756</width>
+        <height>317</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">

@@ -80,6 +80,8 @@ class PluginView(QWidget):
         self.content_flowlayout.setAnimation(1000, QEasingCurve.InOutCubic)
         content_widget.setLayout(self.content_flowlayout)
 
+        self.setObjectName('PluginView')
+
     def get_flyout(self) -> CustomFlyoutView:
         return self.fly_widget
 

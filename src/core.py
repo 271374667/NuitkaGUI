@@ -66,3 +66,11 @@ class StrCommands(Enum):
 
 class IntCommands(Enum):
     jobs = '--jobs'
+
+
+class JsonSettings(Enum):
+    PYTHONEXE = 'pythonexe'
+    FASTEST_PIP_SOURCE = 'pypi_url'
+    GCC_AVAILABLE = 'gcc_available'
+    FIRST_RUN = 'first_run'
+    OPTIMIZATION_ENABLED = 'optimization_enabled'

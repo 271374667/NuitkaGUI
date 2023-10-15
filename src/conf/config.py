@@ -1,5 +1,7 @@
 from enum import Enum
 
+from src.core import JsonSettings
+
 system_encoding = 'gbk'  # if chinese character in username, use utf8 will fail
 
 # 软件名称
@@ -10,6 +12,14 @@ __version__ = '0.0.7'
 
 # 设置输出命令行最大行号
 MAX_OUTPUT_LINE = 1500
+
+JSON_SETTINGS_DICT = {
+        JsonSettings.PYTHONEXE.value: '',
+        JsonSettings.FASTEST_PIP_SOURCE.value: 'https://pypi.org/simple',
+        JsonSettings.GCC_AVAILABLE.value: False,
+        JsonSettings.FIRST_RUN.value: True,
+        JsonSettings.OPTIMIZATION_ENABLED.value: True
+        }
 
 
 class ModuleVersion(Enum):

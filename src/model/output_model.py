@@ -1,4 +1,4 @@
-from typing import List, Tuple, Union
+from typing import List, Sequence, Tuple, Union
 
 from src.common.manager.command_manager import CommandManager
 
@@ -20,7 +20,7 @@ class OutputModel:
         """
         cmd_list = self.analysis_cmd(command.split())
 
-        def cmd_tuple2str(cmd: list) -> List[str]:
+        def cmd_tuple2str(cmd: Sequence) -> List[str]:
             result = []
             for each in cmd:
                 if isinstance(each, str):
@@ -38,6 +38,11 @@ class OutputModel:
 
     def get_cmd(self) -> List[str]:
         return self.command_manager.get_cmd()
+
+    def set_cmd(self, cmd: List[str]) -> None:
+        # TODO
+        # self.command_manager.set_cmd(cmd)
+        pass
 
 
 if __name__ == '__main__':

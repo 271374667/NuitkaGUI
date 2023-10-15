@@ -59,14 +59,14 @@ class BubbleLabel(QWidget):
 
     def initAnimation(self, startPos, endPos):
         # 透明度动画
-        opacityAnimation = QPropertyAnimation(self, b"opacity")
+        opacityAnimation = QPropertyAnimation(self, r"opacity")
         opacityAnimation.setStartValue(1.0)
         opacityAnimation.setEndValue(0.0)
         # 设置动画曲线
         opacityAnimation.setEasingCurve(QEasingCurve.InQuad)
         opacityAnimation.setDuration(4000)  # 在4秒的时间内完成
         # 往上移动动画
-        moveAnimation = QPropertyAnimation(self, b"pos")
+        moveAnimation = QPropertyAnimation(self, r"pos")
         moveAnimation.setStartValue(startPos)
         moveAnimation.setEndValue(endPos)
         moveAnimation.setEasingCurve(QEasingCurve.InQuad)

@@ -22,6 +22,10 @@ class EmbedModel:
         """获取生成的命令"""
         return self.file_tree.get_nuitka_cmd()
 
+    def set_cmd(self, cmd: list[str]) -> None:
+        """设置命令"""
+        self.command_manager.set_embed_file_cmd(cmd)
+
     def get_py_file(self) -> Path:
         return Path(self.command_manager.get_option_value(StrCommands.main))
 

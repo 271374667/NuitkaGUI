@@ -1,3 +1,17 @@
+"""
+该模块是一个基于 PySide6 的多线程模块，通过创建实例 RunInThread 然后设置函数运行的方式无痛开启多线程
+该模块同样可以传递参数给被调用函数,可以直接 return 后在被接受的函数里面定义对应数量的函数参数即可
+
+Examples:
+    >>> import time
+    >>> a = RunInThread()
+    >>> a.set_start_func(lambda: time.sleep(5))
+    >>> a.set_finished_func(lambda: print('运行结束'))
+    >>> a.start()
+    >>> '运行结束' # 非阻塞主线程
+
+"""
+
 import time
 
 import loguru
@@ -48,10 +62,15 @@ class RunInThread(QObject):
         self.thread.destroyed.connect(self.deleteLater)
 
     def start(self):
+        """当函数设置完毕之后调用start即可"""
         self.thread.start()
 
     def set_start_func(self, func, *args, **kwargs):
-        """设置需要多线程运行的函数"""
+        """设置一个开始函数
+
+        这部分就是多线程运行的地方，里面可以是爬虫，可以是其他IO或者阻塞主线程的函数
+
+        """
         self.worker.set_start_func(func, *args, **kwargs)
 
     def set_finished_func(self, func):
@@ -66,7 +85,7 @@ class RunInThread(QObject):
             self.finished_func()
 
 
-class TestWindow(QWidget):
+class MyWindow(QWidget):
     """
     一个用来测试的窗口
     """
@@ -74,7 +93,7 @@ class TestWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.btn = QPushButton('按钮')
-        self.btn.clicked.connect(self.b)
+        self.btn.clicked.connect(self.run)
 
         self.lb = QLabel('标签')
 
@@ -84,21 +103,23 @@ class TestWindow(QWidget):
         self.setLayout(self.main_layout)
         loguru.logger.debug('窗口对象被创建了')
 
-    def b(self):
+    def run(self):
         self.a = RunInThread()
-        self.a.set_start_func(self.temp_func)
+        self.a.set_start_func(self.waste_time_func)
         self.a.set_finished_func(self.over)
         self.a.start()
 
-    def temp_func(self):
+    def waste_time_func(self):
         self.btn.setEnabled(False)
         self.lb.setText('开始等待3秒')
         loguru.logger.debug('开始等待3秒')
         time.sleep(3)
         loguru.logger.debug('等待结束')
+        # 注意此处使用了返回值
         return '欢迎使用', '你好'
 
     def over(self, result):
+        # 注意这里需要传递一个参数 result
         loguru.logger.debug(f'slot: {result}')
         self.lb.setText('线程结束')
         self.btn.setEnabled(True)
@@ -106,6 +127,6 @@ class TestWindow(QWidget):
 
 if __name__ == '__main__':
     app = QApplication([])
-    window = TestWindow()
+    window = MyWindow()
     window.show()
     app.exec()

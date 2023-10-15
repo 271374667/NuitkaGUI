@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QSizePolicy,
-    QTreeWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QHeaderView,
+    QSizePolicy, QTreeWidgetItem, QVBoxLayout, QWidget)
 
 from qmaterialwidgets import (BodyLabel, CardWidget, ElevatedCardWidget, FilledPushButton,
     IconWidget, OutlinedCardWidget, ScrollArea, TitleLabel)
@@ -34,10 +34,11 @@ class Ui_Form(object):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.ScrollArea = ScrollArea(Form)
         self.ScrollArea.setObjectName(u"ScrollArea")
+        self.ScrollArea.setFrameShape(QFrame.NoFrame)
         self.ScrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 868, 582))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 870, 584))
         self.verticalLayout_3 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_3.setSpacing(15)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")

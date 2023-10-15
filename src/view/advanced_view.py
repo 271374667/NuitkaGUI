@@ -12,6 +12,8 @@ class AdvancedView(QWidget):
         self.ui.setupUi(self)
         self.setAcceptDrops(True)
 
+        self.setObjectName('AdvancedView')
+
         # self.enable_default_options()
         self.initialize()
 
