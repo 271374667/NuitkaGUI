@@ -4,6 +4,7 @@ from src.common.manager.gcc_manager import GccManager
 from src.common.manager.pip_manager import PipManager
 from src.common.manager.python_manager import PythonManager
 from src.common.manager.settings_manager import SettingsManager
+from src.core import JsonSettings
 
 
 class WelcomeModel:
@@ -20,7 +21,7 @@ class WelcomeModel:
 
     def set_pythonexe_path(self, pythonexe: str) -> None:
         """将 python.exe 路径写入配置文件"""
-        self._settings_manager.set(SettingsManager.PYTHONEXE, pythonexe)
+        self._settings_manager.set(JsonSettings.PYTHONEXE.value, pythonexe)
         loguru.logger.info(f'设置本地配置文件的 python.exe 路径: {pythonexe}')
 
     def is_pythonexe_avialable(self, pythonexe: str) -> bool:
@@ -45,7 +46,7 @@ class WelcomeModel:
 
     def set_gcc_available(self, gcc_available: bool) -> None:
         """设置 gcc 是否可用"""
-        self._settings_manager.set(SettingsManager.GCC_AVAILABLE, gcc_available)
+        self._settings_manager.set(JsonSettings.GCC_AVAILABLE.value, gcc_available)
 
     def download_gcc(self) -> None:
         """下载 gcc"""

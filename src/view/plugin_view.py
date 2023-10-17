@@ -4,7 +4,7 @@ from PySide6.QtCore import QEasingCurve, Signal
 from PySide6.QtWidgets import QApplication, QFrame, QVBoxLayout, QWidget
 from qmaterialwidgets import (FilledPushButton, FlowLayout, FlyoutViewBase, InfoBar, InfoBarPosition,
                               ListWidget,
-                              TonalPushButton)
+                              TonalPushButton, ToolTipFilter)
 from qmaterialwidgets.components import SubtitleLabel
 
 from src.interface.Ui_component_list_item import Ui_Form as Ui_ComponentListItem
@@ -81,6 +81,7 @@ class PluginView(QWidget):
         content_widget.setLayout(self.content_flowlayout)
 
         self.setObjectName('PluginView')
+        self.initialize()
 
     def get_flyout(self) -> CustomFlyoutView:
         return self.fly_widget
@@ -93,6 +94,14 @@ class PluginView(QWidget):
 
     def get_selected_btn(self) -> TonalPushButton:
         return self.ui.TonalPushButton
+
+    def get_plugins_length(self) -> int:
+        """获取插件的数量"""
+        number = 0
+        for each in self.content_flowlayout.children():
+            if isinstance(each, PluginItem):
+                number += 1
+        return number
 
     # noinspection PyTypeChecker
     def set_plugin_status(self, plugin_name: str, status: bool) -> None:
@@ -146,6 +155,11 @@ class PluginView(QWidget):
 
     def show_error_info(self, title: str, content: str, duration: int = -1) -> None:
         InfoBar.error(title, content, parent=self, duration=duration, position=InfoBarPosition.TOP)
+
+    def initialize(self) -> None:
+        # 找到界面内所有的控件,然后对他们installEventFilter
+        for each in self.findChildren(QWidget):
+            each.installEventFilter(ToolTipFilter(each, 200))
 
 
 if __name__ == '__main__':

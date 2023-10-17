@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget
-from qmaterialwidgets.components import InfoBar, OutlinedPushButton, SwitchButton
+from qmaterialwidgets.components import InfoBar, OutlinedPushButton, SwitchButton, ToolTipFilter
 
 from src.interface.Ui_settings_page import Ui_Form
 
@@ -11,6 +11,7 @@ class SettingsView(QWidget):
         self.ui.setupUi(self)
 
         self.setObjectName('SettingsView')
+        self.initialize()
 
     def get_pythonexe(self) -> OutlinedPushButton:
         return self.ui.OutlinedPushButton
@@ -38,6 +39,11 @@ class SettingsView(QWidget):
 
     def show_error_info(self, title: str, content: str, duration: int = -1) -> None:
         InfoBar.error(title, content, parent=self, duration=duration)
+
+    def initialize(self) -> None:
+        # 找到界面内所有的控件,然后对他们installEventFilter
+        for each in self.findChildren(QWidget):
+            each.installEventFilter(ToolTipFilter(each, 0))
 
 
 if __name__ == '__main__':

@@ -1,3 +1,4 @@
+import loguru
 from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QFileDialog
 
@@ -12,6 +13,7 @@ class SettingsPresenter:
         self._view = SettingsView()
 
         self.bind()
+        self.initialize()
 
     def get_model(self) -> SettingsModel:
         return self._model
@@ -25,10 +27,12 @@ class SettingsPresenter:
         if pythonexe:
             self._view.show_success_info('成功', 'Python解释器设置成功！')
             self._model.set_pythonexe(pythonexe)
+            loguru.logger.info(f'Python解释器设置为: {pythonexe}')
             return
 
         self._view.show_error_info('错误', 'Python解释器设置失败！')
         self._model.set_pythonexe('')
+        loguru.logger.error('Python解释器设置失败！')
 
     @Slot()
     def pythonexe_auto_clicked(self) -> None:
@@ -38,10 +42,13 @@ class SettingsPresenter:
         def finish_func(pythonexe_auto: str):
             if pythonexe_auto == '':
                 self.get_view().show_error_info('错误', '未找到可用的 Python.exe')
+                loguru.logger.error('未找到可用的 Python.exe')
                 return
 
             self.get_view().show_success_info('成功', 'Python解释器设置成功！')
+            self.get_view().get_pythonexe().setToolTip(self.get_model().get_pythonexe())  # 设置 Python 的提示条
             self.get_model().set_pythonexe(pythonexe_auto)
+            loguru.logger.info(f'Python解释器设置为: {pythonexe_auto}')
 
         self.t1 = RunInThread()
         self.t1.set_start_func(run)
@@ -56,7 +63,9 @@ class SettingsPresenter:
 
         def finish_func(pip_source: str):
             self.get_view().show_success_info('pip源设置成功', pip_source)
+            self.get_view().get_pip_source().setToolTip(self.get_model().get_pip_source())  # 设置 pip 源的提示条
             self.get_model().set_pip_source(pip_source)
+            loguru.logger.info(f'pip源设置为: {pip_source}')
 
         self.t2 = RunInThread()
         self.t2.set_start_func(run)
@@ -66,9 +75,11 @@ class SettingsPresenter:
     @Slot(bool)
     def optimization_enabled_clicked(self, is_enable: bool) -> None:
         if is_enable:
-            self.get_view().show_info('开启优化', '使用内置的一些 Nuitka 常用优化选项', duration=300)
+            self.get_view().show_info('开启优化', '使用内置的一些 Nuitka 常用优化选项', duration=1500)
+            loguru.logger.info('开启优化')
         else:
-            self.get_view().show_info('关闭优化', '清空全部前置设置', duration=300)
+            self.get_view().show_info('关闭优化', '清空全部前置设置', duration=1500)
+            loguru.logger.info('关闭优化')
         self.get_model().set_optimization_enabled(is_enable)
 
     @Slot()
@@ -83,6 +94,13 @@ class SettingsPresenter:
         self.get_view().get_optimization_enabled().checkedChanged.connect(
                 lambda x: self.optimization_enabled_clicked(x))
         self.get_view().get_init().clicked.connect(lambda: self.init_clicked())
+
+    def initialize(self) -> None:
+        # 设置 Python 的提示条
+        self.get_view().get_pythonexe().setToolTip(self.get_model().get_pythonexe())
+
+        # 设置 pip 源的提示条
+        self.get_view().get_pip_source().setToolTip(self.get_model().get_pip_source())
 
 
 if __name__ == '__main__':

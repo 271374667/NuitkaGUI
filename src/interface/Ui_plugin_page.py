@@ -118,6 +118,9 @@ class Ui_Form(object):
         self.TitleLabel.setText(QCoreApplication.translate("Form", u"\u8bf4\u660e", None))
         self.BodyLabel.setText(QCoreApplication.translate("Form", u"<html><head/><body><p>Nuitka\u9700\u8981\u5f00\u542f\u63d2\u4ef6\u6765\u652f\u6301\u7279\u6b8a\u7684\u6a21\u5757\u5de5\u4f5c</p><p>\u60a8\u4e5f\u53ef\u4ee5\u9009\u62e9\u81ea\u52a8\u5206\u6790\u4ee5\u6b64\u6536\u96c6\u9009\u4e2d &quot;.py&quot; \u548c\u9879\u76ee\u76ee\u5f55\u4e0b\u6240\u6709\u7684\u4f9d\u8d56\u5e93</p></body></html>", None))
         self.TonalPushButton.setText(QCoreApplication.translate("Form", u"\u67e5\u770b\u5df2\u9009\u62e9", None))
+#if QT_CONFIG(tooltip)
+        self.FilledPushButton.setToolTip(QCoreApplication.translate("Form", u"\u8be5\u9009\u9879\u4f1a\u81ea\u52a8\u5206\u6790\u9879\u76ee\u76ee\u5f55\u4e0b\u53ef\u4ee5\u5f00\u542f\u7684\u63d2\u4ef6", None))
+#endif // QT_CONFIG(tooltip)
         self.FilledPushButton.setText(QCoreApplication.translate("Form", u"\u81ea\u52a8\u5206\u6790", None))
     # retranslateUi
 

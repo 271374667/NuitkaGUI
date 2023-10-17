@@ -6,9 +6,9 @@ from typing import Dict, List, Optional, Tuple, Union
 import loguru
 
 from src.common.manager.settings_manager import SettingsManager
+from src.core import JsonSettings
 from src.core import Plugin
 from src.utils.singleton import Singleton
-from src.core import JsonSettings
 
 
 @Singleton
@@ -77,7 +77,7 @@ class PluginManager:
         for each in all_package_list:
             if each in self.trans:
                 each = self.trans[each]
-            plugin = PluginManager._find_enum_by_value(each)
+            plugin = self._find_enum_by_value(each)
             if plugin is not None:
                 plugins_list.append(plugin.value)
 
@@ -85,6 +85,8 @@ class PluginManager:
 
     def fetch_plugin_from_cmd(self) -> List[Tuple[str, str]]:
         """从命令行获取插件列表"""
+        if not self._pythonexe_path:
+            self._pythonexe_path = 'python'
         try:
             arg = [self._pythonexe_path, '-m', 'nuitka', '--plugin-list']
             result = subprocess.check_output(arg)
@@ -95,6 +97,8 @@ class PluginManager:
             return self._plugin_list
         except TimeoutError:
             loguru.logger.error('获取插件列表超时')
+        except Exception as e:
+            loguru.logger.critical(f'获取插件列表失败，错误信息: {e}')
         return [('', '')]
 
     def set_plugin_status(self, plugin_name: Union[Plugin, str], enable: bool) -> None:
@@ -166,8 +170,7 @@ class PluginManager:
         """清空插件"""
         self._plugin_enable_dict = {}
 
-    @staticmethod
-    def _find_enum_by_value(value: str) -> Optional[Plugin]:
+    def _find_enum_by_value(self, value: str) -> Optional[Plugin]:
         for i in Plugin:
             if i.value == value:
                 return i

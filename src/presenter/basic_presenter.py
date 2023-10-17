@@ -1,3 +1,4 @@
+import os
 import shutil
 from pathlib import Path
 from typing import Optional
@@ -6,7 +7,9 @@ import loguru
 from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QFileDialog
 
+from src.conf import config_path
 from src.model.basic_model import BasicModel
+from src.utils.run_in_thread import RunInThread
 from src.view.basic_view import BasicView
 
 
@@ -112,7 +115,7 @@ class BasicPresenter:
             self.get_view().show_error_info('未选择图标', '当前使用默认图标', duration=1500)
             self.get_view().get_icon().setToolTip('当前使用默认图标')
             self.get_view().set_icon_status(False)
-            self.get_model().set_icon(':/Icons/materialIcons/logo.ico')
+            self.get_model().set_icon(str(config_path.ICO_FILE))
             return
 
         self.get_view().show_success_info('选择图标成功', icon_file, duration=1500)
@@ -129,11 +132,31 @@ class BasicPresenter:
             self.get_view().show_error_info('未选择 Python 文件', '请选择一个需要被打包的 Python 文件', duration=1500)
             return
 
-        self._create_output_dir()
-        if not self.get_model().get_icon():
-            self.get_model().set_icon(':/Icons/materialIcons/logo.ico')
-        loguru.logger.info('开始打包')
-        self.get_model().start()
+        # self._create_output_dir()
+        # if not self.get_model().get_icon():
+        #     # 先把 qrc 中的图标转换成 ico 文件保存到 output 目录下
+        #     output_icon = self.get_model().rc_icon2local_ico(Path(self.get_model().get_output_dir()))
+        #     self.get_model().set_icon(str(output_icon))
+
+        def run():
+            self._create_output_dir()
+            if not self.get_model().get_icon():
+                # 先把 qrc 中的图标转换成 ico 文件保存到 output 目录下
+                output_icon = self.get_model().rc_icon2local_ico(Path(self.get_model().get_output_dir()))
+                self.get_model().set_icon(str(output_icon))
+            loguru.logger.info('开始打包')
+            self.get_model().start()
+
+        def finished_func():
+            loguru.logger.info('打包完成')
+            self.get_view().show_success_info('打包完成', '*.exe 可执行文件在输出目录的 .dist文件夹下', duration=-1)
+            # 打开输出目录
+            os.startfile(self.get_model().get_output_dir())
+
+        self.t1 = RunInThread()
+        self.t1.set_start_func(lambda: run())
+        self.t1.set_finished_func(lambda: finished_func())
+        self.t1.start()
 
     def _get_default_output_dir(self) -> Path:
         self._output_dir = Path(self.get_model().get_py_file()).parent / 'output'

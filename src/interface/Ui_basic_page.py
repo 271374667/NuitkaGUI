@@ -27,7 +27,7 @@ class Ui_basic_page(object):
     def setupUi(self, basic_page):
         if not basic_page.objectName():
             basic_page.setObjectName(u"basic_page")
-        basic_page.resize(785, 551)
+        basic_page.resize(977, 654)
         self.verticalLayout_4 = QVBoxLayout(basic_page)
         self.verticalLayout_4.setSpacing(15)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
@@ -147,6 +147,8 @@ class Ui_basic_page(object):
 
         self.BTNIcon = OutlinedPushButton(self.CardWidget_4)
         self.BTNIcon.setObjectName(u"BTNIcon")
+        sizePolicy.setHeightForWidth(self.BTNIcon.sizePolicy().hasHeightForWidth())
+        self.BTNIcon.setSizePolicy(sizePolicy)
         self.BTNIcon.setBorderRadius(10)
 
         self.verticalLayout_5.addWidget(self.BTNIcon)
@@ -206,9 +208,15 @@ class Ui_basic_page(object):
         self.BTNIcon.setToolTip(QCoreApplication.translate("basic_page", u"\u5f53\u524d\u4f7f\u7528\u9ed8\u8ba4\u56fe\u6807", None))
 #endif // QT_CONFIG(tooltip)
         self.BTNIcon.setText(QCoreApplication.translate("basic_page", u"\u9009\u62e9\u56fe\u6807", None))
+#if QT_CONFIG(tooltip)
+        self.SwitchButton.setToolTip(QCoreApplication.translate("basic_page", u"\u63a8\u8350\u4f7f\u7528\u591a\u6587\u4ef6,\u5355\u6587\u4ef6\u6253\u5305\u8bf7\u81ea\u5df1\u4f7f\u7528enigmavb\u4e8c\u6b21\u5c01\u88c5", None))
+#endif // QT_CONFIG(tooltip)
         self.SwitchButton.setText(QCoreApplication.translate("basic_page", u"\u5f53\u524d:\u591a\u6587\u4ef6", None))
         self.SwitchButton.setOnText(QCoreApplication.translate("basic_page", u"\u5f53\u524d:\u5355\u6587\u4ef6", None))
         self.SwitchButton.setOffText(QCoreApplication.translate("basic_page", u"\u5f53\u524d:\u591a\u6587\u4ef6", None))
+#if QT_CONFIG(tooltip)
+        self.BTNStart.setToolTip(QCoreApplication.translate("basic_page", u"\u514d\u8d23\u7533\u660e:\u672c\u5de5\u5177\u4ec5\u63d0\u4f9b\u754c\u9762,\u6253\u5305\u5931\u8d25\u4e0e\u672c\u8f6f\u4ef6\u65e0\u5173", None))
+#endif // QT_CONFIG(tooltip)
         self.BTNStart.setText(QCoreApplication.translate("basic_page", u"\u5f00\u59cb\u6253\u5305", None))
     # retranslateUi
 

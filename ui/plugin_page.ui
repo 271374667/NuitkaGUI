@@ -112,6 +112,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>该选项会自动分析项目目录下可以开启的插件</string>
+          </property>
           <property name="text">
            <string>自动分析</string>
           </property>

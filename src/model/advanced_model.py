@@ -8,8 +8,10 @@ class AdvancedModel:
     def __init__(self):
         self.command_manager = CommandManager()
 
-    def get_command_manager(self) -> CommandManager:
-        return self.command_manager
+    def set_default_options_status(self, status: bool) -> None:
+        self.command_manager.set_option_value(BoolCommands.lto_no, status)
+        self.command_manager.set_option_value(BoolCommands.remove_output, status)
+        self.command_manager.set_option_value(BoolCommands.show_progress, status)
 
     def set_option_value(self, option_name: Union[IntCommands, StrCommands, BoolCommands],
                          value: Union[int, str, bool]) -> None:
@@ -23,5 +25,3 @@ class AdvancedModel:
 
     def remove_command(self, command: Union[str, list]) -> None:
         self.command_manager.remove_command(command)
-
-

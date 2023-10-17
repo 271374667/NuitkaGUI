@@ -14,7 +14,6 @@ class AdvancedView(QWidget):
 
         self.setObjectName('AdvancedView')
 
-        # self.enable_default_options()
         self.initialize()
 
     def get_jobs(self) -> SpinBox:
@@ -131,11 +130,10 @@ class AdvancedView(QWidget):
     def set_windows_file_description(self, value: str) -> None:
         self.ui.LEFileDescription.setText(value)
 
-    def enable_default_options(self):
-        # 默认开启一些选项(这样子设置可以触发信号)
-        self.get_lto().setChecked(True)
-        self.get_remove_output().setChecked(True)
-        self.get_show_progress().setChecked(True)
+    def set_default_options_status(self, status: bool) -> None:
+        self.get_lto().setChecked(status)
+        self.get_remove_output().setChecked(status)
+        self.get_show_progress().setChecked(status)
 
     def initialize(self) -> None:
         # 找到界面内所有的控件,然后对他们installEventFilter

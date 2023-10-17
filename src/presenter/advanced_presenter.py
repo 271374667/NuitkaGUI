@@ -18,12 +18,16 @@ class AdvancedPresenter:
     def get_view(self) -> AdvancedView:
         return self._view
 
+    def set_defalut_options_status(self, status: bool):
+        self.get_view().set_default_options_status(status)
+        self.get_model().set_default_options_status(status)
+
     def bind(self) -> None:
         self._view.get_jobs().valueChanged.connect(lambda x: self.get_model().set_option_value(IntCommands.jobs, x))
         self._view.get_low_memory().stateChanged.connect(
                 lambda x: self.get_model().set_option_value(BoolCommands.low_memory, bool(x)))
         self._view.get_clang().stateChanged.connect(
-            lambda x: self.get_model().set_option_value(BoolCommands.clang, bool(x)))
+                lambda x: self.get_model().set_option_value(BoolCommands.clang, bool(x)))
         self._view.get_mingw64().stateChanged.connect(
                 lambda x: self.get_model().set_option_value(BoolCommands.mingw64, bool(x)))
         self._view.get_remove_output().stateChanged.connect(
@@ -33,11 +37,11 @@ class AdvancedPresenter:
         self._view.get_windows_disable_console().stateChanged.connect(
                 lambda x: self.get_model().set_option_value(BoolCommands.windows_disable_console, bool(x)))
         self._view.get_lto().stateChanged.connect(
-            lambda x: self.get_model().set_option_value(BoolCommands.lto_no, bool(x)))
+                lambda x: self.get_model().set_option_value(BoolCommands.lto_no, bool(x)))
         self._view.get_disable_ccache().stateChanged.connect(
                 lambda x: self.get_model().set_option_value(BoolCommands.disable_ccache, bool(x)))
         self._view.get_quiet().stateChanged.connect(
-            lambda x: self.get_model().set_option_value(BoolCommands.quiet, bool(x)))
+                lambda x: self.get_model().set_option_value(BoolCommands.quiet, bool(x)))
         self._view.get_show_memory().stateChanged.connect(
                 lambda x: self.get_model().set_option_value(BoolCommands.show_memory, bool(x)))
         self._view.get_clean_cache().stateChanged.connect(

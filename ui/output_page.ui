@@ -131,6 +131,9 @@
      </item>
      <item>
       <widget class="CardWidget" name="CardWidget_2">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="TextEdit" name="TextEdit_2">

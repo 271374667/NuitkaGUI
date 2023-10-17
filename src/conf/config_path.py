@@ -18,6 +18,7 @@ QRC_PY_FILE = RESOURCE_DIR / f'rc_{QRC_FILE.stem}.py'  # 资源文件编译后�
 RUNTIME_PYTHON_FILE = SRC_HOME / 'conf' / 'runtime_config.pkl'  # 运行时的全局变量配置
 LOG_FILE = LOG_DIR / 'log.log'  # 日志文件
 SETTINGS_FILE = PROJECT_DIR / 'settings.json'  # 程序永久配置文件,有了这个就不用每一次都去选择python.exe了
+ICO_FILE = ASSETS_DIR / 'materialIcons' / 'logo.ico'   # 程序图标文件
 
 
 # sourcery skip: merge-nested-ifs

@@ -20,6 +20,21 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>15</number>
+   </property>
+   <property name="leftMargin">
+    <number>30</number>
+   </property>
+   <property name="topMargin">
+    <number>15</number>
+   </property>
+   <property name="rightMargin">
+    <number>30</number>
+   </property>
+   <property name="bottomMargin">
+    <number>30</number>
+   </property>
    <item>
     <widget class="LargeTitleLabel" name="LargeTitleLabel">
      <property name="sizePolicy">
@@ -110,6 +125,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>自动搜索本地可用的Python.exe路径</string>
+        </property>
         <property name="text">
          <string>自动选择</string>
         </property>
@@ -122,6 +140,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>当前未选择Python.exe的路径</string>
         </property>
         <property name="text">
          <string>选择路径</string>
@@ -208,6 +229,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>没有找到可用的 Pip 源</string>
+        </property>
         <property name="text">
          <string>自动选择</string>
         </property>
@@ -292,6 +316,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>如无特殊情况请不要关闭该选项</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -383,6 +410,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>清空本地存储的配置文件</string>
         </property>
         <property name="text">
          <string>初始化</string>

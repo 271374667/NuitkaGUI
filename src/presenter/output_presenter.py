@@ -9,6 +9,10 @@ class OutputPresenter:
         self.model = OutputModel()
         self.view = OutputView()
 
+        # 暂时先停用右边的逆向选择
+        # TODO: 逆向选择
+        self.get_view().ui.CardWidget_2.setVisible(False)
+
         self.bind()
 
     def get_model(self) -> OutputModel:

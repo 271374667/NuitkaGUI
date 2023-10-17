@@ -1,9 +1,9 @@
-from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QApplication, QHBoxLayout, QWidget
-from qmaterialwidgets import FluentIcon as FIF
-from qmaterialwidgets import MaterialWindow, MessageBox, NavigationItemPosition, SubtitleLabel
+from PySide6.QtWidgets import QApplication
+from qmaterialwidgets import FluentIcon as FIF, InfoBar
+from qmaterialwidgets import MaterialWindow, NavigationItemPosition
 
+from src.view.about_view import AboutView
 from src.view.advanced_view import AdvancedView
 from src.view.basic_view import BasicView
 from src.view.embed_view import EmbedView
@@ -12,24 +12,14 @@ from src.view.plugin_view import PluginView
 from src.view.settings_view import SettingsView
 
 
-class Widget(QWidget):
-    def __init__(self, text: str, parent=None):
-        super().__init__(parent=parent)
-        self.label = SubtitleLabel(text, self)
-        self.hBoxLayout = QHBoxLayout(self)
-
-        self.label.setAlignment(Qt.AlignCenter)
-        self.hBoxLayout.addWidget(self.label, 1, Qt.AlignCenter)
-        self.setObjectName(text.replace(' ', '-'))
-
-
 class MainView(MaterialWindow):
     def __init__(self, basic_view: BasicView,
                  advanced_view: AdvancedView,
                  plugins_view: PluginView,
                  embed_view: EmbedView,
                  output_view: OutputView,
-                 settings_view: SettingsView):
+                 settings_view: SettingsView,
+                 about_view: AboutView):
         super().__init__()
 
         # create sub interface
@@ -39,22 +29,22 @@ class MainView(MaterialWindow):
         self.embed_view = embed_view
         self.output_view = output_view
         self.settings_view = settings_view
-        self.about_view = Widget('关于', self)
+        self.about_view = about_view
 
         self.initNavigation()
         self.initWindow()
 
-    def showMessageBox(self):
-        w = MessageBox(
-                '支持作者🥰',
-                '个人开发不易，如果这个项目帮助到了您，可以考虑请作者喝一瓶快乐水🥤。您的支持就是作者开发和维护项目的动力🚀',
-                self
-                )
-        w.yesButton.setText('来啦老弟')
-        w.cancelButton.setText('下次一定')
+    def show_info(self, title: str, content: str, duration: int = -1) -> None:
+        InfoBar.info(title, content, parent=self, duration=duration)
 
-        if w.exec():
-            print('yes')
+    def show_warning_info(self, title: str, content: str, duration: int = -1) -> None:
+        InfoBar.warning(title, content, parent=self, duration=duration)
+
+    def show_success_info(self, title: str, content: str, duration: int = 15000) -> None:
+        InfoBar.success(title, content, parent=self, duration=duration)
+
+    def show_error_info(self, title: str, content: str, duration: int = -1) -> None:
+        InfoBar.error(title, content, parent=self, duration=duration)
 
     def initNavigation(self):
         self.addSubInterface(self.basic_view, FIF.HOME, '基础', FIF.HOME_FILL)
@@ -90,4 +80,5 @@ if __name__ == '__main__':
         x = window.add_plugin(each[0], each[1])
         x.plugin_changed.connect(lambda x, y: print(x, y))
     w.show()
+    w.show_pythonexe_error_message()
     app.exec()

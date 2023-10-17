@@ -1,15 +1,22 @@
-.idea/*
-logs/*
+# 这些是不需要提交的文件
+settings.json
+*.yml
 *.pyc
-__pycache__
+.gitignore
+
+# 这些是基础
+.idea/*
 __pycache__/*
-测试/*
+__pycache__
 
 # 下面是文档,未来这些文件可能会被重新添加
 site/*
 assets/*
 demo/*
-*.yml
 docs/*
-
+tests/*
+logs/*
+测试/*
 download/*
+output
+download

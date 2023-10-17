@@ -1,10 +1,12 @@
 from typing import Optional
 
+import loguru
+from PySide6.QtCore import QSize, Slot
 from PySide6.QtWidgets import QApplication, QFileDialog
-from qmaterialwidgets import FramelessWindow
+from qmaterialwidgets import FramelessWindow, FluentIcon
 from qmaterialwidgets.components import (FilledPushButton, InfoBadge, InfoBar, OutlinedPushButton,
                                          ProgressBar,
-                                         TonalPushButton)
+                                         TonalPushButton, MessageBox)
 
 from src.interface.Ui_welcome_page import Ui_Form
 
@@ -24,6 +26,8 @@ class WelcomeView(FramelessWindow):
         self.python_unfinished = InfoBadge.error('未完成', parent=self, target=self.ui.CardWidget)
         self.gcc_unfinished = InfoBadge.error('未完成', parent=self, target=self.ui.CardWidget_2)
         self.pip_unfinished = InfoBadge.error('未完成', parent=self, target=self.ui.CardWidget_3)
+
+        self.bind()
 
     def get_hand_pythonexe_btn(self) -> TonalPushButton:
         return self.ui.TonalPushButton
@@ -49,6 +53,15 @@ class WelcomeView(FramelessWindow):
     def get_progress_bar(self) -> ProgressBar:
         return self.ui.ProgressBar
 
+    def show_finished_messagebox(self) -> None:
+        m = MessageBox('完成', '您已经完成了所有的设置,请等待模块安装完成后重启软件开始使用', parent=self,
+                       icon=FluentIcon.ACCEPT_MEDIUM)
+        m.setIconSize(QSize(50, 50))
+
+        if m.exec():
+            loguru.logger.debug('配置完成,重启软件')
+
+    @Slot(bool)
     def set_pythonexe_status(self, status: bool) -> None:
         if status:
             self.python_finished.show()
@@ -57,6 +70,7 @@ class WelcomeView(FramelessWindow):
         self.python_finished.hide()
         self.python_unfinished.show()
 
+    @Slot(bool)
     def set_gcc_status(self, status: bool) -> None:
         if status:
             self.gcc_finished.show()
@@ -65,6 +79,7 @@ class WelcomeView(FramelessWindow):
         self.gcc_finished.hide()
         self.gcc_unfinished.show()
 
+    @Slot(bool)
     def set_pip_status(self, status: bool) -> None:
         if status:
             self.pip_unfinished.hide()
@@ -73,26 +88,31 @@ class WelcomeView(FramelessWindow):
         self.pip_unfinished.show()
         self.pip_finished.hide()
 
+    @Slot()
     def get_pythonexe_path_by_hand(self) -> Optional[str]:
         """手动获取 python.exe 路径"""
         result = QFileDialog.getOpenFileName(self, '选择 python.exe', '', 'Python (*.exe)')
         return result[0] or None
 
+    @Slot()
     def progress_add_one(self) -> None:
         current_value = self.ui.ProgressBar.value()
         if current_value < self.ui.ProgressBar.maximum():
             self.ui.ProgressBar.setValue(self.ui.ProgressBar.value() + 1)
         return
 
+    @Slot()
     def progress_sub_one(self) -> None:
         current_value = self.ui.ProgressBar.value()
         if current_value > self.ui.ProgressBar.minimum():
             self.ui.ProgressBar.setValue(self.ui.ProgressBar.value() - 1)
         return
 
+    @Slot(int)
     def progress_set_value(self, value: int) -> None:
         self.ui.ProgressBar.setValue(value)
 
+    @Slot(bool)
     def set_finish_status(self, status: bool) -> None:
         if status:
             self.ui.OutlinedPushButton.setEnabled(True)
@@ -112,6 +132,9 @@ class WelcomeView(FramelessWindow):
 
     def show_error_info(self, title: str, content: str, duration: int = -1) -> None:
         InfoBar.error(title, content, parent=self, duration=duration)
+
+    def bind(self) -> None:
+        self.get_finish_btn().clicked.connect(lambda: self.show_finished_messagebox())
 
 
 if __name__ == '__main__':

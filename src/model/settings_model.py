@@ -11,6 +11,9 @@ class SettingsModel:
         self.pip_manager: PipManager = PipManager()
         self.python_manager: PythonManager = PythonManager()
 
+    def get_pythonexe(self) -> str:
+        return self.settings_manager.get(JsonSettings.PYTHONEXE.value)
+
     def set_pythonexe(self, pythonexe: str) -> None:
         self.settings_manager.set(JsonSettings.PYTHONEXE.value, pythonexe)
 
@@ -20,6 +23,9 @@ class SettingsModel:
         if pythonexe_auto:
             return str(pythonexe_auto[0])
         return ''
+
+    def get_pip_source(self) -> str:
+        return self.settings_manager.get(JsonSettings.FASTEST_PIP_SOURCE.value)
 
     def set_pip_source(self, pip_source: str) -> None:
         self.settings_manager.set(JsonSettings.FASTEST_PIP_SOURCE.value, pip_source)

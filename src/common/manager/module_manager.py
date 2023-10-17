@@ -6,6 +6,7 @@ import loguru
 from src.common.manager.pip_manager import PipManager
 from src.common.manager.settings_manager import SettingsManager
 from src.conf import config
+from src.core import JsonSettings
 from src.utils.singleton import Singleton
 
 
@@ -13,8 +14,8 @@ from src.utils.singleton import Singleton
 class ModuleManager:
     def __init__(self):
         self.settings_manager = SettingsManager()
-        self.fastest_pip_source = self.settings_manager.get(SettingsManager.FASTEST_PIP_SOURCE)
-        self.avaliable_python = self.settings_manager.get(SettingsManager.PYTHONEXE)
+        self.fastest_pip_source = self.settings_manager.get(JsonSettings.FASTEST_PIP_SOURCE.value)
+        self.avaliable_python = self.settings_manager.get(JsonSettings.PYTHONEXE.value)
         self.pip_manager = PipManager()
 
     @staticmethod

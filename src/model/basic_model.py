@@ -1,3 +1,8 @@
+from pathlib import Path
+
+import loguru
+from PySide6.QtGui import QImage
+
 from src.common.manager.command_manager import CommandManager
 from src.common.manager.plugin_manager import PluginManager
 from src.common.manager.process_manager import ProcessManager
@@ -12,6 +17,9 @@ class BasicModel:
 
     def get_py_file(self) -> str:
         return self.command_manager.get_option_value(StrCommands.main)
+
+    def get_output_dir(self) -> str:
+        return self.command_manager.get_option_value(StrCommands.output_dir)
 
     def set_py_file(self, py_file: str) -> None:
         self.command_manager.set_option_value(StrCommands.main, py_file)
@@ -29,5 +37,14 @@ class BasicModel:
         self.command_manager.set_option_value(BoolCommands.onefile, mode)
 
     def start(self) -> None:
-        print(self.command_manager.get_cmd())
-        # self.process_manager.new_window_run(self.command_manager.get_cmd())
+        cmd = self.command_manager.get_cmd()
+        loguru.logger.debug(f'打包命令为:{cmd}')
+
+        self.process_manager.new_window_run(cmd)
+
+    def rc_icon2local_ico(self, output_dir: Path) -> Path:
+        """将 qrc 中的图标转换成 ico 文件保存到 output 目录下"""
+        image = QImage(':/Icons/materialIcons/logo.ico')
+        output_icon = output_dir / 'icon.ico'
+        image.save(str(output_icon), format='ico')
+        return output_icon

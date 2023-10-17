@@ -100,6 +100,7 @@ class Ui_Form(object):
 
         self.CardWidget_2 = CardWidget(Form)
         self.CardWidget_2.setObjectName(u"CardWidget_2")
+        self.CardWidget_2.setEnabled(True)
         self.verticalLayout_3 = QVBoxLayout(self.CardWidget_2)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.TextEdit_2 = TextEdit(self.CardWidget_2)

@@ -49,20 +49,25 @@ class GccManager:
             return
         loguru.logger.error('GCC 环境变量添加失败')
 
-    @staticmethod
-    def is_gcc_available() -> bool:
+    def is_gcc_available(self) -> bool:
         try:
             output = subprocess.check_output(['gcc', "--version"], timeout=5)
         except Exception:
-            output = r""
-        return output.startswith(r"gcc") if output else False
+            output = b""
+        return output.startswith(b"gcc") if output else False
+
+    def is_gcc_zip_exists(self) -> bool:
+        return config_path.DOWNLOAD_DIR.joinpath('w64devkit-1.20.0.zip').exists()
 
     def initialize(self):
-        if GccManager.is_gcc_available():
+        if self.is_gcc_available():
             loguru.logger.debug('GCC 已安装，跳过安装')
             return
 
-        self.download()
+        if not self.is_gcc_zip_exists():
+            loguru.logger.debug('当前 GCC 压缩包不存在，开始下载')
+            self.download()
+
         self.install()
         loguru.logger.debug('GCC 初始化完成!')
 

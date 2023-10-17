@@ -2,8 +2,8 @@ from PySide6.QtCore import Signal
 from PySide6.QtGui import QDragEnterEvent
 from PySide6.QtWidgets import (QApplication, QWidget)
 from qmaterialwidgets import FluentIcon as FIF
-from qmaterialwidgets.components import (FilledPushButton, InfoBadge, OutlinedPushButton, SwitchButton, ToolTipFilter,
-                                         InfoBar, InfoBarPosition)
+from qmaterialwidgets.components import (FilledPushButton, InfoBadge, InfoBar, InfoBarPosition, OutlinedPushButton,
+                                         SwitchButton, ToolTipFilter)
 
 from src.component.dropMask import MaskDialogBase
 from src.interface.Ui_basic_page import Ui_basic_page
@@ -108,6 +108,9 @@ class BasicView(QWidget):
         self.ui.LBOutputPath.setText(text)
         self._output_dir = text
 
+    def resize_mask(self) -> None:
+        self.get_mask().resize(self.width(), self.height())
+
     def show_info(self, title: str, content: str, duration: int = -1) -> None:
         InfoBar.info(title, content, parent=self, duration=duration, position=InfoBarPosition.TOP)
 
@@ -123,6 +126,10 @@ class BasicView(QWidget):
     def dragEnterEvent(self, e: QDragEnterEvent):
         if e.mimeData().hasText():
             self.dialog_mask.show()
+
+    # 窗体大小发生改变触发事件
+    def resizeEvent(self, event):
+        self.resize_mask()
 
     def initialize(self) -> None:
         for each in self.findChildren(QWidget):
