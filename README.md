@@ -5,8 +5,8 @@ NuitkaGUI 是一个可视化的打包工具，封装了 nuitka 的一些主要�
 <br />
 
 <p align="center">
-  <a href="./assets/materialIcons/software_icon.svg">
-    <img src="./assets/materialIcons/software_icon.svg" alt="Logo" width="80" height="80">
+  <a href="README.assets/software_icon.svg">
+    <img src="README.assets/software_icon.svg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">NuitkaGUI</h3>
@@ -20,6 +20,8 @@ NuitkaGUI 是一个可视化的打包工具，封装了 nuitka 的一些主要�
 
 </p>
 
+![image-20231022215737580](./README.assets/image-20231022215737580.png)
+
 ## 目录
 
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
@@ -28,54 +30,14 @@ NuitkaGUI 是一个可视化的打包工具，封装了 nuitka 的一些主要�
 
 - [NuitkaGUI](#nuitkagui)
   - [目录](#目录)
-  - [图片展示](#图片展示)
   - [软件功能](#软件功能)
   - [上手指南](#上手指南)
     - [推荐运行方法](#推荐运行方法)
     - [编译运行](#编译运行)
+  - [图片展示](#图片展示)
   - [鸣谢](#鸣谢)
 
 <!-- /code_chunk_output -->
-
-## 图片展示
-
-![image-20231022215548974](./README.assets/image-20231022215548974.png)
-
-<center><strong>首次运行的设置页面</strong></center>
-
-![image-20231022215652746](./README.assets/image-20231022215652746.png)
-
-<center><strong>设置完成</strong></center>
-
-![image-20231022215737580](./README.assets/image-20231022215737580.png)
-
-<center><strong>主页面</strong></center>
-
-![image-20231022215822295](./README.assets/image-20231022215822295.png)
-
-![image-20231022215837221](./README.assets/image-20231022215837221.png)
-
-<center><strong>文件拖动显示</strong></center>
-
-![image-20231022215914140](./README.assets/image-20231022215914140.png)
-
-<center><strong>高级页面参数</strong></center>
-
-![image-20231022220004302](./README.assets/image-20231022220004302.png)
-
-<center><strong>插件页面</strong></center>
-
-![image-20231022220211606](./README.assets/image-20231022220211606.png)
-
-<center><strong>嵌入文件页面</strong></center>
-
-![image-20231022220232093](./README.assets/image-20231022220232093.png)
-
-<center><strong>参数页面</strong></center>
-
-![image-20231022220244020](./README.assets/image-20231022220244020.png)
-
-<center><strong>设置页面</strong></center>
 
 ## 软件功能
 
@@ -103,6 +65,47 @@ pip install -r requirements.txt
 ```
 
 然后运行项目根目录下的 `main.py` 文件
+
+## 图片展示
+
+> 首次运行的设置页面
+
+![image-20231022215548974](./README.assets/image-20231022215548974.png)
+
+> 设置完成
+
+![image-20231022215652746](./README.assets/image-20231022215652746.png)
+
+> 主页面
+
+![image-20231022215737580](./README.assets/image-20231022215737580.png)
+
+> 文件拖动显示
+
+![image-20231022215822295](./README.assets/image-20231022215822295.png)
+
+![image-20231022215837221](./README.assets/image-20231022215837221.png)
+
+> 文件拖动显示
+
+![image-20231022215914140](./README.assets/image-20231022215914140.png)
+
+> 插件页面
+
+![image-20231022220004302](./README.assets/image-20231022220004302.png)
+
+> 嵌入文件页面
+
+![image-20231022220211606](./README.assets/image-20231022220211606.png)
+
+> 参数页面
+
+![image-20231022220232093](./README.assets/image-20231022220232093.png)
+
+> 设置页面
+
+![image-20231022220244020](./README.assets/image-20231022220244020.png)
+
 
 ## 鸣谢
 
