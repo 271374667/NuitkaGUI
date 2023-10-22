@@ -14,8 +14,8 @@ from src.utils.singleton import Singleton
 class ModuleManager:
     def __init__(self):
         self.settings_manager = SettingsManager()
-        self.fastest_pip_source = self.settings_manager.get(JsonSettings.FASTEST_PIP_SOURCE.value)
-        self.avaliable_python = self.settings_manager.get(JsonSettings.PYTHONEXE.value)
+        self.fastest_pip_source = self.settings_manager.get(JsonSettings.FastestPipSrouce.value)
+        self.avaliable_python = self.settings_manager.get(JsonSettings.PythonExe.value)
         self.pip_manager = PipManager()
 
     @staticmethod

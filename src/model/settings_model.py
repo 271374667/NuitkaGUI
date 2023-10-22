@@ -12,10 +12,10 @@ class SettingsModel:
         self.python_manager: PythonManager = PythonManager()
 
     def get_pythonexe(self) -> str:
-        return self.settings_manager.get(JsonSettings.PYTHONEXE.value)
+        return self.settings_manager.get(JsonSettings.PythonExe.value)
 
     def set_pythonexe(self, pythonexe: str) -> None:
-        self.settings_manager.set(JsonSettings.PYTHONEXE.value, pythonexe)
+        self.settings_manager.set(JsonSettings.PythonExe.value, pythonexe)
 
     def get_auto_pythonexe(self) -> str:
         """返回一个可用的 Python.exe 路径"""
@@ -25,13 +25,13 @@ class SettingsModel:
         return ''
 
     def get_pip_source(self) -> str:
-        return self.settings_manager.get(JsonSettings.FASTEST_PIP_SOURCE.value)
+        return self.settings_manager.get(JsonSettings.FastestPipSrouce.value)
 
     def set_pip_source(self, pip_source: str) -> None:
-        self.settings_manager.set(JsonSettings.FASTEST_PIP_SOURCE.value, pip_source)
+        self.settings_manager.set(JsonSettings.FastestPipSrouce.value, pip_source)
 
     def set_optimization_enabled(self, optimization_enabled: bool) -> None:
-        self.settings_manager.set(JsonSettings.OPTIMIZATION_ENABLED.value, optimization_enabled)
+        self.settings_manager.set(JsonSettings.OptimizationEnabled.value, optimization_enabled)
 
     def get_fastest_pip_source(self) -> str:
         return self.pip_manager.get_fastest_pip_source_by_network()

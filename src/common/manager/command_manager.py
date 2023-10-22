@@ -42,7 +42,7 @@ class CommandManager:
         # use a small for-loop 3 times to replace a big for-loop with many if
         enable_cmd_list = []
         # 获取 python 路径，以及填写 nuitka 起手式
-        pythonexe_path = self.settings_manager.get(JsonSettings.PYTHONEXE.value)
+        pythonexe_path = self.settings_manager.get(JsonSettings.PythonExe.value)
         if pythonexe_path == '':
             enable_cmd_list.extend(['nuitka'])
         else:

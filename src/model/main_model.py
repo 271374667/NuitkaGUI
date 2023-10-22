@@ -7,10 +7,10 @@ class MainModel:
         self.settings_manager: SettingsManager = SettingsManager()
 
     def get_pythonexe(self) -> str:
-        return self.settings_manager.get(JsonSettings.PYTHONEXE.value)
+        return self.settings_manager.get(JsonSettings.PythonExe.value)
 
     def set_optimization_enabled(self, status: bool) -> None:
-        self.settings_manager.set(JsonSettings.OPTIMIZATION_ENABLED.value, status)
+        self.settings_manager.set(JsonSettings.OptimizationEnabled.value, status)
 
     def is_pythonexe_available(self) -> bool:
         pythonexe = self.get_pythonexe()
@@ -19,4 +19,4 @@ class MainModel:
         return True
 
     def is_optimization_enabled(self) -> bool:
-        return self.settings_manager.get(JsonSettings.OPTIMIZATION_ENABLED.value)
+        return self.settings_manager.get(JsonSettings.OptimizationEnabled.value)

@@ -13,10 +13,12 @@ Examples:
 """
 
 import time
+from typing import Callable, Optional
 
 import loguru
 from PySide6.QtCore import QObject, QThread, Signal
-from PySide6.QtWidgets import QApplication, QLabel, QPushButton, QVBoxLayout, QWidget
+from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QVBoxLayout,
+                               QWidget)
 
 
 class WorkThread(QObject):
@@ -27,7 +29,7 @@ class WorkThread(QObject):
         super().__init__()
         self.kwargs = None
         self.args = None
-        self.func = None
+        self.func: Optional[Callable] = None
 
     def set_start_func(self, func, *args, **kwargs):
         self.func = func
@@ -50,20 +52,20 @@ class WorkThread(QObject):
 class RunInThread(QObject):
     def __init__(self):
         super().__init__()
-        self.finished_func = None
+        self.finished_func: Optional[Callable] = None
         self.worker = WorkThread()
-        self.thread = QThread()
-        self.worker.moveToThread(self.thread)
+        self.mythread = QThread()
+        self.worker.moveToThread(self.mythread)
 
-        self.thread.started.connect(self.worker.start)
+        self.mythread.started.connect(self.worker.start)
         self.worker.finished_signal.connect(self.worker.deleteLater)
-        self.worker.destroyed.connect(self.thread.quit)
-        self.thread.finished.connect(self.thread.deleteLater)
-        self.thread.destroyed.connect(self.deleteLater)
+        self.worker.destroyed.connect(self.mythread.quit)
+        self.mythread.finished.connect(self.mythread.deleteLater)
+        self.mythread.destroyed.connect(self.deleteLater)
 
     def start(self):
         """当函数设置完毕之后调用start即可"""
-        self.thread.start()
+        self.mythread.start()
 
     def set_start_func(self, func, *args, **kwargs):
         """设置一个开始函数

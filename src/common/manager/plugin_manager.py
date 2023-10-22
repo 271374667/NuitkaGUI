@@ -16,7 +16,7 @@ class PluginManager:
     def __init__(self):
         self._plugin_list = None
         self.settings_manager = SettingsManager()
-        self._pythonexe_path = self.settings_manager.get(JsonSettings.PYTHONEXE.value)
+        self._pythonexe_path = self.settings_manager.get(JsonSettings.PythonExe.value)
         self._plugin_enable_dict: Dict[Union[Plugin, str], bool] = {}
 
         self.trans = {'PySide6': 'pyside6',

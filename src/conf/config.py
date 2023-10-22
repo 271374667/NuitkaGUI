@@ -14,11 +14,11 @@ __version__ = '0.0.7'
 MAX_OUTPUT_LINE = 1500
 
 JSON_SETTINGS_DICT = {
-        JsonSettings.PYTHONEXE.value: '',
-        JsonSettings.FASTEST_PIP_SOURCE.value: 'https://pypi.org/simple',
-        JsonSettings.GCC_AVAILABLE.value: False,
-        JsonSettings.FIRST_RUN.value: True,
-        JsonSettings.OPTIMIZATION_ENABLED.value: True
+        JsonSettings.PythonExe.value: '',
+        JsonSettings.FastestPipSrouce.value: 'https://pypi.org/simple',
+        JsonSettings.GccAvailable.value: False,
+        JsonSettings.FirstRun.value: True,
+        JsonSettings.OptimizationEnabled.value: True
         }
 
 

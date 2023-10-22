@@ -16,7 +16,7 @@ def start() -> None:
     settings_manager: SettingsManager = SettingsManager()
     settings_manager.initialize()
 
-    is_first_run = settings_manager.get(JsonSettings.FIRST_RUN.value)
+    is_first_run = settings_manager.get(JsonSettings.FirstRun.value)
     if is_first_run:
         loguru.logger.info('第一次运行程序,启动欢迎界面')
         window: WelcomePresenter = WelcomePresenter()

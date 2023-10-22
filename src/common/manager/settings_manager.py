@@ -16,11 +16,11 @@ class SettingsManager:
     def __init__(self):
         self._settings = deepcopy(config.JSON_SETTINGS_DICT)
         # self._settings = {
-        #         JsonSettings.PYTHONEXE.value: '',
-        #         JsonSettings.FASTEST_PIP_SOURCE.value: 'https://pypi.org/simple',
-        #         JsonSettings.GCC_AVAILABLE.value: False,
-        #         JsonSettings.FIRST_RUN.value: True,
-        #         JsonSettings.OPTIMIZATION_ENABLED.value: True
+        #         JsonSettings.PythonExe.value: '',
+        #         JsonSettings.FastestPipSrouce.value: 'https://pypi.org/simple',
+        #         JsonSettings.GccAvailable.value: False,
+        #         JsonSettings.FirstRun.value: True,
+        #         JsonSettings.OptimizationEnabled.value: True
         #         }
         self._settings_file = config_path.SETTINGS_FILE
         self.initialize()
@@ -65,4 +65,4 @@ if __name__ == '__main__':
     sm.initialize()
     sm.set('first_run', True)
     print(sm.get('first_run'))
-    print(sm.get(JsonSettings.FASTEST_PIP_SOURCE.value))
+    print(sm.get(JsonSettings.FastestPipSrouce.value))

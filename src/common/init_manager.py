@@ -10,9 +10,9 @@ LoggerManager().initialize()  # 初始化日志
 # 初始化配置管理器
 settings_manager = SettingsManager()
 settings_manager.initialize()
-# pythonexe = settings_manager.get(SettingsManager.PYTHONEXE)
-# pypi_url = settings_manager.get(SettingsManager.FASTEST_PIP_SOURCE)
-# gcc_available = settings_manager.get(SettingsManager.GCC_AVAILABLE)
+# pythonexe = settings_manager.get(SettingsManager.PythonExe)
+# pypi_url = settings_manager.get(SettingsManager.FastestPipSrouce)
+# gcc_available = settings_manager.get(SettingsManager.GccAvailable)
 
 # 初始化 Python 管理器
 python_manager = PythonManager()

@@ -20,8 +20,8 @@ class PipManager:
             package_name: 包名
         """
         loguru.logger.debug(f'安装 pip 包: {package_name}')
-        fastest_pip_source = self.settings_manager.get(JsonSettings.FASTEST_PIP_SOURCE.value)
-        pythonexe = self.settings_manager.get(JsonSettings.PYTHONEXE.value)
+        fastest_pip_source = self.settings_manager.get(JsonSettings.FastestPipSrouce.value)
+        pythonexe = self.settings_manager.get(JsonSettings.PythonExe.value)
 
         # 如果没有设置 pip 源,则默认使用清华源
         if fastest_pip_source is None:
@@ -42,7 +42,7 @@ class PipManager:
 
     def get_module_version(self, module_name: str):
         """该方法目前是冗余方法，没有实际上被使用"""
-        pythonexe = self.settings_manager.get(JsonSettings.PYTHONEXE.value)
+        pythonexe = self.settings_manager.get(JsonSettings.PythonExe.value)
         response = subprocess.run([pythonexe, '-m', 'pip', 'show', module_name],
                                   stdout=subprocess.PIPE,
                                   stderr=subprocess.PIPE, encoding='gbk')
@@ -57,10 +57,10 @@ class PipManager:
 
     def get_fastest_pip_source_by_settings(self) -> str:
         """从本地配置文件获取最快的 pypi 源"""
-        return self.settings_manager.get(JsonSettings.FASTEST_PIP_SOURCE.value)
+        return self.settings_manager.get(JsonSettings.FastestPipSrouce.value)
 
     def set_pip_source(self, value: str) -> None:
-        self.settings_manager.set(JsonSettings.FASTEST_PIP_SOURCE.value, value)
+        self.settings_manager.set(JsonSettings.FastestPipSrouce.value, value)
 
     @staticmethod
     def get_default_pip_source() -> str:
@@ -69,7 +69,7 @@ class PipManager:
 
     def initialize(self):
         fastest_pip_source = get_fastest_url([x.value for x in config.PipSource])
-        self.settings_manager.set(JsonSettings.FASTEST_PIP_SOURCE.value, fastest_pip_source)
+        self.settings_manager.set(JsonSettings.FastestPipSrouce.value, fastest_pip_source)
         loguru.logger.debug(f'pip 源初始化完成!最快的 pip 源: {fastest_pip_source}')
 
 

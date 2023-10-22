@@ -180,7 +180,7 @@ class WelcomePresenter(QObject):
         self.module_manager.initialize()
 
         # 保存配置
-        self.settings_manager.set(JsonSettings.FIRST_RUN.value, False)
+        self.settings_manager.set(JsonSettings.FirstRun.value, False)
         self.finished.emit()
         self.get_view().close()
 

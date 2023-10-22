@@ -69,8 +69,8 @@ class IntCommands(Enum):
 
 
 class JsonSettings(Enum):
-    PYTHONEXE = 'pythonexe'
-    FASTEST_PIP_SOURCE = 'pypi_url'
-    GCC_AVAILABLE = 'gcc_available'
-    FIRST_RUN = 'first_run'
-    OPTIMIZATION_ENABLED = 'optimization_enabled'
+    PythonExe = 'pythonexe'
+    FastestPipSrouce = 'pypi_url'
+    GccAvailable = 'gcc_available'
+    FirstRun = 'first_run'
+    OptimizationEnabled = 'optimization_enabled'
