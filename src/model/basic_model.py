@@ -47,4 +47,5 @@ class BasicModel:
         image = QImage(':/Icons/materialIcons/logo.ico')
         output_icon = output_dir / 'icon.ico'
         image.save(str(output_icon), format='ico')
+        loguru.logger.debug(f'已经将 qrc 中的图标转换成 ico 文件保存到 {output_icon}')
         return output_icon

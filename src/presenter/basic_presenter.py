@@ -50,6 +50,12 @@ class BasicPresenter:
         self.get_view().set_output_status(False)
         self.get_model().set_output_dir(str(self._get_default_output_dir()))
 
+        # 设置图标的默认值
+        self.get_view().get_icon().setToolTip(str(config_path.ICO_FILE))
+        self.get_view().set_icon_status(True)
+        self.get_model().set_icon(str(config_path.ICO_FILE))
+        loguru.logger.info(f'选择图标为:{str(config_path.ICO_FILE)}')
+
     @Slot()
     def select_py_file_btn_clicked(self) -> None:
         """选择 Python 文件按钮点击的时候会触发这个函数"""
@@ -140,12 +146,13 @@ class BasicPresenter:
 
         def run():
             self._create_output_dir()
-            if not self.get_model().get_icon():
+            if not Path(self.get_model().get_icon()).exists():
                 # 先把 qrc 中的图标转换成 ico 文件保存到 output 目录下
-                output_icon = self.get_model().rc_icon2local_ico(Path(self.get_model().get_output_dir()))
-                self.get_model().set_icon(str(output_icon))
+                # output_icon = self.get_model().rc_icon2local_ico(Path(self.get_model().get_output_dir()))
+                self.get_model().set_icon(str(config_path.ICO_FILE))
             loguru.logger.info('开始打包')
             self.get_model().start()
+            loguru.logger.debug(f'output_icon:{self.get_model().get_icon()}')
 
         def finished_func():
             loguru.logger.info('打包完成')
