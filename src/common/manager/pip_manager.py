@@ -27,7 +27,8 @@ class PipManager:
         if fastest_pip_source is None:
             fastest_pip_source = config.PipSource.QingHua.value
 
-        available_python = pythonexe
+        available_python = pythonexe  # 版本迭代留下的坑
+
         command_args_list = [available_python, '-m', 'pip', 'install', package_name, '-i',
                 fastest_pip_source, '-U']
         loguru.logger.debug(f'执行命令: {command_args_list}')

@@ -1,4 +1,5 @@
 from PySide6.QtCore import QObject, Signal, Slot
+from qmaterialwidgets import FluentIcon, MessageBox
 
 from src.common.manager.module_manager import ModuleManager
 from src.common.manager.settings_manager import SettingsManager
@@ -65,6 +66,9 @@ class WelcomePresenter(QObject):
             self.get_view().progress_set_value(self._get_finished_count())
             self.get_view().show_success_info('python.exe 可用:', result)
             self.get_model().set_pythonexe_path(result)
+
+            # 安装第三方库
+            self.module_manager.initialize()
             return
         self.get_view().show_error_info('python.exe 不可用', '请重新选择 python.exe')
         self._is_pythonexe_finished = False
@@ -79,12 +83,24 @@ class WelcomePresenter(QObject):
         def run(result):
             btn = self.get_view().get_auto_pythonexe_btn()
             if result and self.get_model().is_pythonexe_avialable(result):
+                msg = MessageBox('选择 Python', f'当前检测到了一个可用的 Python\n{result}', self.get_view(),
+                           FluentIcon.INFO)
+                msg.yesButton.setText('选择当前 Python')
+                msg.cancelButton.setText('取消,我要自己选择 Python')
+
+                if not msg.exec():
+                    self.get_view().get_auto_pythonexe_btn().setEnabled(True)
+                    return
+
                 self._is_pythonexe_finished = True
                 self.get_view().show_success_info('找到可用 python.exe', result)
                 self.get_view().set_pythonexe_status(True)
                 self.get_view().progress_set_value(self._get_finished_count())
                 self.get_model().set_pythonexe_path(result)
                 btn.setEnabled(True)
+
+                # 安装第三方库
+                self.module_manager.initialize()
                 return
             self._is_pythonexe_finished = False
             self.get_view().set_pythonexe_status(False)
@@ -176,8 +192,6 @@ class WelcomePresenter(QObject):
     @Slot()
     def finished_btn_clicked(self) -> None:
         """完成按钮点击事件"""
-        # 安装第三方库
-        self.module_manager.initialize()
 
         # 保存配置
         self.settings_manager.set(JsonSettings.FirstRun.value, False)

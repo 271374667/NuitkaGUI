@@ -12,8 +12,8 @@ LOG_DIR = PROJECT_DIR / 'logs'  # 日志目录
 GCC_INSTALL_DIR = PROJECT_DIR / 'gcc'  # GCC 的安装目录
 
 # 文件路径
-ARIA2C_FILE = PROJECT_DIR / 'aria2c.exe'  # aria2c.exe 的路径
-GCC_FILE = PROJECT_DIR / 'w64devkit-1.20.0.zip'  # gcc.exe 的路径
+ARIA2C_FILE = ASSETS_DIR / 'aria2c.exe'  # aria2c.exe 的路径
+GCC_FILE = ASSETS_DIR / 'w64devkit-1.20.0.zip'  # gcc.exe 的路径
 QRC_FILE = PROJECT_DIR / 'assets' / 'res.qrc'  # 资源文件的路径
 QRC_PY_FILE = RESOURCE_DIR / f'rc_{QRC_FILE.stem}.py'  # 资源文件编译后的路径
 RUNTIME_PYTHON_FILE = SRC_HOME / 'conf' / 'runtime_config.pkl'  # 运行时的全局变量配置

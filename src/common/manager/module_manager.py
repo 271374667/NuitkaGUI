@@ -8,6 +8,7 @@ from src.common.manager.settings_manager import SettingsManager
 from src.conf import config
 from src.core import JsonSettings
 from src.utils.singleton import Singleton
+from concurrent.futures import ThreadPoolExecutor
 
 
 @Singleton
@@ -17,6 +18,7 @@ class ModuleManager:
         self.fastest_pip_source = self.settings_manager.get(JsonSettings.FastestPipSrouce.value)
         self.avaliable_python = self.settings_manager.get(JsonSettings.PythonExe.value)
         self.pip_manager = PipManager()
+        self._thread_pool = ThreadPoolExecutor(max_workers=10)
 
     @staticmethod
     def get_all_package_in_dir(dir_path: Path) -> list[str]:
@@ -49,7 +51,8 @@ class ModuleManager:
     def initialize(self):
         module_list = [x.name for x in config.ModuleVersion]  # ['nuitka']
         for each in module_list:
-            self.pip_manager.install(each)
+            self._thread_pool.submit(self.pip_manager.install, each)
+            # self.pip_manager.install(each)
         loguru.logger.debug('第三方库模块初始化完成!')
 
 

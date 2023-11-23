@@ -54,7 +54,7 @@ class WelcomeView(FramelessWindow):
         return self.ui.ProgressBar
 
     def show_finished_messagebox(self) -> None:
-        m = MessageBox('完成', '您已经完成了所有的设置,请等待模块安装完成后重启软件开始使用', parent=self,
+        m = MessageBox('完成', '您已经完成了所有的设置,请重启软件后开始使用', parent=self,
                        icon=FluentIcon.ACCEPT_MEDIUM)
         m.setIconSize(QSize(50, 50))
 
