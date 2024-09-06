@@ -28,10 +28,10 @@ class ModuleVersion(Enum):
 
 class PipSource(Enum):
     QingHua = 'https://pypi.tuna.tsinghua.edu.cn/simple'
-    ALiYun = 'http://mirrors.aliyun.com/pypi/simple/'
+    ALiYun = 'https://mirrors.aliyun.com/pypi/simple/'
     ZhongGuoKeJiDaXue = 'https://pypi.mirrors.ustc.edu.cn/simple/'
-    DouBan = 'http://pypi.douban.com/simple/'
-    ZhongGuoKeJiJiShuDaXue = 'http://pypi.mirrors.ustc.edu.cn/simple/'
+    DouBan = 'https://pypi.douban.com/simple/'
+    ZhongGuoKeJiJiShuDaXue = 'https://pypi.mirrors.ustc.edu.cn/simple/'
     Default = 'https://pypi.org/simple/'
 
 
