@@ -1,0 +1,29 @@
+[project]
+name = "nuitkagui"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "PythonImporter", email = "271374667@qq.com" }
+]
+dependencies = [
+    "loguru>=0.7.2",
+    "pyside6-fluent-widgets>=1.6.3",
+]
+readme = "README.md"
+requires-python = ">= 3.10"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "nuitka>=2.4.8",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nuitkagui"]
