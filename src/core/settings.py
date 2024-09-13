@@ -1,6 +1,6 @@
 from typing import Sequence
 
-MAX_FILES_IN_DIR: int = 1000
+MAX_FILES_IN_DIR: int = 500
 IGNORE_DIRS: Sequence[str] = ('.git',
                               '.idea',
                               '__pycache__',
