@@ -12,7 +12,7 @@ class EmbedView(MessageBaseView):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
-    def get_open_new_dir_btn(self) -> PrimaryPushButton:
+    def get_load_dir_btn(self) -> PrimaryPushButton:
         return self.ui.BTNFlushDir
 
     def get_file_tree(self) -> EmbedFileTree:
