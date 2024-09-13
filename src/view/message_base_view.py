@@ -107,9 +107,9 @@ class MessageBaseView(QWidget):
         self,
         title: str = "Title",
         content: str = "Content",
-        duration: int = 5000,
+        duration: int = 3000,
         position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-        is_closable: bool = False,
+        is_closable: bool = True,
     ) -> None:
         """显示一个警告信息提示框
 
@@ -137,7 +137,7 @@ class MessageBaseView(QWidget):
         content: str = "Content",
         duration: int = -1,
         position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-        is_closable: bool = False,
+        is_closable: bool = True,
     ) -> None:
         """显示一个错误信息提示框
 
