@@ -91,7 +91,7 @@ class WorkThread(QObject):
         super().__init__()
         self.kwargs = None
         self.args = None
-        self.func: Callable
+        self.func: Optional[Callable] = None
 
     def set_start_func(self, func, *args, **kwargs):
         self.func = func
@@ -100,11 +100,15 @@ class WorkThread(QObject):
 
     def start(self):
         if self.args or self.kwargs:
-            func_return = self.func(*self.args, **self.kwargs)
+            result = self.func(*self.args, **self.kwargs)
         else:
-            func_return = self.func()
-        self.result.emit(func_return)
+            result = self.func()
+        loguru.logger.debug(f'线程函数执行完毕, 返回值为{result}')
+        self.result.emit(result)
         self.finished_signal.emit()
+
+    def __del__(self):
+        loguru.logger.debug('线程对象被删除了,内存已经释放')
 
 
 class RunInThread(QObject):
@@ -139,9 +143,7 @@ class RunInThread(QObject):
         self.worker.result.connect(self._done_callback)
 
     def _done_callback(self, *args, **kwargs):
-        if len(args) == 2 or kwargs:
+        if args != (None,) or kwargs:
             self.finished_func(*args, **kwargs)
-        elif len(args) == 1:
-            self.finished_func(args[0])
         else:
             self.finished_func()
