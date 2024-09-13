@@ -62,24 +62,28 @@ class EmbedFileTree(QTreeWidget):
             iterator += 1
         return path_list
 
-    def get_nuitka_cmd(self) -> List[str]:
-        """生成Nuitka命令"""
+    def get_nuitka_cmd(self) -> tuple[list[str], list[str]]:
+        """生成Nuitka命令
+
+        Returns:
+            list[str]: 文件列表
+            list[str]: 文件夹列表
+        """
         selected_path_list = self.get_all_path()
-        cmd_list = []
+        files_cmd_list: list[str] = []
+        dirs_cmd_list: list[str] = []
         last_dir = ''
         for each in selected_path_list:
             if each.type == '文件夹':
                 if each.relative_path.startswith(last_dir) and last_dir:
                     continue
                 last_dir = each.relative_path
-                cmd_list.append(
-                    f'--include-data-dir={each.absolute_path}={each.relative_path}')
+                dirs_cmd_list.append(f'{each.absolute_path}={each.relative_path}')
             elif each.type == '文件':
                 if each.relative_path.startswith(last_dir) and last_dir:
                     continue
-                cmd_list.append(
-                    f'--include-data-files={each.absolute_path}={each.relative_path}')
-        return cmd_list
+                files_cmd_list.append(f'{each.absolute_path}={each.relative_path}')
+        return files_cmd_list, dirs_cmd_list
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
