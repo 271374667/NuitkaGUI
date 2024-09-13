@@ -3,7 +3,9 @@ from pathlib import Path
 widget_dict: dict[str, str] = {
     "TonalPushButton": "PushButton",
     "FilledPushButton": "PrimaryPushButton",
-    "OutlinedPushButton": "PillPushButton"
+    "OutlinedPushButton": "PillPushButton",
+    "qmaterialwidgets": "qfluentwidgets",
+    "OutlinedCardWidget": "SimpleCardWidget",
 }
 
 
@@ -24,5 +26,5 @@ def tran_material2fluent(source_path: Path) -> Path:
 
 
 if __name__ == '__main__':
-    source_path = r"E:\load\python\Project\nuitkaGUIOld\githubOpenSource2\ui\welcome_page.ui"
+    source_path = r"E:\load\python\Project\nuitkaGUIOld\githubOpenSource2\ui\embed_page.ui"
     print(tran_material2fluent(Path(source_path)))
