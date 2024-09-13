@@ -17,8 +17,14 @@ class EmbedModel:
     def extend_include_data_files(self, values: list[str]):
         self._command_manager.include_data_files.extend(values)
 
+    def set_include_data_files(self, values: list[str]):
+        self._command_manager.include_data_files.value = values
+
     def add_include_data_dir(self, value: str):
         self._command_manager.include_data_dir.add(value)
 
     def extend_include_data_dir(self, values: list[str]):
         self._command_manager.include_data_dir.extend(values)
+
+    def set_include_data_dir(self, values: list[str]):
+        self._command_manager.include_data_dir.value = values
