@@ -1,5 +1,6 @@
 from abc import ABC
 from enum import Enum
+from pathlib import Path
 from typing import Optional
 
 from PySide6.QtWidgets import QWidget
@@ -95,6 +96,24 @@ class CommandIntBase(CommandValueBase):
         if self.number_range[0] <= value <= self.number_range[1]:
             self._value = value
         raise ValueError(f'Value must be in range {self.number_range}')
+
+
+class CommandPathBase(CommandValueBase):
+    _value: str = ''
+
+    @property
+    def value(self) -> Optional[Path]:
+        return Path(self._value) if self._value and Path(self._value).exists() else None
+
+    @value.setter
+    def value(self, value: str | Path | None):
+        if value is None:
+            self._value = ''
+            return
+        elif isinstance(value, Path):
+            self._value = str(value)
+            return
+        self._value = value
 
 
 class CommandMultipleTimesBase(CommandValueBase):

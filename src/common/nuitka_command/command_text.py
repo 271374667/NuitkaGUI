@@ -1,18 +1,6 @@
 from src.common.nuitka_command.command import CommandValueBase
 
 
-class CommandOutputDir(CommandValueBase):
-    command: str = 'output-dir'
-
-
-class CommandMain(CommandValueBase):
-    command: str = 'main'
-
-
-class CommandWindowsIconFromIco(CommandValueBase):
-    command: str = 'windows-icon-from-ico'
-
-
 class CommandWindowsCompanyName(CommandValueBase):
     command: str = 'windows-company-name'
 
