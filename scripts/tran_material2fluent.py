@@ -1,11 +1,14 @@
 from pathlib import Path
 
+from src.core.paths import UI_DIR
+
 widget_dict: dict[str, str] = {
     "TonalPushButton": "PushButton",
     "FilledPushButton": "PrimaryPushButton",
     "OutlinedPushButton": "PillPushButton",
     "qmaterialwidgets": "qfluentwidgets",
     "OutlinedCardWidget": "SimpleCardWidget",
+    "PillPushButton": "PushButton"
 }
 
 
@@ -26,5 +29,10 @@ def tran_material2fluent(source_path: Path) -> Path:
 
 
 if __name__ == '__main__':
-    source_path = r"E:\load\python\Project\nuitkaGUIOld\githubOpenSource2\ui\embed_page.ui"
-    print(tran_material2fluent(Path(source_path)))
+    source_path = r"E:\load\python\Project\nuitkaGUIOld\githubOpenSource2\ui\basic_page.ui"
+    result_path = tran_material2fluent(Path(source_path))
+    target_path = UI_DIR / result_path.name
+    if target_path.exists():
+        target_path.unlink()
+    result_path.rename(target_path)
+    print(f"Transformed {source_path} to {result_path}, and moved to {target_path}")
