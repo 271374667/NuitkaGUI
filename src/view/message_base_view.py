@@ -40,13 +40,13 @@ class MessageBaseView(QWidget):
         return bool(w.exec())
 
     def show_info_infobar(
-        self,
-        title: str = "Title",
-        content: str = "Content",
-        duration: int = 5000,
-        position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-        is_closable: bool = True,
-        button_text: Optional[str] = None,
+            self,
+            title: str = "Title",
+            content: str = "Content",
+            duration: int = 5000,
+            position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
+            is_closable: bool = True,
+            button_text: Optional[str] = None,
     ) -> None:
         """显示一个信息提示框
 
@@ -76,12 +76,12 @@ class MessageBaseView(QWidget):
         w.show()
 
     def show_success_infobar(
-        self,
-        title: str = "Title",
-        content: str = "Content",
-        duration: int = 4000,
-        position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-        is_closable: bool = True,
+            self,
+            title: str = "Title",
+            content: str = "Content",
+            duration: int = 4000,
+            position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
+            is_closable: bool = True,
     ) -> None:
         """显示一个成功信息提示框
 
@@ -104,12 +104,12 @@ class MessageBaseView(QWidget):
         w.show()
 
     def show_warning_infobar(
-        self,
-        title: str = "Title",
-        content: str = "Content",
-        duration: int = 3000,
-        position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-        is_closable: bool = True,
+            self,
+            title: str = "Title",
+            content: str = "Content",
+            duration: int = 3000,
+            position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
+            is_closable: bool = True,
     ) -> None:
         """显示一个警告信息提示框
 
@@ -132,12 +132,12 @@ class MessageBaseView(QWidget):
         w.show()
 
     def show_error_infobar(
-        self,
-        title: str = "Title",
-        content: str = "Content",
-        duration: int = -1,
-        position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
-        is_closable: bool = True,
+            self,
+            title: str = "Title",
+            content: str = "Content",
+            duration: int = -1,
+            position: InfoBarPosition = InfoBarPosition.TOP_RIGHT,
+            is_closable: bool = True,
     ) -> None:
         """显示一个错误信息提示框
 
@@ -160,9 +160,9 @@ class MessageBaseView(QWidget):
         w.show()
 
     def show_state_tooltip(
-        self,
-        title: str,
-        content: str,
+            self,
+            title: str,
+            content: str,
     ) -> None:
         """显示一个状态提示框
 
