@@ -25,6 +25,7 @@ class EmbedPresenter:
 
     def bind(self):
         self._view.get_load_dir_btn().clicked.connect(self._load_dir)
+        self._view.get_file_tree().clicked.connect(self.write_nuitka_cmd)
 
     def get_nuitka_cmd(self) -> tuple[list[str], list[str]]:
         """生成Nuitka命令
@@ -36,7 +37,7 @@ class EmbedPresenter:
         return self._view.get_file_tree().get_nuitka_cmd()
 
     def write_nuitka_cmd(self):
-        source_script_path = self._model.get_source_script_path()
+        source_script_path = self._model.source_script_path
         if not source_script_path:
             self._view.show_warning_infobar("错误", "请先选择源文件", 1000, is_closable=True)
             return
@@ -47,8 +48,7 @@ class EmbedPresenter:
         loguru.logger.debug(f"写入嵌入式文件列表和文件夹列表,文件列表:{files},文件夹列表:{dirs}")
 
     def _load_dir(self):
-        # source_script_path: Path = self._model.get_source_script_path()
-        source_script_path: Path = Path(r"E:\load\python\Project\NuitkaGUI\NuitkaGUI.py")
+        source_script_path: Path = self._model.source_script_path
         if source_script_path is None:
             self._view.show_warning_infobar("错误", "请先选择源文件", 1000, is_closable=True)
             return
@@ -70,5 +70,6 @@ class EmbedPresenter:
 if __name__ == '__main__':
     app = QApplication([])
     view = EmbedPresenter()
+    view.model.source_script_path = Path(r"E:\load\python\Project\nuitkaGUIOld\githubOpenSource2\main.py")
     view.view.show()
     app.exec()
