@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import loguru
 from PySide6.QtWidgets import QApplication
 
 from src.model.embed_model import EmbedModel
@@ -33,6 +34,17 @@ class EmbedPresenter:
             list[str]: 文件夹列表
         """
         return self._view.get_file_tree().get_nuitka_cmd()
+
+    def write_nuitka_cmd(self):
+        source_script_path = self._model.get_source_script_path()
+        if not source_script_path:
+            self._view.show_warning_infobar("错误", "请先选择源文件", 1000, is_closable=True)
+            return
+
+        files, dirs = self.get_nuitka_cmd()
+        self._model.set_include_data_files(files)
+        self._model.set_include_data_dir(dirs)
+        loguru.logger.debug(f"写入嵌入式文件列表和文件夹列表,文件列表:{files},文件夹列表:{dirs}")
 
     def _load_dir(self):
         # source_script_path: Path = self._model.get_source_script_path()
