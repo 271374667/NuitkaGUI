@@ -13,7 +13,7 @@ from PySide6.QtWidgets import (
     QTreeWidgetItem,
     QTreeWidgetItemIterator,
 )
-
+from qfluentwidgets.components import RoundMenu
 from src.core import settings
 from src.utils.window_explorer_utils import WindowExplorerUtils
 
@@ -214,7 +214,7 @@ class EmbedFileTree(QTreeWidget):
 
     def _open_menu(self, position):
         """打开右键菜单"""
-        menu = QMenu()
+        menu = RoundMenu()
         delete_action = QAction('删除该节点', self)
         delete_action.triggered.connect(self._delete_node)
         show_cmd_action = QAction('显示Nuitka命令', self)
