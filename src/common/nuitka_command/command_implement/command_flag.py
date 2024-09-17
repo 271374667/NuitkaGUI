@@ -12,20 +12,19 @@ class CommandStandAlone(CommandFlagBase):
     name: str = '多文件'
     description: str = '将所有文件打包到一个文件夹中'
     enabled = True
+    _value = True
 
 
 class CommandShowProgress(CommandFlagBase):
     command: str = 'show-progress'
     name: str = '显示进度'
     description: str = '在输出窗口内显示打包进度'
-    enabled = True
 
 
 class CommandShowMemory(CommandFlagBase):
     command: str = 'show-memory'
     name: str = '显示内存占用'
     description: str = '在输出框内显示内存占用'
-    enabled = True
 
 
 class CommandRemoveOutput(CommandFlagBase):

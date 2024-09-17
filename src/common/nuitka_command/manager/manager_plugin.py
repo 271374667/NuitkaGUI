@@ -4,6 +4,7 @@ from typing import List, Tuple, Dict
 import loguru
 
 from src.config import cfg
+from src.common.nuitka_command.manager.manager_base import ManagerBase
 
 
 class PluginManager:
