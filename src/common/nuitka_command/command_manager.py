@@ -1,14 +1,17 @@
 from pathlib import Path
 from typing import Optional
 
-from src.common.nuitka_command import command_flag, command_multiple_times, command_text, command_path
-from src.common.nuitka_command.command_plugin import CommandPlugin
+from src.common.nuitka_command import command
+from src.common.nuitka_command.command_implement import command_multiple_times, command_path, command_flag, command_text
+from src.common.nuitka_command.command_implement.command_plugin import CommandPlugin
 from src.utils.singleton import singleton
 
 
 @singleton
 class CommandManager:
     def __init__(self):
+        self.command_list: list[command.CommandBase] = []
+
         # Flags
         self.onefile = command_flag.CommandOneFile()
         self.standalone = command_flag.CommandStandAlone()
@@ -45,6 +48,16 @@ class CommandManager:
 
         # Plugins
         self.command_plugin = CommandPlugin()
+
+        self.command_list.extend([
+            self.onefile, self.standalone, self.show_progress, self.show_memory, self.remove_output, self.low_memory,
+            self.mingw64, self.clang, self.quiet, self.lto_no, self.disable_ccache, self.clean_cache,
+            self.assume_yes_for_downloads, self.windows_uac_admin, self.windows_uac_access,
+            self.warn_implicit_exceptions,
+            self.windows_company_name, self.windows_file_version, self.windows_product_version,
+            self.windows_file_description, self.onefile_tempdir_spec, self.main, self.output_dir,
+            self.windows_icon_from_ico, self.include_data_files, self.include_data_dir, self.command_plugin
+        ])
 
     @property
     def source_script(self) -> Optional[Path]:
