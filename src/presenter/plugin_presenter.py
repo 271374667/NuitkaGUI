@@ -14,8 +14,8 @@ from src.view.plugin_view import PluginView
 class PluginPresenter:
     def __init__(self):
         self._view = PluginView()
-        self.flyout = self._view.get_flyout()
         self._model = PluginModel()
+        self.flyout = self._view.get_flyout()
         self._command_manager = CommandManager()
         self._plugins_enable_by_default: List[Tuple[str, bool]] = []
 
