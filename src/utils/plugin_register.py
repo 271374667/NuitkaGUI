@@ -19,8 +19,7 @@ class PluginRegister:
         """
         plugins = []
 
-        for file in search_path.rglob("*.py"):
-            loguru.logger.debug(f"加载了一个文件: {file.stem}")
+        for file in search_path.glob("*.py"):
             spec = importlib.util.spec_from_file_location(file.stem, file)
             if spec is None:
                 continue
@@ -33,8 +32,8 @@ class PluginRegister:
                     and issubclass(obj, spec_class)
                     and obj is not spec_class
                 ):
-                    plugins.append(obj)
-        loguru.logger.info(f"加载了{len(plugins)}个插件")
+                    plugins.append(obj())
+        loguru.logger.info(f"加载了{len(plugins)}个{spec_class.__name__}插件")
         return plugins
 
 

@@ -3,9 +3,11 @@ from enum import Enum
 from pathlib import Path
 from typing import Optional
 
-from PySide6.QtWidgets import QWidget, QHBoxLayout
+from PySide6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
+from PySide6.QtCore import QSize
 from qfluentwidgets.components import (
     CheckBox,
+
     StrongBodyLabel,
     LineEdit,
     ComboBox,
@@ -58,15 +60,21 @@ class CommandFlagBase(CommandBase):
         self._value = value
 
     def create_widget(self) -> CheckBox:
+        if self.widget is not None:
+            return self.widget
+        
         widget = CheckBox()
         widget.setChecked(self.value)
         widget.setText(f"{self.name}\n{self.command}")
         widget.setToolTip(self.description)
+        widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        widget.setMinimumSize(QSize(45, 60))
         self.bind_widget = widget
         return widget
 
     def update_widget(self):
         if self.bind_widget is not None:
+            self.bind_widget.setEnabled(self.enabled)
             self.value = self.bind_widget.isChecked()
 
 
@@ -104,8 +112,12 @@ class CommandTextBase(CommandValueBase):
         return True
 
     def create_widget(self) -> QWidget:
+        if self.widget is not None:
+            return self.widget
+        
         text_widget = QWidget()
         layout = QHBoxLayout(text_widget)
+
         self._label = StrongBodyLabel(self.name)
         self._label.setToolTip(self.description)
         self._line_edit = LineEdit(self.value)
@@ -118,6 +130,7 @@ class CommandTextBase(CommandValueBase):
 
     def update_widget(self):
         if self.bind_widget is not None:
+            self.bind_widget.setEnabled(self.enabled)
             self.bind_widget.setText(self.value)
 
 
@@ -157,8 +170,12 @@ class CommandChoiceBase(CommandValueBase):
         return self.chocies.index(self.value)
 
     def create_widget(self) -> QWidget:
+        if self.widget is not None:
+            return self.widget
+        
         choice_widget = QWidget()
         layout = QHBoxLayout(choice_widget)
+
 
         self._label = StrongBodyLabel(self.name)
         self._label.setToolTip(self.description)
@@ -175,6 +192,7 @@ class CommandChoiceBase(CommandValueBase):
 
     def update_widget(self):
         if self.bind_widget is not None:
+            self.bind_widget.setEnabled(self.enabled)
             self.bind_widget.setCurrentText(self.value)
 
 
@@ -194,8 +212,12 @@ class CommandIntBase(CommandValueBase):
         raise ValueError(f"Value must be in range {self.number_range}")
 
     def create_widget(self) -> QWidget:
+        if self.widget is not None:
+            return self.widget
+
         int_widget = QWidget()
         layout = QHBoxLayout(int_widget)
+
 
         self._label = StrongBodyLabel(self.name)
         self._label.setToolTip(self.description)
@@ -210,6 +232,7 @@ class CommandIntBase(CommandValueBase):
 
     def update_widget(self):
         if self.bind_widget is not None:
+            self.bind_widget.setEnabled(self.enabled)
             self.bind_widget.setValue(self.value)
 
 

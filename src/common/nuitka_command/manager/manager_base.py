@@ -25,3 +25,8 @@ class ManagerBase(ABC):
     def create_widget(self) -> QWidget:
         """用于创建管理器对应的UI组件"""
         raise NotImplementedError("create_widget method must be implemented")
+    
+    @abstractmethod
+    def update_widget(self):
+        """用于更新管理器对应的UI组件"""
+        raise NotImplementedError("update_widget method must be implemented")
