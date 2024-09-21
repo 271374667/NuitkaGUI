@@ -1,22 +1,13 @@
-from PySide6.QtWidgets import (
-    QVBoxLayout,
-    QGroupBox,
-    QWidget,
-    QGridLayout,
-    QMainWindow,
-    QApplication,
-    QSizePolicy,
-)
-
-from src.common.nuitka_command.command import CommandFlagBase
 from src.common.nuitka_command.manager.manager_base import ManagerBase
+from src.common.nuitka_command.command import CommandIntBase
 from typing import Type
+from PySide6.QtWidgets import QGroupBox, QSizePolicy, QGridLayout, QWidget
 
 
-class ManagerFlag(ManagerBase):
-    gourp_name: str = "开关标志"
-    command_type: Type[CommandFlagBase] = CommandFlagBase
-    _command_list: list[CommandFlagBase] = []
+class ManagerInt(ManagerBase):
+    gourp_name: str = "整数"
+    command_type: Type[CommandIntBase] = CommandIntBase
+    _command_list: list[CommandIntBase] = []
 
     def create_widget(self) -> QWidget:
         groupBox = QGroupBox(self.gourp_name)
@@ -24,7 +15,7 @@ class ManagerFlag(ManagerBase):
         groupBox.setTitle(self.gourp_name)
         layout = QGridLayout(groupBox)
 
-        column_count = 3
+        column_count = 2
         for i, command in enumerate(self._command_list):
             row = i // column_count
             column = i % column_count
@@ -37,6 +28,7 @@ class ManagerFlag(ManagerBase):
 
 
 if __name__ == "__main__":
+    from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
     class MainWindow(QMainWindow):
         def __init__(self):
@@ -47,8 +39,8 @@ if __name__ == "__main__":
             main_widget = QWidget()
             layout = QVBoxLayout(main_widget)
 
-            manager_flag = ManagerFlag()
-            widget = manager_flag.create_widget()
+            manager_int = ManagerInt()
+            widget = manager_int.create_widget()
             layout.addWidget(widget)
 
             self.setCentralWidget(main_widget)
