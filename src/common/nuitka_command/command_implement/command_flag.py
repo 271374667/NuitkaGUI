@@ -5,6 +5,7 @@ class CommandOneFile(CommandFlagBase):
     command: str = 'onefile'
     name: str = '单文件'
     description: str = '将所有文件打包到一个exe文件中'
+    visible = False
 
 
 class CommandStandAlone(CommandFlagBase):
@@ -12,6 +13,7 @@ class CommandStandAlone(CommandFlagBase):
     name: str = '多文件'
     description: str = '将所有文件打包到一个文件夹中'
     enabled = True
+    visible = False
     _value = True
 
 

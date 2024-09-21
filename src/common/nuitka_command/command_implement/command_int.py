@@ -6,3 +6,4 @@ class CommandJobs(CommandIntBase):
     name: str = 'jobs'
     description: str = '编译时使用的并行工作数'
     _value: int = -1
+    number_range: tuple[int, int] = (-1, 10)
