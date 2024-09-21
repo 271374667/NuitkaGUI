@@ -27,8 +27,10 @@ class CommandBase(ABC):
     name: str = ""  # 名称
     description: str = ""  # 描述
     command: str = ""  # 命令
+    value: str = ""  # 值
     widget: Optional[QWidget] = None  # 绑定的完整的widget(可能包括多个QWidget)
     bind_widget: Optional[QWidget] = None  # 绑定的widget(负责对外交互的widget)
+
 
     def __new__(cls, *args, **kwargs):
         # 单例
@@ -57,6 +59,11 @@ class CommandBase(ABC):
     def update_value(self):
         """更新value的值"""
         raise NotImplementedError("This method must be implemented in subclass")
+    
+    def __repr__(self) -> str:
+        return f"[{self.name}: {self.value} ({self.command})]"
+
+
 
 
 class CommandFlagBase(CommandBase):
