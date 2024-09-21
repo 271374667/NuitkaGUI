@@ -35,5 +35,7 @@ shiboken6==6.7.2
     # via pyside6
     # via pyside6-addons
     # via pyside6-essentials
+typing-extensions==4.12.2
+    # via nuitkagui
 win32-setctime==1.1.0
     # via loguru
