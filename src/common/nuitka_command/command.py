@@ -136,7 +136,9 @@ class CommandChoiceBase(CommandValueBase):
     def value(self, value: str):
         if value in self.chocies:
             self._value = value
-        raise ValueError(f"Value {value} is not valid")
+        else:
+            raise ValueError(f"Value {value} is not valid")
+
 
     @property
     def chocies(self) -> list[str]:
