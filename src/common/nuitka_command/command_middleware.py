@@ -20,6 +20,23 @@ class CommandMiddleware:
         for manager in self.manager_list:
             self.command_list.extend(manager.command_list)
 
+    def command_changed(self, command: CommandBase):
+        """命令被传递后，检查是否互斥命令，并更新UI"""
+        for exclusive_group in self.mutually_exclusive_commands:
+            if type(command) in exclusive_group and command.enabled:
+                for each_command in exclusive_group:
+                    # 将exclusive_group中除了command之外的command的enabled设置为False
+                    if each_command != command:
+                        each_command.enabled = False
+                break
+            elif type(command) in exclusive_group and not command.enabled:
+                for each_command in exclusive_group:
+                    if each_command != command:
+                        each_command.enabled = True
+                break
+
+        self.update_all_widget()
+
     def update_all_widget(self):
         for manager in self.manager_list:
             manager.update_widget()
