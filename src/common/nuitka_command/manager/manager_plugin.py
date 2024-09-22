@@ -54,6 +54,11 @@ class ManagerPlugin:
         """设置插件的状态"""
         self._plugin_enable_dict[plugin_name] = status
 
+    def disable_all_plugin(self) -> None:
+        """禁用所有插件"""
+        for k in self._plugin_enable_dict:
+            self._plugin_enable_dict[k] = False
+
     def fetch_plugin_from_cmd(self) -> List[Tuple[str, str]]:
         """从命令行获取插件列表"""
         if not self._pythonexe_path:
@@ -73,6 +78,16 @@ class ManagerPlugin:
         except Exception as e:
             loguru.logger.critical(f"获取插件列表失败，错误信息: {e}")
         return [("", "")]
+    
+    def filter_plugins(self, plugin_list: list[str]) -> list[str]:
+        """过滤掉不支持的插件"""
+        filter_plugin_list: list[str] = []
+        for i in plugin_list:
+            if i in self._plugin_mapping:
+                filter_plugin_list.append(self._plugin_mapping[i])
+            elif i in self._plugin_mapping_reverse:
+                filter_plugin_list.append(i)
+        return filter_plugin_list
 
 
 if __name__ == "__main__":
