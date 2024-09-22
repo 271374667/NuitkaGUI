@@ -11,7 +11,7 @@ from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
 from ansi2html import Ansi2HTMLConverter
 from qfluentwidgets.components import TextEdit
 
-from src.utils import singleton
+from src.utils.singleton import singleton
 
 
 class CmdRunnerThread(QThread):
