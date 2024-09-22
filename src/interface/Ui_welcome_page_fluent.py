@@ -25,11 +25,10 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
 )
 
-from qmaterialwidgets import (
+from qfluentwidgets import (
     BodyLabel,
     CardWidget,
     DisplayLabel,
-    PillPushButton,
     PrimaryPushButton,
     ProgressBar,
     PushButton,
@@ -226,22 +225,20 @@ class Ui_Form(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout)
 
-        self.PillPushButton = PillPushButton(Form)
-        self.PillPushButton.setObjectName("PillPushButton")
-        self.PillPushButton.setEnabled(False)
+        self.PushButton1 = PushButton(Form)
+        self.PushButton1.setObjectName("PushButton1")
+        self.PushButton1.setEnabled(False)
         sizePolicy2 = QSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
         )
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(
-            self.PillPushButton.sizePolicy().hasHeightForWidth()
-        )
-        self.PillPushButton.setSizePolicy(sizePolicy2)
-        self.PillPushButton.setSizeIncrement(QSize(0, 0))
-        self.PillPushButton.setLayoutDirection(Qt.LeftToRight)
+        sizePolicy2.setHeightForWidth(self.PushButton1.sizePolicy().hasHeightForWidth())
+        self.PushButton1.setSizePolicy(sizePolicy2)
+        self.PushButton1.setSizeIncrement(QSize(0, 0))
+        self.PushButton1.setLayoutDirection(Qt.LeftToRight)
 
-        self.verticalLayout_4.addWidget(self.PillPushButton)
+        self.verticalLayout_4.addWidget(self.PushButton1)
 
         self.ProgressBar = ProgressBar(Form)
         self.ProgressBar.setObjectName("ProgressBar")
@@ -322,7 +319,7 @@ class Ui_Form(object):
         self.PrimaryPushButton_2.setText(
             QCoreApplication.translate("Form", "\u81ea\u52a8\u4e0b\u8f7d", None)
         )
-        self.PillPushButton.setText(
+        self.PushButton1.setText(
             QCoreApplication.translate(
                 "Form", "\u60a8\u9700\u8981\u5148\u5b8c\u6210\u8bbe\u7f6e", None
             )

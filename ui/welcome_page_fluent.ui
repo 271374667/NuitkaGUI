@@ -415,7 +415,7 @@
     </layout>
    </item>
    <item>
-    <widget class="PillPushButton" name="PillPushButton">
+    <widget class="PushButton" name="PushButton">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -453,45 +453,45 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PillPushButton</class>
+   <class>PushButton</class>
    <extends>QPushButton</extends>
-   <header>qmaterialwidgets</header>
+   <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
    <class>PushButton</class>
    <extends>PrimaryPushButton</extends>
-   <header>qmaterialwidgets</header>
+   <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
    <class>PrimaryPushButton</class>
    <extends>QPushButton</extends>
-   <header>qmaterialwidgets</header>
+   <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
    <class>CardWidget</class>
    <extends>QFrame</extends>
-   <header>qmaterialwidgets</header>
+   <header>qfluentwidgets</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>BodyLabel</class>
    <extends>QLabel</extends>
-   <header>qmaterialwidgets</header>
+   <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
    <class>TitleLabel</class>
    <extends>QLabel</extends>
-   <header>qmaterialwidgets</header>
+   <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
    <class>DisplayLabel</class>
    <extends>QLabel</extends>
-   <header>qmaterialwidgets</header>
+   <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
    <class>ProgressBar</class>
    <extends>QProgressBar</extends>
-   <header>qmaterialwidgets</header>
+   <header>qfluentwidgets</header>
   </customwidget>
  </customwidgets>
  <resources>
