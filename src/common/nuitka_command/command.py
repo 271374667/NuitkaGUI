@@ -342,3 +342,9 @@ class CommandMultipleTimesBase(CommandValueBase):
 
     def clear(self):
         self._value.clear()
+
+    def create_widget(self) -> QWidget: ...
+
+    def update_widget(self): ...
+
+    def update_value(self): ...

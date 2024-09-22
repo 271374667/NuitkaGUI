@@ -8,6 +8,10 @@ from src.common.nuitka_command.manager.manager_text import ManagerText
 from src.common.nuitka_command.manager.manager_flag import ManagerFlag
 from src.common.nuitka_command.manager.manager_base import ManagerBase
 from src.common.nuitka_command.manager.manager_plugin import ManagerPlugin
+from src.common.nuitka_command.manager.manager_path import ManagerPath
+from src.common.nuitka_command.manager.manager_multiple_times import (
+    ManagerMultipleTimes,
+)
 from src.common.nuitka_command.command_implement import command_flag, command_path
 from src.utils.singleton import singleton
 from typing import Type, TypeVar
@@ -25,6 +29,8 @@ class CommandManager:
             ManagerInt(),
             ManagerText(),
             ManagerFlag(),
+            ManagerPath(),
+            ManagerMultipleTimes(),
         ]
 
         self.manager_plugin = ManagerPlugin()
