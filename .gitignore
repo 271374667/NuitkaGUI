@@ -17,3 +17,4 @@ logs
 .idea
 help
 config.json
+.ruff_cache
