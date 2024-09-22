@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QVBoxLayout, QApplication, QSizePolicy
+from PySide6.QtWidgets import QVBoxLayout, QApplication, QSizePolicy, QLayout, QWidget
 from src.view.message_base_view import MessageBaseView
 from src.common.nuitka_command.command_manager import CommandManager
 from qfluentwidgets.components import SmoothScrollArea
@@ -16,11 +16,17 @@ class AdvancedView(MessageBaseView):
         self.setObjectName("advanced_view")
 
         self._main_layout = QVBoxLayout()
+        self._main_layout.setSizeConstraint(QLayout.SizeConstraint.SetMinimumSize)
         self._main_scroll_area = SmoothScrollArea()
-        self._main_scroll_area_layout = QVBoxLayout()
-        self._main_scroll_area.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self._main_scroll_area.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
+        )
 
-        self._main_scroll_area.setLayout(self._main_scroll_area_layout)
+        self._scroll_content = QWidget()
+        self._main_scroll_area_layout = QVBoxLayout(self._scroll_content)
+        self._scroll_content.setLayout(self._main_scroll_area_layout)
+        self._main_scroll_area.setWidget(self._scroll_content)
+        self._main_scroll_area.setWidgetResizable(True)
         self._main_scroll_area.setObjectName("main_scroll_area")
 
         for each in self._command_manager.manager_list:
@@ -31,7 +37,9 @@ class AdvancedView(MessageBaseView):
             if each.layout_weight and each.layout_weight == 0:
                 self._main_scroll_area_layout.addWidget(group_widget)
             else:
-                self._main_scroll_area_layout.addWidget(group_widget, each.layout_weight)
+                self._main_scroll_area_layout.addWidget(
+                    group_widget, each.layout_weight
+                )
 
         self._main_layout.addWidget(self._main_scroll_area)
         self.setLayout(self._main_layout)
