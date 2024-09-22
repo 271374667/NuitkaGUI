@@ -291,9 +291,9 @@ class CommandIntBase(CommandValueBase):
         self._label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
         self._spin_box = SpinBox()
-        self._spin_box.setValue(self.value)
         self._spin_box.setRange(self.number_range[0], self.number_range[1])
         self._spin_box.setSingleStep(1)
+        self._spin_box.setValue(self.value)
         self._spin_box.setToolTip(self.description)
         self._spin_box.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
