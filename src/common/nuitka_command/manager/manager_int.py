@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QGroupBox, QSizePolicy, QGridLayout, QWidget
 
 class ManagerInt(ManagerBase):
     gourp_name: str = "整数"
+    layout_weight: int = 1
     command_type: Type[CommandIntBase] = CommandIntBase
     _command_list: list[CommandIntBase] = []
 

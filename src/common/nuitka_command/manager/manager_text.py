@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QGroupBox, QSizePolicy, QWidget, QVBoxLayout
 
 class ManagerText(ManagerBase):
     gourp_name: str = "文本"
+    layout_weight: int = 2
     command_type: Type[CommandTextBase] = CommandTextBase
     _command_list: list[CommandTextBase] = []
 

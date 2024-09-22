@@ -16,6 +16,7 @@ from src.common.nuitka_command.command_implement import command_flag, command_pa
 from src.utils.singleton import singleton
 from typing import Type, TypeVar
 
+
 CommandBaseType = TypeVar("CommandBaseType", bound=command.CommandBase)
 
 
@@ -97,4 +98,5 @@ if __name__ == "__main__":
     print(manager.get_command_by_type(command_flag.CommandClang))
     print(manager.get_command_by_name("公司名称"))
     print(manager.get_command_by_command("clang"))
+    print(manager.get_command_by_command("include-data-dir"))
     app.exec()

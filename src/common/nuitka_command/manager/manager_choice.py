@@ -7,6 +7,7 @@ from PySide6.QtWidgets import QGroupBox, QSizePolicy, QWidget, QVBoxLayout, QGri
 class ManagerChoice(ManagerBase):
     gourp_name: str = "选择"
     command_type: Type[CommandChoiceBase] = CommandChoiceBase
+    layout_weight: int = 1
     _command_list: list[CommandChoiceBase] = []
 
     def create_widget(self) -> QWidget:

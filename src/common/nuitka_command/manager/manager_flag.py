@@ -15,6 +15,7 @@ from typing import Type
 
 class ManagerFlag(ManagerBase):
     gourp_name: str = "开关标志"
+    layout_weight: int = 3
     command_type: Type[CommandFlagBase] = CommandFlagBase
     _command_list: list[CommandFlagBase] = []
 

@@ -11,6 +11,7 @@ from typing import Type
 class ManagerBase(ABC):
     gourp_name: str = ""  # 管理器对应的组名(会显示在UI上)
     visible: bool = True  # 管理器是否可见
+    layout_weight: int = 0  # 管理器在UI中占的比例
     command_type: Type[CommandBase] = CommandBase  # 管理器对应的命令类型
     _command_list: list[CommandBase] = []  # 管理器对应的命令列表
 
