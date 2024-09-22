@@ -10,6 +10,7 @@ from typing import Type
 
 class ManagerBase(ABC):
     gourp_name: str = ""  # 管理器对应的组名(会显示在UI上)
+    visible: bool = True  # 管理器是否可见
     command_type: Type[CommandBase] = CommandBase  # 管理器对应的命令类型
     _command_list: list[CommandBase] = []  # 管理器对应的命令列表
 
@@ -17,9 +18,6 @@ class ManagerBase(ABC):
         self._command_list = PluginRegister.load_plugins(
             COMMAND_IMPLEMENT_DIR, self.command_type
         )
-        self._command_list = [
-            command for command in self._command_list if command.visible
-        ]
 
     @property
     def command_list(self) -> list[CommandBase]:

@@ -31,7 +31,6 @@ class CommandBase(ABC):
     widget: Optional[QWidget] = None  # 绑定的完整的widget(可能包括多个QWidget)
     bind_widget: Optional[QWidget] = None  # 绑定的widget(负责对外交互的widget)
 
-
     def __new__(cls, *args, **kwargs):
         # 单例
         if cls._instance is None:
@@ -59,11 +58,9 @@ class CommandBase(ABC):
     def update_value(self):
         """更新value的值"""
         raise NotImplementedError("This method must be implemented in subclass")
-    
+
     def __repr__(self) -> str:
         return f"[{self.name}: {self.value} ({self.command})]"
-
-
 
 
 class CommandFlagBase(CommandBase):
@@ -221,7 +218,9 @@ class CommandChoiceBase(CommandValueBase):
         self._label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
         self._combo_box = ComboBox()
-        self._combo_box.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        self._combo_box.setSizePolicy(
+            QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed
+        )
         self._combo_box.addItems(self.chocies)
         self._combo_box.setCurrentText(self.value)
         self._combo_box.setToolTip(self.description)
@@ -243,7 +242,6 @@ class CommandChoiceBase(CommandValueBase):
             self.value = self.bind_widget.currentText()
 
 
-
 class CommandIntBase(CommandValueBase):
     _value: int = -1
     number_range: tuple[int, int] = (0, 100)
@@ -261,7 +259,6 @@ class CommandIntBase(CommandValueBase):
         else:
             raise ValueError(f"Value must be in range {self.number_range}")
 
-
     def create_widget(self) -> QWidget:
         if self.widget is not None:
             return self.widget
@@ -272,7 +269,7 @@ class CommandIntBase(CommandValueBase):
         self._label = StrongBodyLabel(self.name)
         self._label.setToolTip(self.description)
         self._label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        
+
         self._spin_box = SpinBox()
         self._spin_box.setValue(self.value)
         self._spin_box.setRange(self.number_range[0], self.number_range[1])
@@ -287,7 +284,6 @@ class CommandIntBase(CommandValueBase):
         self._spin_box.valueChanged.connect(self.update_value)
         return int_widget
 
-
     def update_widget(self):
         if self.bind_widget is not None:
             self.bind_widget.setEnabled(self.enabled)
@@ -296,7 +292,6 @@ class CommandIntBase(CommandValueBase):
     def update_value(self):
         if self.bind_widget is not None:
             self.value = self.bind_widget.value()
-
 
 
 class CommandPathBase(CommandValueBase):
@@ -316,6 +311,12 @@ class CommandPathBase(CommandValueBase):
             self._value = str(value)
             return
         self._value = value
+
+    def create_widget(self) -> QWidget: ...
+
+    def update_widget(self): ...
+
+    def update_value(self): ...
 
 
 class CommandMultipleTimesBase(CommandValueBase):

@@ -57,8 +57,8 @@ class CommandManager:
     def get_command_by_type(
         self, command_type: Type[command.CommandBase]
     ) -> Optional[command.CommandBase]:
+        """通过类型获取命令"""
         for each in self.command_list:
-            print(type(each), command_type)
             if (
                 each.__class__.__name__ == command_type.__name__
                 and each.__class__.__module__.split(".")[-1]
@@ -68,12 +68,14 @@ class CommandManager:
         return None
 
     def get_command_by_name(self, command_name: str) -> Optional[command.CommandBase]:
+        """通过名称获取命令"""
         for each in self.command_list:
             if each.name == command_name:
                 return each
         return None
 
     def get_command_by_command(self, command: str) -> Optional[command.CommandBase]:
+        """通过命令获取命令"""
         for each in self.command_list:
             if each.command == command:
                 return each

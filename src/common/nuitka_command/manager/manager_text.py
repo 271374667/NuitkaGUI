@@ -10,12 +10,13 @@ class ManagerText(ManagerBase):
     _command_list: list[CommandTextBase] = []
 
     def create_widget(self) -> QWidget:
+        command_list = [command for command in self._command_list if command.visible]
         groupBox = QGroupBox(self.gourp_name)
         groupBox.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         groupBox.setTitle(self.gourp_name)
         layout = QVBoxLayout(groupBox)
 
-        for command in self._command_list:
+        for command in command_list:
             layout.addWidget(command.create_widget())
         return groupBox
 

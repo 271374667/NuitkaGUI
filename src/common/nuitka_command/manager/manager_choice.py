@@ -10,13 +10,14 @@ class ManagerChoice(ManagerBase):
     _command_list: list[CommandChoiceBase] = []
 
     def create_widget(self) -> QWidget:
+        command_list = [command for command in self._command_list if command.visible]
         groupBox = QGroupBox(self.gourp_name)
         groupBox.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         groupBox.setTitle(self.gourp_name)
         layout = QGridLayout(groupBox)
 
         column_count = 2
-        for i, command in enumerate(self._command_list):
+        for i, command in enumerate(command_list):
             row = i // column_count
             column = i % column_count
             layout.addWidget(command.create_widget(), row, column)
