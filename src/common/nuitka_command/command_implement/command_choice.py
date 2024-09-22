@@ -10,7 +10,7 @@ class CommandWindowsDisableConsole(CommandChoiceBase):
     )
     command: str = "windows-disable-console"
 
-    _value: str = "force"
+    _value: str = ""
 
     class Choice(Enum):
         DoNothing = ""

@@ -52,6 +52,14 @@ class CommandManager:
             return
         result.value = str(source_script)
 
+    @property
+    def current_command(self) -> str:
+        result: list[str] = []
+        for i in self.command_list:
+            if i.enabled and i.value != "" and i.value is not None and i.value is not False and i.value != -1:
+                result.append(i.get_command())
+        return ",".join(result)
+
     def update_command_list(self):
         self.command_list = []
         for manager in self.manager_list:
@@ -99,4 +107,5 @@ if __name__ == "__main__":
     print(manager.get_command_by_name("公司名称"))
     print(manager.get_command_by_command("clang"))
     print(manager.get_command_by_command("include-data-dir"))
+    print(manager.current_command)
     app.exec()

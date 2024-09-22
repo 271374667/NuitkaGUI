@@ -59,6 +59,11 @@ class CommandBase(ABC):
         """更新value的值"""
         raise NotImplementedError("This method must be implemented in subclass")
 
+    @abstractmethod
+    def get_command(self) -> str:
+        """获取命令"""
+        raise NotImplementedError("This method must be implemented in subclass")
+
     def __repr__(self) -> str:
         return f"[{self.name}: {self.value} ({self.command})]"
 
@@ -99,6 +104,11 @@ class CommandFlagBase(CommandBase):
     def update_value(self):
         if self.bind_widget is not None:
             self.value = self.bind_widget.isChecked()
+
+    def get_command(self) -> str:
+        if not self.command:
+            raise ValueError("Command must be set")
+        return f"--{self.command}"
 
 
 class CommandValueBase(CommandBase):
@@ -169,6 +179,11 @@ class CommandTextBase(CommandValueBase):
     def update_value(self):
         if self.bind_widget is not None:
             self.value = self.bind_widget.text()
+
+    def get_command(self) -> str:
+        if not self.command:
+            raise ValueError("Command must be set")
+        return f'--{self.command}="{self.value}"'
 
 
 class CommandChoiceBase(CommandValueBase):
@@ -241,6 +256,11 @@ class CommandChoiceBase(CommandValueBase):
         if self.bind_widget is not None:
             self.value = self.bind_widget.currentText()
 
+    def get_command(self) -> str:
+        if not self.command:
+            raise ValueError("Command must be set")
+        return f"--{self.command}={self.value}"
+
 
 class CommandIntBase(CommandValueBase):
     _value: int = -1
@@ -293,6 +313,11 @@ class CommandIntBase(CommandValueBase):
         if self.bind_widget is not None:
             self.value = self.bind_widget.value()
 
+    def get_command(self) -> str:
+        if not self.command:
+            raise ValueError("Command must be set")
+        return f"--{self.command}={self.value}"
+
 
 class CommandPathBase(CommandValueBase):
     _value: str = ""
@@ -317,6 +342,11 @@ class CommandPathBase(CommandValueBase):
     def update_widget(self): ...
 
     def update_value(self): ...
+
+    def get_command(self) -> str:
+        if not self.command:
+            raise ValueError("Command must be set")
+        return f'--{self.command}="{self.value}"'
 
 
 class CommandMultipleTimesBase(CommandValueBase):
@@ -348,3 +378,8 @@ class CommandMultipleTimesBase(CommandValueBase):
     def update_widget(self): ...
 
     def update_value(self): ...
+
+    def get_command(self) -> str:
+        if not self.command:
+            raise ValueError("Command must be set")
+        return f"--{self.command}={self.value}"
