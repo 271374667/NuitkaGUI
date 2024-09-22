@@ -38,6 +38,7 @@ class Config(QConfig):
     # 全局设置
     is_first_run = ConfigItem("General", "首次运行", True, BoolValidator())
     global_python_exe_path = ConfigItem("General", "可用的Python.exe的路径", str(sys.executable), PythonExeValidator())
+    project_python_exe_path = ConfigItem("General", "项目Python.exe的路径", str(sys.executable), PythonExeValidator())
 
 
 cfg = Config()
