@@ -9,7 +9,7 @@ from src.view.embed_view import EmbedView
 from src.view.about_view import AboutView
 from src.view.args_view import ArgsView
 from src.view.advanced_view import AdvancedView
-from src.view.settings_view import SettingView
+from src.view.setting_view import SettingView
 from src.view.plugin_view import PluginView
 
 
