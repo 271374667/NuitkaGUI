@@ -15,6 +15,7 @@ from src.common.nuitka_command.manager.manager_multiple_times import (
 from src.common.nuitka_command.command_implement import command_flag, command_path
 from src.utils.singleton import singleton
 from typing import Type, TypeVar
+from src.utils.class_utils import ClassUtils
 
 
 CommandBaseType = TypeVar("CommandBaseType", bound=command.CommandBase)
@@ -74,11 +75,7 @@ class CommandManager:
     ) -> Optional[command.CommandBase]:
         """通过类型获取命令"""
         for each in self.command_list:
-            if (
-                each.__class__.__name__ == command_type.__name__
-                and each.__class__.__module__.split(".")[-1]
-                == command_type.__module__.split(".")[-1]
-            ):
+            if ClassUtils.is_the_same_class(each.__class__, command_type):
                 return each
         return None
 

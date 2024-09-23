@@ -21,7 +21,7 @@ import loguru
 
 
 class CommandBase(ABC):
-    _instance: Optional[Self] = None
+    # _instance: Optional[Self] = None
     enabled: bool = True  # 是否启用
     visible: bool = True  # 是否可见
     name: str = ""  # 名称
@@ -33,7 +33,7 @@ class CommandBase(ABC):
 
     def __new__(cls, *args, **kwargs):
         # 单例
-        if cls._instance is None:
+        if not hasattr(cls, '_instance'):
             cls._instance = super().__new__(cls)
         return cls._instance
 
@@ -99,11 +99,12 @@ class CommandFlagBase(CommandBase):
     def update_widget(self):
         if self.bind_widget is not None:
             self.bind_widget.setEnabled(self.enabled)
-            self.value = self.bind_widget.isChecked()
+            self.bind_widget.setChecked(self._value)
 
     def update_value(self):
         if self.bind_widget is not None:
             self.value = self.bind_widget.isChecked()
+            self.enabled = self.bind_widget.isEnabled()
 
     def get_command(self) -> str:
         if not self.command:
