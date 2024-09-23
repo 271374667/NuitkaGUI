@@ -12,6 +12,7 @@ from qfluentwidgets.components import (
     ExpandLayout,
     LargeTitleLabel,
     SmoothScrollArea,
+    ComboBoxSettingCard,
 )
 
 from src.resource import rc_res
@@ -68,6 +69,15 @@ class SettingView(MessageBaseView):
             self.general_group,
         )
 
+        self.optimization_card = ComboBoxSettingCard(
+            cfg.optimization,
+            Icon(FluentIcon.CHEVRON_RIGHT),
+            "设置优化选项",
+            "选择优化选项",
+            ["不优化", "兼容性", "速度", "大小"],
+            self.general_group,
+        )
+
     def _set_up_tooltip(self):
         self.project_python_exe_path_card.setToolTip("选择当前项目使用的Python.exe路径")
         self.global_python_exe_path_card.setToolTip("选择全局Python.exe路径")
@@ -83,7 +93,11 @@ class SettingView(MessageBaseView):
 
         # 给卡片组添加卡片
         self.general_group.addSettingCards(
-            [self.project_python_exe_path_card, self.global_python_exe_path_card]
+            [
+                self.project_python_exe_path_card,
+                self.global_python_exe_path_card,
+                self.optimization_card,
+            ]
         )
 
     def _initialize(self) -> None:
