@@ -7,6 +7,8 @@ from src.common.nuitka_command.command_manager import CommandManager
 class BasicModel:
     def __init__(self):
         self._command_manager = CommandManager()
+        self._output_command = self._command_manager.get_command_by_command('output-dir')
+        self._windows_icon_command = self._command_manager.get_command_by_command('windows-icon-from-ico')
 
     @property
     def source_script_path(self) -> Optional[Path]:
@@ -18,31 +20,34 @@ class BasicModel:
 
     @property
     def output_dir(self) -> Optional[Path]:
-        return self._command_manager.output_dir
+        return Path(self._output_command.value)
 
     @output_dir.setter
     def output_dir(self, output_dir: Optional[Path]) -> None:
-        self._command_manager.output_dir.value = output_dir
+        self._output_command.value = output_dir
 
     @property
     def icon_path(self) -> Optional[Path]:
-        return self._command_manager.windows_icon_from_ico
+        return Path(self._windows_icon_command.value)
 
     @icon_path.setter
     def icon_path(self, icon_path: Optional[Path]) -> None:
-        self._command_manager.windows_icon_from_ico.value = icon_path
+        self._windows_icon_command.value = icon_path
 
     @property
     def packaged_mode(self) -> str:
-        if self._command_manager.standalone.value:
+        standalone_command = self._command_manager.get_command_by_command('standalone')
+        if standalone_command.value:
             return 'standalone'
         return 'onefile'
 
     @packaged_mode.setter
     def packaged_mode(self, mode: str) -> None:
+        standalone_command = self._command_manager.get_command_by_command('standalone')
+        onefile_command = self._command_manager.get_command_by_command('onefile')
         if mode == 'standalone':
-            self._command_manager.standalone.value = True
-            self._command_manager.onefile.value = False
+            standalone_command.value = True
+            onefile_command.value = False
         else:
-            self._command_manager.standalone.value = False
-            self._command_manager.onefile.value = True
+            standalone_command.value = False
+            onefile_command.value = True

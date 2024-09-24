@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Generic
 from typing import Optional
 from typing import Type, TypeVar
 
@@ -22,7 +23,7 @@ CommandBaseType = TypeVar("CommandBaseType", bound=command.CommandBase)
 
 
 @singleton
-class CommandManager:
+class CommandManager(Generic[CommandBaseType]):
     def __init__(self):
         self.command_list: list[command.CommandBase] = []
 
@@ -42,7 +43,7 @@ class CommandManager:
     @property
     def source_script(self) -> Optional[Path]:
         result = self.get_command_by_type(command_path.CommandMain)
-        if result is None:
+        if result is None or result.value is None:
             return None
         return Path(result.value)
 
@@ -77,8 +78,8 @@ class CommandManager:
             manager.update_widget()
 
     def get_command_by_type(
-            self, command_type: Type[command.CommandBase]
-    ) -> Optional[command.CommandBase]:
+            self, command_type: Type[CommandBaseType]
+    ) -> Optional[CommandBaseType]:
         """通过类型获取命令"""
         for each in self.command_list:
             if ClassUtils.is_the_same_class(each.__class__, command_type):
