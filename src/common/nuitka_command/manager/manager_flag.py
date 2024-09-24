@@ -1,3 +1,5 @@
+from typing import Optional, Type
+
 from PySide6.QtWidgets import (
     QVBoxLayout,
     QGroupBox,
@@ -9,9 +11,9 @@ from PySide6.QtWidgets import (
 )
 
 from src.common.nuitka_command.command import CommandFlagBase
-from src.common.nuitka_command.manager.manager_base import ManagerBase
 from src.common.nuitka_command.command_implement import command_flag
-from typing import Type
+from src.common.nuitka_command.manager.manager_base import ManagerBase
+from src.utils.class_utils import ClassUtils
 
 
 class ManagerFlag(ManagerBase):
@@ -26,10 +28,10 @@ class ManagerFlag(ManagerBase):
     def create_widget(self) -> QWidget:
         command_list = [command for command in self._command_list if command.visible]
 
-        groupBox = QGroupBox(self.gourp_name)
-        groupBox.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
-        groupBox.setTitle(self.gourp_name)
-        layout = QGridLayout(groupBox)
+        group_box = QGroupBox(self.gourp_name)
+        group_box.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        group_box.setTitle(self.gourp_name)
+        layout = QGridLayout(group_box)
 
         column_count = 3
         for i, command in enumerate(command_list):
@@ -41,7 +43,7 @@ class ManagerFlag(ManagerBase):
                 bind_widget.checkStateChanged.connect(
                     lambda x, cmd=command: self._check_mutually_exclusive_group(cmd)
                 )
-        return groupBox
+        return group_box
 
     def update_widget(self):
         for command in self._command_list:
@@ -50,29 +52,26 @@ class ManagerFlag(ManagerBase):
     def _check_mutually_exclusive_group(self, command_flag: CommandFlagBase):
         # 如果当前命令被选中，则将同一组互斥组中的命令全部设置为False,同时将他们设置为不可用
         # 如果当前命令未被选中，则将同一互斥组中的命令设置为可用
-        print(command_flag)
-        print(command_flag.value)
-        if command_flag.value:
-            for group in self.mutually_exclusive_group:
-                if type(command_flag) not in group:
-                    continue
-                
-                for command in group:
-                    if command != type(command_flag):
-                        print(command)
-                        command().value = False
-                        command().update_widget()
-        else:
-            for group in self.mutually_exclusive_group:
-                if type(command_flag) not in group:
-                    continue
-                
-                for command in group:
-                    if command != type(command_flag):
-                        command().update_widget()
+        command_flag.update_value()  # 记得更新一下值(因为这个bug导致项目进度卡了很久)
+
+        for group in self.mutually_exclusive_group:
+            if not any(command.__name__ == type(command_flag).__name__ for command in group):
+                continue
+
+            for command in group:
+                if command.__name__ != type(command_flag).__name__:
+                    instance: Optional[CommandFlagBase] = ClassUtils.get_obj_in_list_by_type(command, self.command_list)
+                    if instance is None:
+                        continue
+                    if command_flag.value is True:
+                        instance.value = False
+                        instance.enabled = False
+                    else:
+                        instance.enabled = True
+                    instance.update_widget()
+
 
 if __name__ == "__main__":
-
     class MainWindow(QMainWindow):
         def __init__(self):
             super().__init__()
@@ -87,6 +86,7 @@ if __name__ == "__main__":
             layout.addWidget(widget)
 
             self.setCentralWidget(main_widget)
+
 
     app = QApplication()
     main_window = MainWindow()

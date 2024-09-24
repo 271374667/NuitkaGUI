@@ -1,11 +1,12 @@
+import contextlib
 from abc import ABC, abstractmethod
 from enum import Enum
 from pathlib import Path
 from typing import Optional
-from typing_extensions import Self
 
-from PySide6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
+import loguru
 from PySide6.QtCore import QSize
+from PySide6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
 from qfluentwidgets.components import (
     CheckBox,
     StrongBodyLabel,
@@ -13,8 +14,6 @@ from qfluentwidgets.components import (
     ComboBox,
     SpinBox,
 )
-import contextlib
-import loguru
 
 
 # 将Command写在前面，详情写在后面能够方便IDE进行代码提示
@@ -33,7 +32,7 @@ class CommandBase(ABC):
 
     def __new__(cls, *args, **kwargs):
         # 单例
-        if not hasattr(cls, '_instance'):
+        if not hasattr(cls, "_instance"):
             cls._instance = super().__new__(cls)
         return cls._instance
 
@@ -80,7 +79,6 @@ class CommandFlagBase(CommandBase):
     @value.setter
     def value(self, value: bool):
         self._value = value
-        loguru.logger.debug(f"CommandFlagBase: {self.name} = {self.value}")
 
     def create_widget(self) -> CheckBox:
         if self.widget is not None:
@@ -100,6 +98,8 @@ class CommandFlagBase(CommandBase):
         if self.bind_widget is not None:
             self.bind_widget.setEnabled(self.enabled)
             self.bind_widget.setChecked(self._value)
+            self.bind_widget.repaint()
+            self.bind_widget.update()
 
     def update_value(self):
         if self.bind_widget is not None:
@@ -113,6 +113,18 @@ class CommandFlagBase(CommandBase):
 
 
 class CommandValueBase(CommandBase):
+    def create_widget(self) -> Optional[QWidget]:
+        pass
+
+    def update_widget(self):
+        pass
+
+    def update_value(self):
+        pass
+
+    def get_command(self) -> str:
+        pass
+
     _value: str | int = ""
 
     @property
@@ -154,7 +166,8 @@ class CommandTextBase(CommandValueBase):
         text_widget = QWidget()
         layout = QHBoxLayout(text_widget)
 
-        self._label = StrongBodyLabel(self.name)
+        self._label = StrongBodyLabel()
+        self._label.setText(self.name)
         self._label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         self._label.setToolTip(self.description)
         self._line_edit = LineEdit()
@@ -229,7 +242,8 @@ class CommandChoiceBase(CommandValueBase):
         choice_widget = QWidget()
         layout = QHBoxLayout(choice_widget)
 
-        self._label = StrongBodyLabel(self.name)
+        self._label = StrongBodyLabel()
+        self._label.setText(self.name)
         self._label.setToolTip(self.description)
         self._label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
@@ -287,7 +301,8 @@ class CommandIntBase(CommandValueBase):
         int_widget = QWidget()
         layout = QHBoxLayout(int_widget)
 
-        self._label = StrongBodyLabel(self.name)
+        self._label = StrongBodyLabel()
+        self._label.setText(self.name)
         self._label.setToolTip(self.description)
         self._label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
@@ -338,11 +353,14 @@ class CommandPathBase(CommandValueBase):
             return
         self._value = value
 
-    def create_widget(self) -> QWidget: ...
+    def create_widget(self) -> QWidget:
+        ...
 
-    def update_widget(self): ...
+    def update_widget(self):
+        ...
 
-    def update_value(self): ...
+    def update_value(self):
+        ...
 
     def get_command(self) -> str:
         if not self.command:
