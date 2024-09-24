@@ -1,22 +1,22 @@
 from pathlib import Path
 from typing import Optional
+from typing import Type, TypeVar
 
 from src.common.nuitka_command import command
-from src.common.nuitka_command.manager.manager_choice import ManagerChoice
-from src.common.nuitka_command.manager.manager_int import ManagerInt
-from src.common.nuitka_command.manager.manager_text import ManagerText
-from src.common.nuitka_command.manager.manager_flag import ManagerFlag
+from src.common.nuitka_command.command_implement import command_flag, command_path
 from src.common.nuitka_command.manager.manager_base import ManagerBase
-from src.common.nuitka_command.manager.manager_plugin import ManagerPlugin
-from src.common.nuitka_command.manager.manager_path import ManagerPath
+from src.common.nuitka_command.manager.manager_choice import ManagerChoice
+from src.common.nuitka_command.manager.manager_flag import ManagerFlag
+from src.common.nuitka_command.manager.manager_int import ManagerInt
 from src.common.nuitka_command.manager.manager_multiple_times import (
     ManagerMultipleTimes,
 )
-from src.common.nuitka_command.command_implement import command_flag, command_path
-from src.utils.singleton import singleton
-from typing import Type, TypeVar
+from src.common.nuitka_command.manager.manager_path import ManagerPath
+from src.common.nuitka_command.manager.manager_plugin import ManagerPlugin
+from src.common.nuitka_command.manager.manager_text import ManagerText
+from src.config import cfg
 from src.utils.class_utils import ClassUtils
-
+from src.utils.singleton import singleton
 
 CommandBaseType = TypeVar("CommandBaseType", bound=command.CommandBase)
 
@@ -55,7 +55,13 @@ class CommandManager:
 
     @property
     def current_command(self) -> str:
-        result: list[str] = []
+        project_python_exe_path: Path = Path(cfg.get(cfg.project_python_exe_path))
+        if not project_python_exe_path.exists():
+            project_python_exe_path = Path(cfg.get(cfg.global_python_exe_path))
+        if not project_python_exe_path.exists():
+            raise ValueError("Must have a avialable python exe(project or gloabl)")
+
+        result: list[str] = [f'"{project_python_exe_path}"', '-m', 'nuitka']
         for i in self.command_list:
             if i.enabled and i.value != "" and i.value is not None and i.value is not False and i.value != -1:
                 result.append(i.get_command())
@@ -71,7 +77,7 @@ class CommandManager:
             manager.update_widget()
 
     def get_command_by_type(
-        self, command_type: Type[command.CommandBase]
+            self, command_type: Type[command.CommandBase]
     ) -> Optional[command.CommandBase]:
         """通过类型获取命令"""
         for each in self.command_list:
