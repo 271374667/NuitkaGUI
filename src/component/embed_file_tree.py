@@ -8,12 +8,12 @@ from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
     QApplication,
     QFileIconProvider,
-    QMenu,
     QTreeWidget,
     QTreeWidgetItem,
     QTreeWidgetItemIterator,
 )
 from qfluentwidgets.components import RoundMenu
+
 from src.core import settings
 from src.utils.window_explorer_utils import WindowExplorerUtils
 
@@ -29,6 +29,8 @@ class PathData:
 class EmbedFileTree(QTreeWidget):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
+        self._recursion_count: int = 0
+
         self._window_explorer_utils = WindowExplorerUtils()
         self._drop_dir_root: Optional[Path] = None
 
@@ -232,6 +234,10 @@ class EmbedFileTree(QTreeWidget):
 
     def _on_item_changed(self, item: QTreeWidgetItem, column: int):
         """处理条目状态变化"""
+        self._recursion_count = self._recursion_count + 1
+        if self._recursion_count > settings.MAX_RECURSION_LEVEL:
+            loguru.logger.warning(f'【跳出递归】嵌入式文件的文件夹内容数量超过限制所规定的{settings.MAX_RECURSION_LEVEL}层')
+            return
         if column != 0:
             return
 
@@ -249,6 +255,7 @@ class EmbedFileTree(QTreeWidget):
                 self._uncheck_child(item)
             if self._is_all_childs_checked(item) is False:
                 self._partially_check_parent(item)
+        self._recursion_count = self._recursion_count - 1
 
     def _is_all_childs_checked(self, parent_item: QTreeWidgetItem) -> bool:
         """判断子节点是否全部勾选"""

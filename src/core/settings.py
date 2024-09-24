@@ -1,6 +1,7 @@
 from typing import Sequence
 
 MAX_FILES_IN_DIR: int = 500
+MAX_RECURSION_LEVEL: int = 500
 IGNORE_DIRS: Sequence[str] = (
     ".git",
     ".idea",
