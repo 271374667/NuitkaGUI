@@ -26,6 +26,7 @@ class MainModel:
         for i in DEFAULT_OPTIMIZATION_OPTIONS["Size"]:
             self._command_manager.get_command_by_command(i).value = True
 
+        # 开启UPX插件
         self._command_manager.manager_plugin.set_plugin_enable("upx", True)
 
     def update_all_widget(self):

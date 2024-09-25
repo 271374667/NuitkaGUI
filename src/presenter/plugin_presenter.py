@@ -44,6 +44,8 @@ class PluginPresenter:
         for title, desc in plugins:
             plugin = self._view.add_plugin(title, desc)
             plugin.card_clicked.connect(self._model.set_plugin_status)
+            if title in self._model.get_enable_plugins():
+                plugin.checked = True
         self._set_plugins_status(self._plugins_enable_by_default)
 
     def auto_detect(self) -> None:
@@ -67,6 +69,19 @@ class PluginPresenter:
         self.t.set_finished_func(lambda x: finished_func(x))
         self.t.start()
 
+    def update_value_to_command_manager(self, plugin_name: str, is_selected: bool) -> None:
+        plugin_command = self._command_manager.get_command_by_command('enable-plugins')
+        if plugin_command is None:
+            return
+
+        self.model.set_plugin_status(plugin_name, is_selected)
+        plugin_command.value = self.model.get_enable_plugins()
+
+    def update_widget(self) -> None:
+        enabled_plugins = self._model.get_enable_plugins()
+        for i in enabled_plugins:
+            self._view.set_plugin_status(i, True)
+
     def _set_plugins_status(self, plugins: List[Tuple[str, bool]]) -> None:
         for each in plugins:
             self.view.set_plugin_status(each[0], each[1])
@@ -81,18 +96,10 @@ class PluginPresenter:
         self.flyout.add_plugins(current_selected)
         Flyout.make(self.flyout, target=self._view.get_selected_btn(), parent=self._view, isDeleteOnClose=False)
 
-    def _update_value_to_command_manager(self, plugin_name: str, is_selected: bool) -> None:
-        plugin_command = self._command_manager.get_command_by_command('enable-plugins')
-        if plugin_command is None:
-            return
-
-        self.model.set_plugin_status(plugin_name, is_selected)
-        plugin_command.value = self.model.get_enable_plugins()
-
     def bind(self):
         self.view.get_auto_btn().clicked.connect(self.auto_detect)
         self.view.get_selected_btn().clicked.connect(self._show_current_selected)
-        self.view.card_clicked.connect(self._update_value_to_command_manager)
+        self.view.card_clicked.connect(self.update_value_to_command_manager)
 
 
 if __name__ == '__main__':
