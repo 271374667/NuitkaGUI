@@ -1,4 +1,5 @@
 from src.common.nuitka_command.command import CommandPathBase
+from src.core.paths import LOGO_FILE
 
 
 class CommandOutputDir(CommandPathBase):
@@ -14,6 +15,7 @@ class CommandMain(CommandPathBase):
 
 
 class CommandWindowsIconFromIco(CommandPathBase):
+    _value = str(LOGO_FILE)
     name: str = "Windows图标"
     description: str = "指定Windows图标"
     command: str = "windows-icon-from-ico"
