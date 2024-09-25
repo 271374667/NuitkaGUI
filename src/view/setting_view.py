@@ -74,7 +74,7 @@ class SettingView(MessageBaseView):
             Icon(FluentIcon.CHEVRON_RIGHT),
             "设置优化选项",
             "选择优化选项",
-            ["不优化", "兼容性", "速度", "大小"],
+            ["标准", "兼容性", "速度", "大小"],
             self.general_group,
         )
 

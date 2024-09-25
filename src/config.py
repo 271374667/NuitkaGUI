@@ -1,5 +1,6 @@
 import locale
 import sys
+from enum import Enum
 from pathlib import Path
 
 import loguru
@@ -14,7 +15,6 @@ from qfluentwidgets import (
     OptionsConfigItem
 )
 
-from enum import Enum
 from src.core.paths import CONFIG_FILE
 from src.utils.python_env_utils import PythonEnvUtils
 
@@ -31,7 +31,7 @@ locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 
 class Optimization(Enum):
-    Disable = "Disable"
+    Normal = "Normal"
     Compatibility = "Compatibility"
     Speed = "Speed"
     Size = "Size"
@@ -68,6 +68,7 @@ class Config(QConfig):
         Optimization.Compatibility,
         OptionsValidator(Optimization),
         EnumSerializer(Optimization),
+        restart=True
     )
 
 
