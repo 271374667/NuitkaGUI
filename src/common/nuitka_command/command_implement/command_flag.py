@@ -99,3 +99,9 @@ class CommandWarnImplicitExceptions(CommandFlagBase):
     command: str = "warn-implicit-exceptions"
     name: str = "编译时显示警告隐式异常"
     description: str = "在编译时警告可能的隐式异常"
+
+
+class CommandPluginNoDetection(CommandFlagBase):
+    command = "plugin-no-detection"
+    name = "禁用插件检测"
+    description = "可以提高编译的速度,您可以使用NuitkaGUI来自动检测插件"
