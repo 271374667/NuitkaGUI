@@ -66,7 +66,7 @@ class CommandManager(Generic[CommandBaseType]):
         for i in self.command_list:
             if i.enabled and i.value != "" and i.value is not None and i.value is not False and i.value != -1:
                 result.append(i.get_command())
-        return ",".join(result)
+        return " ".join(result)
 
     def update_command_list(self):
         self.command_list = []
