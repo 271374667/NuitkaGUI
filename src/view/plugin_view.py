@@ -90,6 +90,9 @@ class PluginItem(QWidget):
 
 
 class PluginView(MessageBaseView):
+    # 返回值为(插件名，是否选中)
+    card_clicked = Signal(str, bool)
+
     def __init__(self):
         super().__init__()
         self.setObjectName('PluginView')
@@ -155,6 +158,7 @@ class PluginView(MessageBaseView):
         """添加一个插件"""
         plugin_item = PluginItem(title, desc)
         self.content_flowlayout.addWidget(plugin_item)
+        plugin_item.card_clicked.connect(lambda name, is_selected: self.card_clicked.emit(name, is_selected))
         return plugin_item
 
     def clear_all_plugin(self) -> None:

@@ -81,9 +81,18 @@ class PluginPresenter:
         self.flyout.add_plugins(current_selected)
         Flyout.make(self.flyout, target=self._view.get_selected_btn(), parent=self._view, isDeleteOnClose=False)
 
+    def _update_value_to_command_manager(self, plugin_name: str, is_selected: bool) -> None:
+        plugin_command = self._command_manager.get_command_by_command('enable-plugins')
+        if plugin_command is None:
+            return
+
+        self.model.set_plugin_status(plugin_name, is_selected)
+        plugin_command.value = self.model.get_enable_plugins()
+
     def bind(self):
         self.view.get_auto_btn().clicked.connect(self.auto_detect)
         self.view.get_selected_btn().clicked.connect(self._show_current_selected)
+        self.view.card_clicked.connect(self._update_value_to_command_manager)
 
 
 if __name__ == '__main__':

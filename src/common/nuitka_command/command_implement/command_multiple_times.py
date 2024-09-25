@@ -23,3 +23,9 @@ class CommandNofollowImportTo(CommandMultipleTimesBase):
     name: str = "不跟随导入"
     description: str = "指定不跟随导入的模块"
     command: str = "nofollow-import-to"
+
+
+class CommandEnablePlugins(CommandMultipleTimesBase):
+    name = "启用插件"
+    description = "启用nuitka的插件"
+    command = "enable-plugins"
