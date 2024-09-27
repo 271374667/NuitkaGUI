@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QApplication, QFileDialog
 from src.model.basic_model import BasicModel
 from src.utils.window_explorer_utils import WindowExplorerUtils
 from src.view.basic_view import BasicView
+from src.signal_bus import SignalBus
 
 
 class BasicPresenter:
@@ -14,6 +15,7 @@ class BasicPresenter:
         self._model = BasicModel()
 
         self._window_explorer_utils = WindowExplorerUtils()
+        self._signal_bus = SignalBus()
 
         self.bind()
 
@@ -59,6 +61,7 @@ class BasicPresenter:
                 self._model.project_python_exe_path = project_python_exe
             else:
                 self._model.project_python_exe_path = None
+            self._signal_bus.update_setting_view.emit()
 
     def _open_file_dialog(self):
         py_file, _ = QFileDialog.getOpenFileName(self._view, '选择 Python 文件', '', 'Python 文件 (*.py)')

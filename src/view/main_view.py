@@ -25,6 +25,7 @@ class MainView(FluentWindow):
             setting_view: SettingView,
     ):
         super().__init__()
+        self.navigationInterface.setAcrylicEnabled(True)
 
         # create sub interface
         self.basic_interface = basic_view
@@ -42,10 +43,10 @@ class MainView(FluentWindow):
         self.args_interface.setObjectName("args")
         # self.setting_interface = setting_view
 
-        self.init_navigation()
-        self.init_window()
+        self._init_navigation()
+        self._init_window()
 
-    def init_navigation(self):
+    def _init_navigation(self):
         self.addSubInterface(self.basic_interface, FIF.HOME, "主页")
         self.addSubInterface(self.advanced_interface, FIF.DEVELOPER_TOOLS, "高级")
         self.addSubInterface(self.embed_interface, FIF.ZIP_FOLDER, "嵌入")
@@ -60,7 +61,7 @@ class MainView(FluentWindow):
             self.setting_interface, FIF.SETTING, "设置", NavigationItemPosition.BOTTOM
         )
 
-    def init_window(self):
+    def _init_window(self):
         self.resize(1100, 750)
         # 设置窗口的最小尺寸
         self.setMinimumSize(1100, 750)

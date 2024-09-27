@@ -4,4 +4,4 @@ from src.utils.singleton import singleton
 
 @singleton
 class SignalBus(QObject):
-    update_all_widget = Signal()
+    update_setting_view = Signal()

@@ -10,10 +10,12 @@ from src.presenter.embed_presenter import EmbedPresenter
 from src.presenter.plugin_presenter import PluginPresenter
 from src.presenter.setting_presenter import SettingPresenter
 from src.view.main_view import MainView
-
+from src.signal_bus import SignalBus
 
 class MainPresenter:
     def __init__(self):
+        self._signal_bus = SignalBus()
+
         self._basic_presenter = BasicPresenter()
         self._advanced_presenter = AdvancedPresenter()
         self._plugin_presenter = PluginPresenter()
@@ -33,6 +35,7 @@ class MainPresenter:
         )
         self._model = MainModel()
         self._default_optimization()
+        self._bind()
 
     @property
     def view(self) -> MainView:
@@ -56,6 +59,9 @@ class MainPresenter:
             case _:
                 raise ValueError(f"Unknown optimization: {optimization}")
         self._model.update_all_widget()
+
+    def _bind(self):
+        self._signal_bus.update_setting_view.connect(self._setting_presenter.update_view)
 
 
 if __name__ == "__main__":
