@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QWidget, QApplication
 from qfluentwidgets import ToolTipFilter
-from qfluentwidgets.components import TextEdit, HyperlinkButton, PrimaryPushButton
+from qfluentwidgets.components import TextEdit, HyperlinkButton, PrimaryPushButton, CardWidget
 
 from src.interface.Ui_args_page_fluent import Ui_Form
 
@@ -12,6 +12,9 @@ class ArgsView(QWidget):
         self.ui.setupUi(self)
 
         self.initialize()
+
+        # TODO: 未来更新反向分析命令的功能，现在先隐藏
+        self.get_input_args_card_widget().setVisible(False)
 
     def get_output_args_textedit(self) -> TextEdit:
         return self.ui.TextEdit
@@ -27,6 +30,9 @@ class ArgsView(QWidget):
 
     def get_clear_btn(self) -> PrimaryPushButton:
         return self.ui.PrimaryPushButton
+
+    def get_input_args_card_widget(self) -> CardWidget:
+        return self.ui.CardWidget_2
 
     def initialize(self) -> None:
         for each in self.findChildren(QWidget):

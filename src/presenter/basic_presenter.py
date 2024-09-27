@@ -4,9 +4,9 @@ import loguru
 from PySide6.QtWidgets import QApplication, QFileDialog
 
 from src.model.basic_model import BasicModel
+from src.signal_bus import SignalBus
 from src.utils.window_explorer_utils import WindowExplorerUtils
 from src.view.basic_view import BasicView
-from src.signal_bus import SignalBus
 
 
 class BasicPresenter:
@@ -52,8 +52,8 @@ class BasicPresenter:
         project_python_exe = self._window_explorer_utils.find_files_in_dir_recursive(drop_file_path.parent,
                                                                                      'python.exe',
                                                                                      WindowExplorerUtils.FileType.FILES)
-        print(project_python_exe)
         if project_python_exe:
+            loguru.logger.debug(f'找到可用的python.exe地址: {project_python_exe}')
             project_python_exe = project_python_exe[0]
             if Path(project_python_exe).is_relative_to(drop_file_path.parent):
                 self._view.show_mask_dialog('已找到项目Python.exe',
