@@ -4,6 +4,7 @@ import loguru
 from PySide6.QtWidgets import QApplication, QFileDialog
 
 from src.model.basic_model import BasicModel
+from src.utils.window_explorer_utils import WindowExplorerUtils
 from src.view.basic_view import BasicView
 
 
@@ -11,6 +12,8 @@ class BasicPresenter:
     def __init__(self):
         self._view = BasicView()
         self._model = BasicModel()
+
+        self._window_explorer_utils = WindowExplorerUtils()
 
         self.bind()
 
@@ -24,6 +27,9 @@ class BasicPresenter:
 
     def _source_script_changed(self, drop_file_url: str):
         drop_file_path: Path = Path(drop_file_url)
+        project_python_exe = self._window_explorer_utils.find_files_in_dir_recursive(drop_file_path.parent,
+                                                                                     'python.exe',
+                                                                                     WindowExplorerUtils.FileType.FILES)
         if not drop_file_path.exists():
             self._view.show_warning_infobar('错误', f'文件不存在:{drop_file_url}')
             self._view.source_script_path = None
@@ -36,11 +42,21 @@ class BasicPresenter:
             self._model.source_script_path = None
             return
 
-        self._view.source_script_path = drop_file_path
-        self._model.source_script_path = drop_file_path
+        if not project_python_exe:
+            self._view.source_script_path = drop_file_path
+            self._model.source_script_path = drop_file_path
         self._view.output_dir = self._get_output_dir_path()
         self._model.output_dir = self._get_output_dir_path()
         self._view.show_success_infobar('成功', f'已选择文件:{drop_file_path.name}', duration=2000)
+
+        project_python_exe = self._window_explorer_utils.find_files_in_dir_recursive(drop_file_path.parent,
+                                                                                     'python.exe',
+                                                                                     WindowExplorerUtils.FileType.FILES)
+        print(project_python_exe)
+        if project_python_exe:
+            self._view.show_mask_dialog('已找到项目Python.exe',
+                                        f'我们发现您正在使用虚拟环境,是否使用项目中的Python.exe?\n{project_python_exe[0]}')
+            self._model.project_python_exe_path = Path(project_python_exe[0])
 
     def _open_file_dialog(self):
         py_file, _ = QFileDialog.getOpenFileName(self._view, '选择 Python 文件', '', 'Python 文件 (*.py)')

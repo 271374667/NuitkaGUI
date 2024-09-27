@@ -4,25 +4,25 @@ from qfluentwidgets import FluentIcon as FIF
 from qfluentwidgets import FluentWindow, NavigationItemPosition
 
 from src.component.cmd_text_edit import CMDTextEdit
+from src.view.about_view import AboutView
+from src.view.advanced_view import AdvancedView
+from src.view.args_view import ArgsView
 from src.view.basic_view import BasicView
 from src.view.embed_view import EmbedView
-from src.view.about_view import AboutView
-from src.view.args_view import ArgsView
-from src.view.advanced_view import AdvancedView
-from src.view.setting_view import SettingView
 from src.view.plugin_view import PluginView
+from src.view.setting_view import SettingView
 
 
 class MainView(FluentWindow):
     def __init__(
-        self,
-        basic_view: BasicView,
-        advanced_view: AdvancedView,
-        plugin_view: PluginView,
-        embed_view: EmbedView,
-        args_view: ArgsView,
-        about_view: AboutView,
-        setting_view: SettingView,
+            self,
+            basic_view: BasicView,
+            advanced_view: AdvancedView,
+            plugin_view: PluginView,
+            embed_view: EmbedView,
+            args_view: ArgsView,
+            about_view: AboutView,
+            setting_view: SettingView,
     ):
         super().__init__()
 
@@ -35,17 +35,17 @@ class MainView(FluentWindow):
         self.about_interface = about_view
         self.setting_interface = setting_view
         self.cmd_interface = CMDTextEdit()
-        
+
         self.about_interface.setObjectName("about")
         self.cmd_interface.setObjectName("cmd")
         self.plugin_interface.setObjectName("plugin")
         self.args_interface.setObjectName("args")
         # self.setting_interface = setting_view
 
-        self.initNavigation()
-        self.initWindow()
+        self.init_navigation()
+        self.init_window()
 
-    def initNavigation(self):
+    def init_navigation(self):
         self.addSubInterface(self.basic_interface, FIF.HOME, "主页")
         self.addSubInterface(self.advanced_interface, FIF.DEVELOPER_TOOLS, "高级")
         self.addSubInterface(self.embed_interface, FIF.ZIP_FOLDER, "嵌入")
@@ -60,7 +60,7 @@ class MainView(FluentWindow):
             self.setting_interface, FIF.SETTING, "设置", NavigationItemPosition.BOTTOM
         )
 
-    def initWindow(self):
+    def init_window(self):
         self.resize(1100, 750)
         # 设置窗口的最小尺寸
         self.setMinimumSize(1100, 750)
