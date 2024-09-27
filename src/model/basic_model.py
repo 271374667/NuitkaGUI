@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Optional
 
 from src.common.nuitka_command.command_manager import CommandManager
+from src.config import cfg
 
 
 class BasicModel:
@@ -17,6 +18,14 @@ class BasicModel:
     @source_script_path.setter
     def source_script_path(self, source_script: Optional[Path]) -> None:
         self._command_manager.source_script = source_script
+
+    @property
+    def project_python_exe_path(self) -> Path:
+        return Path(cfg.get(cfg.project_python_exe_path))
+
+    @project_python_exe_path.setter
+    def project_python_exe_path(self, project_python_exe_path: Path) -> None:
+        cfg.set(cfg.project_python_exe_path, str(project_python_exe_path))
 
     @property
     def output_dir(self) -> Optional[Path]:
