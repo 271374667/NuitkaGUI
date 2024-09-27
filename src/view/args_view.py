@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QWidget, QApplication
+from qfluentwidgets import ToolTipFilter
 from qfluentwidgets.components import TextEdit, HyperlinkButton, PrimaryPushButton
 
 from src.interface.Ui_args_page_fluent import Ui_Form
@@ -9,6 +10,8 @@ class ArgsView(QWidget):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+
+        self.initialize()
 
     def get_output_args_textedit(self) -> TextEdit:
         return self.ui.TextEdit
@@ -24,6 +27,10 @@ class ArgsView(QWidget):
 
     def get_clear_btn(self) -> PrimaryPushButton:
         return self.ui.PrimaryPushButton
+
+    def initialize(self) -> None:
+        for each in self.findChildren(QWidget):
+            each.installEventFilter(ToolTipFilter(each, 200))
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 from PySide6.QtCore import Qt, Signal, QEasingCurve
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QSizePolicy
-from qfluentwidgets import (FlyoutViewBase, ListWidget, FlowLayout, SimpleCardWidget)
+from qfluentwidgets import (FlyoutViewBase, ListWidget, FlowLayout, SimpleCardWidget, ToolTipFilter)
 from qfluentwidgets.components import TitleLabel, BodyLabel, SwitchButton, PrimaryPushButton, PushButton, \
     SubtitleLabel
 
@@ -106,6 +106,8 @@ class PluginView(MessageBaseView):
         self.content_flowlayout.setAnimation(1000, QEasingCurve.InOutCubic)
         content_widget.setLayout(self.content_flowlayout)
 
+        self.initialize()
+
     def get_flyout(self) -> CustomFlyoutView:
         return self.fly_widget
 
@@ -172,6 +174,10 @@ class PluginView(MessageBaseView):
             if isinstance(widget, PluginItem):
                 plugin_items.append(widget)
         return plugin_items
+
+    def initialize(self) -> None:
+        for each in self.findChildren(QWidget):
+            each.installEventFilter(ToolTipFilter(each, 200))
 
 
 if __name__ == '__main__':

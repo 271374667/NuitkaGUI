@@ -1,7 +1,9 @@
 from PySide6.QtWidgets import QVBoxLayout, QApplication, QSizePolicy, QLayout, QWidget
-from src.view.message_base_view import MessageBaseView
-from src.common.nuitka_command.command_manager import CommandManager
+from qfluentwidgets import ToolTipFilter
 from qfluentwidgets.components import SmoothScrollArea
+
+from src.common.nuitka_command.command_manager import CommandManager
+from src.view.message_base_view import MessageBaseView
 
 
 class AdvancedView(MessageBaseView):
@@ -10,6 +12,8 @@ class AdvancedView(MessageBaseView):
         self._command_manager = CommandManager()
 
         self._init_ui()
+
+        self.initialize()
 
     def _init_ui(self):
         self.setWindowTitle("高级设置")
@@ -43,6 +47,10 @@ class AdvancedView(MessageBaseView):
 
         self._main_layout.addWidget(self._main_scroll_area)
         self.setLayout(self._main_layout)
+
+    def initialize(self) -> None:
+        for each in self.findChildren(QWidget):
+            each.installEventFilter(ToolTipFilter(each, 200))
 
 
 if __name__ == "__main__":
