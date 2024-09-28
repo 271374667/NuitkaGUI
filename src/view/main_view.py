@@ -26,7 +26,7 @@ class MainView(FluentWindow):
     ):
         super().__init__()
         self.navigationInterface.setAcrylicEnabled(True)
-        self.navigationInterface.panel.expandWidth = 100
+        self.navigationInterface.panel.expandWidth = 150
 
         # create sub interface
         self.basic_interface = basic_view
