@@ -317,7 +317,7 @@ class Ui_Form(object):
         self.PushButton_2.setToolTip(
             QCoreApplication.translate(
                 "Form",
-                "<html><head/><body><p>\u4f9d\u8d56\u4ec5\u5728\u8fd0\u884cNuitkaGUI\u65f6\u751f\u6548\uff0c\u9000\u51fa\u65f6\u81ea\u52a8\u6e05\u7a7a\u73af\u5883\u53d8\u91cf</p><p><br/></p><p>\u4f7f\u7528\u8be5\u65b9\u6cd5\u80fd\u591f\u4e0d\u6c61\u67d3\u7cfb\u7edf\u73af\u5883\u53d8\u91cf</p></body></html>",
+                "<html><head/><body><p>\u4f9d\u8d56\u4ec5\u5728\u8fd0\u884cNuitkaGUI\u65f6\u751f\u6548\uff0c\u9000\u51fa\u65f6\u81ea\u52a8\u6e05\u7a7a\u73af\u5883\u53d8\u91cf</p><p>\u4f7f\u7528\u8be5\u65b9\u6cd5\u80fd\u591f\u4e0d\u6c61\u67d3\u7cfb\u7edf\u73af\u5883\u53d8\u91cf</p></body></html>",
                 None,
             )
         )

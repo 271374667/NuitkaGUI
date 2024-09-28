@@ -37,6 +37,14 @@ class Optimization(Enum):
     Size = "Size"
 
 
+class PipSrouce(Enum):
+    Default = 'https://pypi.org/simple/'
+    QingHua = 'https://pypi.tuna.tsinghua.edu.cn/simple'
+    ALiYun = 'https://mirrors.aliyun.com/pypi/simple/'
+    ZhongGuoKeJiDaXue = 'https://pypi.mirrors.ustc.edu.cn/simple/'
+    DouBan = 'https://pypi.douban.com/simple/'
+
+
 class PythonExeValidator(ConfigValidator):
     """Config validator"""
 
@@ -69,6 +77,13 @@ class Config(QConfig):
         OptionsValidator(Optimization),
         EnumSerializer(Optimization),
         restart=True
+    )
+    pip_source = OptionsConfigItem(
+        "General",
+        "pip源",
+        PipSrouce.Default,
+        OptionsValidator(PipSrouce),
+        EnumSerializer(PipSrouce)
     )
 
 

@@ -2,14 +2,16 @@ from typing import Optional
 
 import loguru
 from PySide6.QtCore import Slot
-from PySide6.QtWidgets import QApplication, QFileDialog
+from PySide6.QtWidgets import QApplication, QFileDialog, QWidget
+from qfluentwidgets import ToolTipFilter
 from qframelesswindow import FramelessWindow
 from qfluentwidgets.components import PrimaryPushButton, InfoBadge, InfoBar, PillPushButton, ProgressBar, PushButton, MessageBox
 
 from src.interface.Ui_welcome_page_fluent import Ui_Form
+from src.view.message_base_view import MessageBaseView
 
 
-class WelcomeView(FramelessWindow):
+class WelcomeView(FramelessWindow, MessageBaseView):
     def __init__(self):
         super().__init__()
         self.ui = Ui_Form()
@@ -26,6 +28,7 @@ class WelcomeView(FramelessWindow):
         self.pip_unfinished = InfoBadge.error('未完成', parent=self, target=self.ui.CardWidget_3)
 
         self.bind()
+        self.initialize()
 
     def get_hand_pythonexe_btn(self) -> PushButton:
         return self.ui.PushButton
@@ -50,11 +53,6 @@ class WelcomeView(FramelessWindow):
 
     def get_progress_bar(self) -> ProgressBar:
         return self.ui.ProgressBar
-
-    def show_finished_messagebox(self) -> None:
-        m = MessageBox('完成', '您已经完成了所有的设置,请重启软件后开始使用', parent=self)
-        if m.exec():
-            loguru.logger.debug('配置完成,重启软件')
 
     @Slot(bool)
     def set_pythonexe_status(self, status: bool) -> None:
@@ -116,20 +114,9 @@ class WelcomeView(FramelessWindow):
         self.get_finish_btn().setEnabled(False)
         self.get_finish_btn().setText('您需要先完成设置')
 
-    def show_info(self, title: str, content: str, duration: int = -1) -> None:
-        InfoBar.info(title, content, parent=self, duration=duration)
-
-    def show_warning_info(self, title: str, content: str, duration: int = -1) -> None:
-        InfoBar.warning(title, content, parent=self, duration=duration)
-
-    def show_success_info(self, title: str, content: str, duration: int = 15000) -> None:
-        InfoBar.success(title, content, parent=self, duration=duration)
-
-    def show_error_info(self, title: str, content: str, duration: int = -1) -> None:
-        InfoBar.error(title, content, parent=self, duration=duration)
-
-    def bind(self) -> None:
-        self.get_finish_btn().clicked.connect(lambda: self.show_finished_messagebox())
+    def initialize(self) -> None:
+        for each in self.findChildren(QWidget):
+            each.installEventFilter(ToolTipFilter(each, 200))
 
 
 if __name__ == '__main__':

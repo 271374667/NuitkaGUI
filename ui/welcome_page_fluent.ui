@@ -398,7 +398,7 @@
         <item>
          <widget class="PushButton" name="PushButton_2">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;依赖仅在运行NuitkaGUI时生效，退出时自动清空环境变量&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;使用该方法能够不污染系统环境变量&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;依赖仅在运行NuitkaGUI时生效，退出时自动清空环境变量&lt;/p&gt;&lt;p&gt;使用该方法能够不污染系统环境变量&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>仅在运行时</string>

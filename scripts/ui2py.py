@@ -1,9 +1,7 @@
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
-from unittest import result
 
 from src.core.paths import UI_DIR, INTERFACE_DIR
-
 
 count = 0
 thread_pool = ThreadPoolExecutor(10)

@@ -15,9 +15,9 @@ from qfluentwidgets.components import (
     ComboBoxSettingCard,
 )
 
-from src.resource import rc_res
 from src.config import cfg
 from src.core.version import __version__
+from src.resource import rc_res
 from src.view.message_base_view import MessageBaseView
 
 rc_res = rc_res
@@ -78,9 +78,20 @@ class SettingView(MessageBaseView):
             self.general_group,
         )
 
+        self.pip_source_card = ComboBoxSettingCard(
+            cfg.pip_source,
+            Icon(FluentIcon.CHEVRON_RIGHT),
+            "设置pip源",
+            "选择安装时候的pip源, 更改该选项可以加速安装",
+            ["默认", "清华", "阿里", "中科大", "豆瓣"],
+            self.general_group,
+        )
+
     def _set_up_tooltip(self):
         self.project_python_exe_path_card.setToolTip("选择当前项目使用的Python.exe路径")
         self.global_python_exe_path_card.setToolTip("选择全局Python.exe路径")
+        self.optimization_card.setToolTip("选择优化选项")
+        self.pip_source_card.setToolTip("通常情况下建议选择阿里源")
 
     def _set_up_layout(self):
         """设置布局"""
@@ -97,6 +108,7 @@ class SettingView(MessageBaseView):
                 self.project_python_exe_path_card,
                 self.global_python_exe_path_card,
                 self.optimization_card,
+                self.pip_source_card,
             ]
         )
 
