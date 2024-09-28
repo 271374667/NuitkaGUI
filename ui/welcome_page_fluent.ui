@@ -346,7 +346,7 @@
            </size>
           </property>
           <property name="text">
-           <string>GCC编译器</string>
+           <string>依赖安装</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignHCenter|Qt::AlignTop</set>
@@ -365,7 +365,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nuitka依赖GCC进行编译&lt;/p&gt;&lt;p&gt;如果您已经安装了GCC可以点击检测来测试GCC是否可用&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nuitka需要各种依赖&lt;/p&gt;&lt;p&gt;您可以直接通过NuitkaGUI快速解压到环境变量中，为您节省大量下载时间&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -397,15 +397,21 @@
         </item>
         <item>
          <widget class="PushButton" name="PushButton_2">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;依赖仅在运行NuitkaGUI时生效，退出时自动清空环境变量&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;使用该方法能够不污染系统环境变量&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
-           <string>检测Gcc</string>
+           <string>仅在运行时</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="PrimaryPushButton" name="PrimaryPushButton_2">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;安装之后您可以在其他任何地方使用已有的依赖,但是会修改您系统的环境变量&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
-           <string>自动下载</string>
+           <string>添加系统环境变量</string>
           </property>
          </widget>
         </item>
@@ -415,7 +421,7 @@
     </layout>
    </item>
    <item>
-    <widget class="PushButton" name="PushButton">
+    <widget class="PushButton" name="finishedBtn">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -458,13 +464,8 @@
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>PushButton</class>
-   <extends>PrimaryPushButton</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
    <class>PrimaryPushButton</class>
-   <extends>QPushButton</extends>
+   <extends>PushButton</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>

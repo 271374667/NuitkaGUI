@@ -225,20 +225,20 @@ class Ui_Form(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout)
 
-        self.PushButton1 = PushButton(Form)
-        self.PushButton1.setObjectName("PushButton1")
-        self.PushButton1.setEnabled(False)
+        self.finishedBtn = PushButton(Form)
+        self.finishedBtn.setObjectName("finishedBtn")
+        self.finishedBtn.setEnabled(False)
         sizePolicy2 = QSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
         )
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.PushButton1.sizePolicy().hasHeightForWidth())
-        self.PushButton1.setSizePolicy(sizePolicy2)
-        self.PushButton1.setSizeIncrement(QSize(0, 0))
-        self.PushButton1.setLayoutDirection(Qt.LeftToRight)
+        sizePolicy2.setHeightForWidth(self.finishedBtn.sizePolicy().hasHeightForWidth())
+        self.finishedBtn.setSizePolicy(sizePolicy2)
+        self.finishedBtn.setSizeIncrement(QSize(0, 0))
+        self.finishedBtn.setLayoutDirection(Qt.LeftToRight)
 
-        self.verticalLayout_4.addWidget(self.PushButton1)
+        self.verticalLayout_4.addWidget(self.finishedBtn)
 
         self.ProgressBar = ProgressBar(Form)
         self.ProgressBar.setObjectName("ProgressBar")
@@ -304,22 +304,42 @@ class Ui_Form(object):
             QCoreApplication.translate("Form", "\u81ea\u52a8\u641c\u7d22", None)
         )
         self.TitleLabel_2.setText(
-            QCoreApplication.translate("Form", "GCC\u7f16\u8bd1\u5668", None)
+            QCoreApplication.translate("Form", "\u4f9d\u8d56\u5b89\u88c5", None)
         )
         self.BodyLabel_3.setText(
             QCoreApplication.translate(
                 "Form",
-                "<html><head/><body><p>Nuitka\u4f9d\u8d56GCC\u8fdb\u884c\u7f16\u8bd1</p><p>\u5982\u679c\u60a8\u5df2\u7ecf\u5b89\u88c5\u4e86GCC\u53ef\u4ee5\u70b9\u51fb\u68c0\u6d4b\u6765\u6d4b\u8bd5GCC\u662f\u5426\u53ef\u7528</p></body></html>",
+                "<html><head/><body><p>Nuitka\u9700\u8981\u5404\u79cd\u4f9d\u8d56</p><p>\u60a8\u53ef\u4ee5\u76f4\u63a5\u901a\u8fc7NuitkaGUI\u5feb\u901f\u89e3\u538b\u5230\u73af\u5883\u53d8\u91cf\u4e2d\uff0c\u4e3a\u60a8\u8282\u7701\u5927\u91cf\u4e0b\u8f7d\u65f6\u95f4</p></body></html>",
                 None,
             )
         )
+        # if QT_CONFIG(tooltip)
+        self.PushButton_2.setToolTip(
+            QCoreApplication.translate(
+                "Form",
+                "<html><head/><body><p>\u4f9d\u8d56\u4ec5\u5728\u8fd0\u884cNuitkaGUI\u65f6\u751f\u6548\uff0c\u9000\u51fa\u65f6\u81ea\u52a8\u6e05\u7a7a\u73af\u5883\u53d8\u91cf</p><p><br/></p><p>\u4f7f\u7528\u8be5\u65b9\u6cd5\u80fd\u591f\u4e0d\u6c61\u67d3\u7cfb\u7edf\u73af\u5883\u53d8\u91cf</p></body></html>",
+                None,
+            )
+        )
+        # endif // QT_CONFIG(tooltip)
         self.PushButton_2.setText(
-            QCoreApplication.translate("Form", "\u68c0\u6d4bGcc", None)
+            QCoreApplication.translate("Form", "\u4ec5\u5728\u8fd0\u884c\u65f6", None)
         )
+        # if QT_CONFIG(tooltip)
+        self.PrimaryPushButton_2.setToolTip(
+            QCoreApplication.translate(
+                "Form",
+                "<html><head/><body><p>\u5b89\u88c5\u4e4b\u540e\u60a8\u53ef\u4ee5\u5728\u5176\u4ed6\u4efb\u4f55\u5730\u65b9\u4f7f\u7528\u5df2\u6709\u7684\u4f9d\u8d56,\u4f46\u662f\u4f1a\u4fee\u6539\u60a8\u7cfb\u7edf\u7684\u73af\u5883\u53d8\u91cf</p></body></html>",
+                None,
+            )
+        )
+        # endif // QT_CONFIG(tooltip)
         self.PrimaryPushButton_2.setText(
-            QCoreApplication.translate("Form", "\u81ea\u52a8\u4e0b\u8f7d", None)
+            QCoreApplication.translate(
+                "Form", "\u6dfb\u52a0\u7cfb\u7edf\u73af\u5883\u53d8\u91cf", None
+            )
         )
-        self.PushButton1.setText(
+        self.finishedBtn.setText(
             QCoreApplication.translate(
                 "Form", "\u60a8\u9700\u8981\u5148\u5b8c\u6210\u8bbe\u7f6e", None
             )
