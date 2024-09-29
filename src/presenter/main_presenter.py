@@ -67,10 +67,15 @@ class MainPresenter:
         welcome_presenter = WelcomePresenter()
         welcome_presenter.view.show()
 
+    def _start(self):
+        self.view.switchTo(self._args_presenter.view)
+        self._args_presenter.update_command()
+
     def _bind(self):
         # 当基础页面(basic_presenter)选择了新的Python.exe解释器的时候,更新设置页面
         self._signal_bus.update_setting_view.connect(self._setting_presenter.update_view)
         self._setting_presenter.view.open_welcome_card.clicked.connect(self._open_welcome_view)
+        self._basic_presenter.view.get_start_btn().clicked.connect(self._start)
 
 
 if __name__ == "__main__":

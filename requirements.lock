@@ -18,20 +18,20 @@ darkdetect==0.8.0
     # via pyside6-fluent-widgets
 loguru==0.7.2
     # via nuitkagui
-pyside6==6.7.2
+pyside6==6.7.3
     # via pyside6-fluent-widgets
-pyside6-addons==6.7.2
+pyside6-addons==6.7.3
     # via pyside6
-pyside6-essentials==6.7.2
+pyside6-essentials==6.7.3
     # via pyside6
     # via pyside6-addons
-pyside6-fluent-widgets==1.6.3
+pyside6-fluent-widgets==1.6.5
     # via nuitkagui
 pysidesix-frameless-window==0.4.3
     # via pyside6-fluent-widgets
 pywin32==306
     # via pysidesix-frameless-window
-shiboken6==6.7.2
+shiboken6==6.7.3
     # via pyside6
     # via pyside6-addons
     # via pyside6-essentials

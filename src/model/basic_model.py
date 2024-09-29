@@ -1,5 +1,8 @@
+import subprocess
 from pathlib import Path
 from typing import Optional
+
+import loguru
 
 from src.common.nuitka_command.command_manager import CommandManager
 from src.config import cfg
@@ -61,5 +64,12 @@ class BasicModel:
             standalone_command.value = False
             onefile_command.value = True
 
-    def start(self):
-        ...
+    def start(self) -> bool:
+        try:
+            loguru.logger.info(f'开始打包: {self._command_manager.current_command}')
+            subprocess.check_output(self._command_manager.current_command, creationflags=subprocess.CREATE_NEW_CONSOLE,
+                           shell=True)
+            return True
+        except Exception as e:
+            loguru.logger.error(e)
+            return False

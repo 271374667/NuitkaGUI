@@ -22,7 +22,7 @@ DEFAULT_OPTIMIZATION_OPTIONS: dict[str, Sequence[str]] = {
     "Compatibility": ['show-progress',
                       'show-memory',
                       'mingw64',
-                      'disable-ccache=all',
+                      'disable-ccache',
                       'assume-yes-for-downloads',
                       'warn-implicit-exceptions'
                       ],

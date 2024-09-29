@@ -66,7 +66,7 @@ class CommandLtoNo(CommandFlagBase):
 
 
 class CommandDisableCcache(CommandFlagBase):
-    command: str = "disable-ccache=all"
+    command: str = "disable-ccache"
     name = "禁用缓存"
     description = "不使用缓存,进行完整的重新编译(适合报错的情况)"
 

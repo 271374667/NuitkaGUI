@@ -130,11 +130,16 @@ class BasicPresenter:
             return
 
         def start():
-            self._model.start()
+            return self._model.start()
 
-        def finished():
+        def finished(is_success: bool):
+            if not is_success:
+                self._view.show_error_infobar('错误', '打包任务失败')
+                self._view.finish_state_tooltip('失败', '打包任务失败')
+                return
+
             self._view.show_success_infobar('完成', '打包任务完成(不一定成功)', duration=2000)
-            self._view.show_state_tooltip('就绪', '打包已经完成')
+            self._view.finish_state_tooltip('就绪', '打包已经完成')
 
         self._start_thread = RunInThread()
         self._start_thread.set_start_func(start)
