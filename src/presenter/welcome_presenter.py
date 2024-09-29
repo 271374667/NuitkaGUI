@@ -26,15 +26,18 @@ class WelcomePresenter:
     def _use_default_pip_source(self):
         self._model.pip_source = self._model.default_pip_source
         self._view.pip_source_url = self._model.default_pip_source
+        self._view.show_success_infobar('成功', '已经成功设置pip源为默认源')
 
     def _use_auto_pip_source(self):
         def start():
             url = self._model.auto_pip_source()
+            return url
+
+        def finished(url: str):
             self._model.pip_source = url
             self._view.pip_source_url = url
-
-        def finished():
             self._view.finish_state_tooltip("完成", "已经完成了 pip 源的设置")
+            self._view.show_success_infobar("成功", f"已经成功设置 pip 源为: {url}")
 
         self._view.show_state_tooltip("运行中……", "正在设置 pip 源,请稍等")
         self._run_in_thread = RunInThread()
