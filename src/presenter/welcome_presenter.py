@@ -45,10 +45,40 @@ class WelcomePresenter:
         self._run_in_thread.set_finished_func(finished)
         self._run_in_thread.start()
 
-    def _get_pythonexe_path_by_hand(self) -> Optional[str]:
+    def _get_pythonexe_path_by_hand(self):
         """手动获取 python.exe 路径"""
         result = QFileDialog.getOpenFileName(self._view, '选择 python.exe', '', 'Python (*.exe)')
-        return result[0] or None
+        if result[0] and self._model.is_python_available(result[0]):
+            self._view.python_exe_path = result[0]
+            self._model.python_exe_path = result[0]
+            self._view.show_success_infobar('成功', '已经成功设置 Python 路径')
+        else:
+            self._view.python_exe_path = None
+            self._model.python_exe_path = None
+            self._view.show_error_infobar('错误', '选择的 Python 路径不可用')
+
+    def _get_pythonexe_path_by_auto(self):
+        def start():
+            python_exe_path = self._model.auto_python_exe_path()
+            return python_exe_path
+
+        def finished(python_exe_path: Optional[str]):
+            if python_exe_path:
+                self._view.python_exe_path = python_exe_path
+                self._model.python_exe_path = python_exe_path
+                self._view.finish_state_tooltip("完成", "已经完成了 Python 路径的设置")
+                self._view.show_success_infobar("成功", f"已经成功设置 Python 路径为: {python_exe_path}")
+            else:
+                self._view.python_exe_path = None
+                self._model.python_exe_path = None
+                self._view.finish_state_tooltip("完成", "已经完成了 Python 路径的设置")
+                self._view.show_error_infobar("错误", "自动获取 Python 路径失败")
+
+        self._view.show_state_tooltip("运行中……", "正在设置 Python 路径,请稍等")
+        self._run_in_thread = RunInThread()
+        self._run_in_thread.set_start_func(start)
+        self._run_in_thread.set_finished_func(finished)
+        self._run_in_thread.start()
 
     def _finished(self):
         if self._view.show_mask_dialog('完成', '您已经完成了所有的设置,请重启软件后开始使用'):
@@ -59,6 +89,8 @@ class WelcomePresenter:
         self._view.get_finish_btn().clicked.connect(self._finished)
         self._view.get_default_pip_btn().clicked.connect(self._use_default_pip_source)
         self._view.get_auto_pip_btn().clicked.connect(self._use_auto_pip_source)
+        self._view.get_hand_pythonexe_btn().clicked.connect(self._get_pythonexe_path_by_hand)
+        self._view.get_auto_pythonexe_btn().clicked.connect(self._get_pythonexe_path_by_auto)
 
 
 if __name__ == '__main__':

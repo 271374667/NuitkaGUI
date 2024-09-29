@@ -1,12 +1,15 @@
+from pathlib import Path
 from typing import Optional
 
 from src.common.manager.pip_manager import PipManager
 from src.config import cfg, PipSrouce
+from src.utils.python_env_utils import PythonEnvUtils
 
 
 class WelcomeModel:
     def __init__(self):
         self._pip_manager = PipManager()
+        self._python_env_utils = PythonEnvUtils()
 
     @property
     def pip_source(self) -> PipSrouce:
@@ -20,8 +23,28 @@ class WelcomeModel:
     def default_pip_source(self) -> PipSrouce:
         return PipSrouce.Default
 
+    @property
+    def python_exe_path(self) -> Optional[str]:
+        return cfg.get(cfg.python_exe_path)
+
+    @python_exe_path.setter
+    def python_exe_path(self, value: Optional[str]) -> None:
+        if value:
+            cfg.set(cfg.global_python_exe_path, value)
+        else:
+            cfg.set(cfg.global_python_exe_path, "")
+
     def auto_pip_source(self) -> Optional[str]:
         return self._pip_manager.get_fastest_url([i.value for i in PipSrouce])
+
+    def is_python_available(self, python_exe_path: str) -> bool:
+        return self._python_env_utils.is_python_available(python_exe_path)
+
+    def auto_python_exe_path(self) -> Optional[str]:
+        python_exe_path_found: list[Path] = self._python_env_utils.find_available_python_exe_python()
+        for each in python_exe_path_found:
+            if self.is_python_available(str(each)):
+                return str(each)
 
 
 if __name__ == '__main__':

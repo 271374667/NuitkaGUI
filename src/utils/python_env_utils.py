@@ -58,12 +58,14 @@ class PythonEnvUtils:
         Returns:
             bool: is current python.exe is avialable
         """
-        if isinstance(python_path, str):
-            python_path = Path(python_path)
+        python_path = Path(python_path)
+
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
         try:
-            output = subprocess.check_output([python_path, "-V"], timeout=3)
-        except (TimeoutError, FileNotFoundError, subprocess.CalledProcessError):
+            output = subprocess.check_output([python_path, "-V"], timeout=3, startupinfo=startupinfo)
+        except Exception:
             output = b""
         return output.startswith(b"Python 3.")
 
