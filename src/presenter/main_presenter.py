@@ -9,8 +9,9 @@ from src.presenter.basic_presenter import BasicPresenter
 from src.presenter.embed_presenter import EmbedPresenter
 from src.presenter.plugin_presenter import PluginPresenter
 from src.presenter.setting_presenter import SettingPresenter
-from src.view.main_view import MainView
 from src.signal_bus import SignalBus
+from src.view.main_view import MainView
+
 
 class MainPresenter:
     def __init__(self):
@@ -61,6 +62,7 @@ class MainPresenter:
         self._model.update_all_widget()
 
     def _bind(self):
+        # 当基础页面(basic_presenter)选择了新的Python.exe解释器的时候,更新设置页面
         self._signal_bus.update_setting_view.connect(self._setting_presenter.update_view)
 
 

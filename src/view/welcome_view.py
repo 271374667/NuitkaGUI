@@ -1,11 +1,9 @@
 from typing import Optional
 
-import loguru
-from PySide6.QtCore import Slot
-from PySide6.QtWidgets import QApplication, QFileDialog, QWidget
+from PySide6.QtWidgets import QApplication, QWidget
 from qfluentwidgets import ToolTipFilter
+from qfluentwidgets.components import PrimaryPushButton, InfoBadge, PillPushButton, ProgressBar, PushButton
 from qframelesswindow import FramelessWindow
-from qfluentwidgets.components import PrimaryPushButton, InfoBadge, InfoBar, PillPushButton, ProgressBar, PushButton, MessageBox
 
 from src.interface.Ui_welcome_page_fluent import Ui_Form
 from src.view.message_base_view import MessageBaseView
@@ -18,16 +16,21 @@ class WelcomeView(FramelessWindow, MessageBaseView):
         self.ui.setupUi(self)
 
         # 设置三个选项的完成状态
-        self.python_finished = InfoBadge.attension('已完成', parent=self, target=self.ui.CardWidget)
-        self.gcc_finished = InfoBadge.attension('已完成', parent=self, target=self.ui.CardWidget_2)
-        self.pip_finished = InfoBadge.attension('已完成', parent=self, target=self.ui.CardWidget_3)
+        self._pip_source_url: Optional[str] = None
+        self._python_exe_path: Optional[str] = None
+        self._gcc_selected: bool = False
+        self._current_finished: int = 0
+
+        # 设置三个选项的完成状态
+        self._python_finished = InfoBadge.attension('已完成', parent=self, target=self.ui.CardWidget)
+        self._gcc_finished = InfoBadge.attension('已完成', parent=self, target=self.ui.CardWidget_2)
+        self._pip_finished = InfoBadge.attension('已完成', parent=self, target=self.ui.CardWidget_3)
 
         # 设置三个选项右上角都有一个没有完成的提示
-        self.python_unfinished = InfoBadge.error('未完成', parent=self, target=self.ui.CardWidget)
-        self.gcc_unfinished = InfoBadge.error('未完成', parent=self, target=self.ui.CardWidget_2)
-        self.pip_unfinished = InfoBadge.error('未完成', parent=self, target=self.ui.CardWidget_3)
+        self._python_unfinished = InfoBadge.error('未完成', parent=self, target=self.ui.CardWidget)
+        self._gcc_unfinished = InfoBadge.error('未完成', parent=self, target=self.ui.CardWidget_2)
+        self._pip_unfinished = InfoBadge.error('未完成', parent=self, target=self.ui.CardWidget_3)
 
-        self.bind()
         self.initialize()
 
     def get_hand_pythonexe_btn(self) -> PushButton:
@@ -54,65 +57,72 @@ class WelcomeView(FramelessWindow, MessageBaseView):
     def get_progress_bar(self) -> ProgressBar:
         return self.ui.ProgressBar
 
-    @Slot(bool)
-    def set_pythonexe_status(self, status: bool) -> None:
-        if status:
-            self.python_finished.show()
-            self.python_unfinished.hide()
-            return
-        self.python_finished.hide()
-        self.python_unfinished.show()
+    @property
+    def python_exe_path(self) -> Optional[str]:
+        return self._python_exe_path
 
-    @Slot(bool)
-    def set_gcc_status(self, status: bool) -> None:
-        if status:
-            self.gcc_finished.show()
-            self.gcc_unfinished.hide()
-            return
-        self.gcc_finished.hide()
-        self.gcc_unfinished.show()
+    @python_exe_path.setter
+    def python_exe_path(self, value: Optional[str]) -> None:
+        if value:
+            self._python_finished.show()
+            self._python_unfinished.hide()
+            self._current_finished += 1
+            self._python_exe_path = value
+        elif not value:
+            self._python_finished.hide()
+            self._python_unfinished.show()
+            self._current_finished -= 1
+            self._python_exe_path = None
+        self._update_progress()
 
-    @Slot(bool)
-    def set_pip_status(self, status: bool) -> None:
-        if status:
-            self.pip_unfinished.hide()
-            self.pip_finished.show()
-            return
-        self.pip_unfinished.show()
-        self.pip_finished.hide()
+    @property
+    def pip_source_url(self) -> Optional[str]:
+        return self._pip_source_url
 
-    @Slot()
-    def get_pythonexe_path_by_hand(self) -> Optional[str]:
-        """手动获取 python.exe 路径"""
-        result = QFileDialog.getOpenFileName(self, '选择 python.exe', '', 'Python (*.exe)')
-        return result[0] or None
+    @pip_source_url.setter
+    def pip_source_url(self, value: Optional[str]) -> None:
+        if value:
+            self._pip_finished.show()
+            self._pip_unfinished.hide()
+            self._current_finished += 1
+            self._pip_source_url = value
+        elif not value:
+            self._pip_finished.hide()
+            self._pip_unfinished.show()
+            self._current_finished -= 1
+            self._pip_source_url = None
+        self._update_progress()
 
-    @Slot()
-    def progress_add_one(self) -> None:
-        current_value = self.ui.ProgressBar.value()
-        if current_value < self.ui.ProgressBar.maximum():
-            self.ui.ProgressBar.setValue(self.ui.ProgressBar.value() + 1)
-        return
+    @property
+    def gcc_selected(self) -> bool:
+        return self._gcc_selected
 
-    @Slot()
-    def progress_sub_one(self) -> None:
-        current_value = self.ui.ProgressBar.value()
-        if current_value > self.ui.ProgressBar.minimum():
-            self.ui.ProgressBar.setValue(self.ui.ProgressBar.value() - 1)
-        return
+    @gcc_selected.setter
+    def gcc_selected(self, value: bool) -> None:
+        if value:
+            self._gcc_finished.show()
+            self._gcc_unfinished.hide()
+            self._current_finished += 1
+            self._gcc_selected = value
+        elif not value:
+            self._gcc_finished.hide()
+            self._gcc_unfinished.show()
+            self._current_finished -= 1
+            self._gcc_selected = value
+        self._update_progress()
 
-    @Slot(int)
-    def progress_set_value(self, value: int) -> None:
+    def _progress_set_value(self, value: int) -> None:
+        value = max(self.ui.ProgressBar.minimum(), min(value, self.ui.ProgressBar.maximum()))
         self.ui.ProgressBar.setValue(value)
 
-    @Slot(bool)
-    def set_finish_status(self, status: bool) -> None:
-        if status:
+    def _update_progress(self) -> None:
+        self._progress_set_value(self._current_finished)
+        if self._current_finished == 3:
             self.get_finish_btn().setEnabled(True)
             self.get_finish_btn().setText('完成')
-            return
-        self.get_finish_btn().setEnabled(False)
-        self.get_finish_btn().setText('您需要先完成设置')
+        else:
+            self.get_finish_btn().setEnabled(False)
+            self.get_finish_btn().setText('您需要先完成设置')
 
     def initialize(self) -> None:
         for each in self.findChildren(QWidget):
@@ -122,7 +132,6 @@ class WelcomeView(FramelessWindow, MessageBaseView):
 if __name__ == '__main__':
     app = QApplication([])
     window = WelcomeView()
-    window.set_pythonexe_status(True)
     # window.ui.FilledPushButton_2.clicked.connect(lambda: window.progress_add_one())
     # window.ui.TonalPushButton_2.clicked.connect(lambda: window.progress_sub_one())
     # window.ui.TonalPushButton.clicked.connect(
@@ -132,6 +141,5 @@ if __name__ == '__main__':
     #
     # window.ui.TonalPushButton_3.clicked.connect(lambda: window.set_pip_status(True))
     # window.ui.FilledPushButton_3.clicked.connect(lambda: window.set_pip_status(False))
-    window.set_finish_status(True)
     window.show()
     app.exec()

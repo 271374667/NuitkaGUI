@@ -12,10 +12,13 @@ IGNORE_DIRS: Sequence[str] = (
     ".idea",
     "node_modules",
 )
+INSTALL_PACKAGE: list[str] = [
+    'nuitka'
+]
 DEFAULT_OPTIMIZATION_OPTIONS: dict[str, Sequence[str]] = {
     "Normal": ['show-progress',
-                'assume-yes-for-downloads'
-                ],
+               'assume-yes-for-downloads'
+               ],
     "Compatibility": ['show-progress',
                       'show-memory',
                       'mingw64',

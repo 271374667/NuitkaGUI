@@ -7,11 +7,12 @@ from typing import Optional
 import loguru
 
 from src.common.nuitka_command.command_manager import CommandManager
+from src.core.settings import INSTALL_PACKAGE
 
 
 class PipManager:
     def __init__(self):
-        self.install_module: list[str] = ['nuitka', 'PyQt5', 'PyQt5-stubs', 'loguru']
+        self.install_module: list[str] = INSTALL_PACKAGE
         self._command_manager = CommandManager()
         self._pool = ThreadPoolExecutor()
 
@@ -35,7 +36,7 @@ class PipManager:
         loguru.logger.debug(f'模块是否已安装的结果: {result}')
         return result
 
-    def install_module(self, module_list: list[str]):
+    def install(self, module_list: list[str]):
         """安装模块"""
         loguru.logger.debug(f'安装模块: {module_list}')
 
@@ -77,6 +78,7 @@ if __name__ == '__main__':
 
     app = QApplication([])
     pip_manager = PipManager()
+    pip_manager.install_module = ['nuitka', 'PyQt5', 'PyQt5-stubs', 'loguru']
     print(pip_manager.is_module_installed(pip_manager.install_module))
     print(pip_manager.get_fastest_url([i.value for i in PipSrouce]))
     app.exec()

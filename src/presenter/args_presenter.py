@@ -19,7 +19,7 @@ class ArgsPresenter:
     def model(self):
         return self._model
 
-    def _get_command(self):
+    def update_command(self):
         self._view.get_output_args_textedit().setText(self._model.get_command())
 
     def _clear(self):
@@ -27,7 +27,7 @@ class ArgsPresenter:
         self._view.get_input_args_textedit().clear()
 
     def bind(self):
-        self._view.get_output_args_btn().clicked.connect(self._get_command)
+        self._view.get_output_args_btn().clicked.connect(self.update_command)
         self._view.get_clear_btn().clicked.connect(self._clear)
 
 
