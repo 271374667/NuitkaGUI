@@ -53,6 +53,9 @@ class EnvManager:
             json.loads(DEPENDENCE_SAVE_PATH_FILE.read_text(encoding="utf-8"))
 
     def _save_dependence_save_path(self) -> None:
+        if not self._save_path_dict:
+            return
+
         DEPENDENCE_SAVE_PATH_FILE.write_text(json.dumps(self._save_path_dict,
                                                         ensure_ascii=False,
                                                         indent=4),

@@ -56,6 +56,9 @@ class WelcomeModel:
         self._env_manager.add_dependence_to_env_by_bat()
         return self._env_manager.is_all_dependence_in_env()
 
+    def finished(self):
+        cfg.set(cfg.is_first_run, False)
+
 
 if __name__ == '__main__':
     model = WelcomeModel()

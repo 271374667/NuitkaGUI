@@ -148,6 +148,7 @@ class WelcomePresenter:
 
     def _finished(self):
         if self._view.show_mask_dialog('完成', '您已经完成了所有的设置,请重启软件后开始使用'):
+            self._model.finished()
             loguru.logger.debug('配置完成,重启软件')
             sys.exit(0)
 
