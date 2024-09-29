@@ -1,4 +1,5 @@
 import ctypes
+import fnmatch
 from enum import Enum
 from pathlib import Path
 from typing import List
@@ -200,6 +201,50 @@ class WindowExplorerUtils:
 
         return found_files
 
+    def find_files_in_dir_recursive_by_fnmatch(self, source_dir_path: Path, pattern: str, file_type: FileType) -> List[
+        Path]:
+        found_files = []
+        stack = [source_dir_path]
+        find_data = WIN32_FIND_DATA()
+
+        while stack:
+            current_dir = stack.pop()
+            search_path = str(current_dir / '*')
+            handle = self._kernel32.FindFirstFileW(search_path, ctypes.byref(find_data))
+
+            if handle == INVALID_HANDLE_VALUE:
+                err = ctypes.GetLastError()
+                print(f"Error finding first file: {err}")
+                continue
+
+            try:
+                while True:
+                    file_name = find_data.cFileName
+                    if file_name not in ('.', '..'):
+                        file_path = current_dir / file_name
+                        if find_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY:
+                            stack.append(file_path)
+                            if file_type in (self.FileType.DIRECTORIES, self.FileType.BOTH):
+                                if fnmatch.fnmatch(file_name, pattern):
+                                    found_files.append(file_path)
+                        else:
+                            if file_type in (self.FileType.FILES, self.FileType.BOTH):
+                                if fnmatch.fnmatch(file_name, pattern):
+                                    found_files.append(file_path)
+
+                    if not self._kernel32.FindNextFileW(handle, ctypes.byref(find_data)):
+                        err = ctypes.GetLastError()
+                        if err == 18:  # ERROR_NO_MORE_FILES
+                            break
+                        else:
+                            print(f"Error finding next file: {err}")
+                            break
+            finally:
+                if handle != INVALID_HANDLE_VALUE:
+                    self._kernel32.FindClose(handle)
+
+        return found_files
+
     def get_dir_size(self, source_dir_path: Path) -> float:
         """获取文件夹大小，单位为MB"""
         total_size = 0
@@ -225,7 +270,7 @@ if __name__ == "__main__":
     directory = Path(r"E:\load\python\Project\nuitkaGUIOld\githubOpenSource2")
     directory2 = Path(r'E:\load\python\Project\NuitkaGUI')
     fs = WindowExplorerUtils()
-    print(fs.find_files_in_dir_recursive(directory2, 'python.exe', WindowExplorerUtils.FileType.FILES))
+    print(fs.find_files_in_dir_recursive_by_fnmatch(directory2, '*.py', WindowExplorerUtils.FileType.FILES))
     # files = fs.get_dir_files(directory)
     # print(f"Files in directory: {files}")
     # file_count = fs.get_dir_files_count(directory, WindowExplorerUtils.FileType.FILES)

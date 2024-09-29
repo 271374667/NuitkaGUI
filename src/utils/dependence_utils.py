@@ -6,7 +6,7 @@ from typing import List
 class DependenceUtils:
     @staticmethod
     def get_import_name_from_py_file(file_path: Path) -> List[str]:
-        with file_path.open('r', encoding='utf-8') as file:
+        with file_path.open('r', encoding='utf-8', errors='ignore') as file:
             file_content = file.read()
 
         tree = ast.parse(file_content)

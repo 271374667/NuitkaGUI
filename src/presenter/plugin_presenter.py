@@ -13,6 +13,8 @@ from src.view.plugin_view import PluginView
 
 class PluginPresenter:
     def __init__(self):
+        self._is_running: bool = False
+
         self._view = PluginView()
         self._model = PluginModel()
         self.flyout = self._view.get_flyout()
@@ -53,8 +55,10 @@ class PluginPresenter:
         if not py_file:
             self._view.show_error_infobar('错误', '请先前往主界面选择一个需要打包的py文件')
             return
-        self._view.disable_all_plugin()
-        self._model.disable_all_plugin()
+
+        if self._is_running:
+            self._view.show_error_infobar('错误', '有其他的检测任务正在运行中')
+            return
 
         def run():
             return self._model.get_all_packages_by_py_file(Path(py_file))
@@ -63,14 +67,21 @@ class PluginPresenter:
             if not plugins_detected:
                 self._view.show_error_infobar('完成', '未检测到任何插件')
                 return
+
+            self._view.disable_all_plugin()
+            self._model.disable_all_plugin()
             self._view.enable_plugins(plugins_detected)
             self._view.show_success_infobar('自动检测成功', f'自动检测到{plugins_detected}', duration=3000)
             loguru.logger.debug(f'自动检测到的插件: {plugins_detected}')
+            self._view.finish_state_tooltip('就绪', '自动检测完成')
+            self._is_running = False
 
-        self.t = RunInThread()
-        self.t.set_start_func(lambda: run())
-        self.t.set_finished_func(lambda x: finished_func(x))
-        self.t.start()
+        self._detect_thread = RunInThread()
+        self._detect_thread.set_start_func(run)
+        self._detect_thread.set_finished_func(finished_func)
+        self._detect_thread.start()
+        self._view.show_state_tooltip('自动检测中...', '正在自动检测中,请稍等')
+        self._is_running = True
 
     def update_value_to_command_manager(self, plugin_name: str, is_selected: bool) -> None:
         plugin_command = self._command_manager.get_command_by_command('enable-plugins')

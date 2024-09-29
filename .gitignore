@@ -20,3 +20,4 @@ config.json
 .ruff_cache
 dependence
 *.json
+*.xml
