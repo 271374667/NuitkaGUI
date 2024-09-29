@@ -1,1 +1,3 @@
+from src.config import cfg
+
 class WelcomeModel: ...

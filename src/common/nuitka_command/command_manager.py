@@ -56,17 +56,22 @@ class CommandManager(Generic[CommandBaseType]):
 
     @property
     def current_command(self) -> str:
-        project_python_exe_path: Path = Path(cfg.get(cfg.project_python_exe_path))
-        if not project_python_exe_path.exists():
-            project_python_exe_path = Path(cfg.get(cfg.global_python_exe_path))
-        if not project_python_exe_path.exists():
-            raise ValueError("Must have a avialable python exe(project or gloabl)")
+        project_python_exe_path: Path = self.python_exe_path
 
         result: list[str] = [f'"{project_python_exe_path}"', '-m', 'nuitka']
         for i in self.command_list:
             if i.enabled and i.value != "" and i.value is not None and i.value is not False and i.value != -1:
                 result.append(i.get_command())
         return " ".join(result)
+
+    @property
+    def python_exe_path(self) -> Path:
+        project_python_exe_path: Path = Path(cfg.get(cfg.project_python_exe_path))
+        if not project_python_exe_path.exists():
+            project_python_exe_path = Path(cfg.get(cfg.global_python_exe_path))
+        if not project_python_exe_path.exists():
+            raise ValueError("Must have a avialable python exe(project or gloabl)")
+        return project_python_exe_path
 
     def update_command_list(self):
         self.command_list = []
