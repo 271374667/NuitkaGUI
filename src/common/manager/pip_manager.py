@@ -1,7 +1,8 @@
 import subprocess
 import time
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Optional
 
 import loguru
 
@@ -48,7 +49,7 @@ class PipManager:
 
         loguru.logger.debug(f'安装模块完成')
 
-    def get_fastest_url(self, url_list: list[str]) -> str:
+    def get_fastest_url(self, url_list: list[str]) -> Optional[str]:
         loguru.logger.debug(f'正在获取最快的链接: {url_list}')
 
         def test_speed(url):
@@ -60,20 +61,14 @@ class PipManager:
             except Exception:
                 return url, float('inf')
 
-        def find_fastest_url(urls):
-            fastest_url = None
-            fastest_time = float('inf')
-            with ThreadPoolExecutor() as executor:
-                results = executor.map(test_speed, urls)
-                for url, response_time in results:
-                    if response_time < fastest_time:
-                        fastest_url = url
-                        fastest_time = response_time
-                    print(f'{url} response time: {response_time}')
-            loguru.logger.debug(f'最快的链接: {fastest_url}')
-            return fastest_url
-
-        return find_fastest_url(url_list)
+        with ThreadPoolExecutor() as executor:
+            future_to_url = {executor.submit(test_speed, url): url for url in url_list}
+            for future in as_completed(future_to_url):
+                url, response_time = future.result()
+                if response_time != float('inf'):
+                    loguru.logger.debug(f'最快的链接: {url}')
+                    return url
+        return None
 
 
 if __name__ == '__main__':
@@ -82,6 +77,6 @@ if __name__ == '__main__':
 
     app = QApplication([])
     pip_manager = PipManager()
-    # print(pip_manager.is_module_installed(pip_manager.install_module))
+    print(pip_manager.is_module_installed(pip_manager.install_module))
     print(pip_manager.get_fastest_url([i.value for i in PipSrouce]))
     app.exec()
