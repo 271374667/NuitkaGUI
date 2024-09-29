@@ -66,12 +66,14 @@ class WelcomeView(FramelessWindow, MessageBaseView):
         if value:
             self._python_finished.show()
             self._python_unfinished.hide()
-            self._current_finished += 1
+            if self._python_exe_path is None:
+                self._current_finished += 1
             self._python_exe_path = value
         elif not value:
             self._python_finished.hide()
             self._python_unfinished.show()
-            self._current_finished -= 1
+            if self._python_exe_path is not None:
+                self._current_finished -= 1
             self._python_exe_path = None
         self._update_progress()
 
@@ -84,12 +86,14 @@ class WelcomeView(FramelessWindow, MessageBaseView):
         if value:
             self._pip_finished.show()
             self._pip_unfinished.hide()
-            self._current_finished += 1
+            if self._pip_source_url is None:
+                self._current_finished += 1
             self._pip_source_url = value
         elif not value:
             self._pip_finished.hide()
             self._pip_unfinished.show()
-            self._current_finished -= 1
+            if self._pip_source_url is not None:
+                self._current_finished -= 1
             self._pip_source_url = None
         self._update_progress()
 
@@ -102,12 +106,14 @@ class WelcomeView(FramelessWindow, MessageBaseView):
         if value:
             self._gcc_finished.show()
             self._gcc_unfinished.hide()
-            self._current_finished += 1
+            if not self._gcc_selected:
+                self._current_finished += 1
             self._gcc_selected = value
         elif not value:
             self._gcc_finished.hide()
             self._gcc_unfinished.show()
-            self._current_finished -= 1
+            if self._gcc_selected:
+                self._current_finished -= 1
             self._gcc_selected = value
         self._update_progress()
 
