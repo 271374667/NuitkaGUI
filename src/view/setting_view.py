@@ -4,7 +4,6 @@ from qfluentwidgets import (
     BodyLabel,
     FluentIcon,
     Icon,
-    PushSettingCard,
     SettingCardGroup,
     ToolTipFilter,
 )
@@ -13,6 +12,7 @@ from qfluentwidgets.components import (
     LargeTitleLabel,
     SmoothScrollArea,
     ComboBoxSettingCard,
+    PushSettingCard
 )
 
 from src.config import cfg
@@ -87,11 +87,20 @@ class SettingView(MessageBaseView):
             self.general_group,
         )
 
+        self.open_welcome_card = PushSettingCard(
+            "打开欢迎页面",
+            Icon(FluentIcon.CHEVRON_RIGHT),
+            "打开欢迎页面",
+            "重新首次打开时的欢迎页面",
+            self.general_group,
+        )
+
     def _set_up_tooltip(self):
         self.project_python_exe_path_card.setToolTip("选择当前项目使用的Python.exe路径")
         self.global_python_exe_path_card.setToolTip("选择全局Python.exe路径")
         self.optimization_card.setToolTip("选择优化选项")
         self.pip_source_card.setToolTip("通常情况下建议选择阿里源")
+        self.open_welcome_card.setToolTip("如果您的软件出现了问题,可以尝试打开欢迎页面重新设置依赖等")
 
     def _set_up_layout(self):
         """设置布局"""
@@ -109,6 +118,7 @@ class SettingView(MessageBaseView):
                 self.global_python_exe_path_card,
                 self.optimization_card,
                 self.pip_source_card,
+                self.open_welcome_card
             ]
         )
 

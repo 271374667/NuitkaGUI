@@ -14,6 +14,7 @@ class WelcomeView(FramelessWindow, MessageBaseView):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        self.setWindowTitle("Welcome to NuitkaGUI")
 
         # 设置三个选项的完成状态
         self._pip_source_url: Optional[str] = None
@@ -131,6 +132,10 @@ class WelcomeView(FramelessWindow, MessageBaseView):
             self.get_finish_btn().setText('您需要先完成设置')
 
     def initialize(self) -> None:
+        desktop = QApplication.screens()[0].availableGeometry()
+        w, h = desktop.width(), desktop.height()
+        self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
+
         for each in self.findChildren(QWidget):
             each.installEventFilter(ToolTipFilter(each, 200))
 
