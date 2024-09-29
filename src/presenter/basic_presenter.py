@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QApplication, QFileDialog
 
 from src.model.basic_model import BasicModel
 from src.signal_bus import SignalBus
+from src.utils.thread_utils import RunInThread
 from src.utils.window_explorer_utils import WindowExplorerUtils
 from src.view.basic_view import BasicView
 
@@ -123,12 +124,31 @@ class BasicPresenter:
     def _get_output_dir_path(self) -> Path:
         return self._model.source_script_path.parent / 'output'
 
+    def _start(self):
+        if self._model.source_script_path is None:
+            self._view.show_warning_infobar('错误', '请先选择 Python 文件')
+            return
+
+        def start():
+            self._model.start()
+
+        def finished():
+            self._view.show_success_infobar('完成', '打包任务完成(不一定成功)', duration=2000)
+            self._view.show_state_tooltip('就绪', '打包已经完成')
+
+        self._start_thread = RunInThread()
+        self._start_thread.set_start_func(start)
+        self._start_thread.set_finished_func(finished)
+        self._start_thread.start()
+        self._view.show_state_tooltip('运行中...', '正在打包中,请稍等')
+
     def bind(self):
         self._view.get_mask().droped_file_url.connect(self._source_script_changed)
         self._view.get_source_script_btn().clicked.connect(self._open_file_dialog)
         self._view.get_output_path_btn().clicked.connect(self._output_dir_changed)
         self._view.get_icon_btn().clicked.connect(self._icon_changed)
         self._view.get_mode_radiobutton().checkedChanged.connect(self._packaged_mode_changed)
+        self._view.get_start_btn().clicked.connect(self._start)
 
 
 if __name__ == '__main__':

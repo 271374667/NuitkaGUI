@@ -122,7 +122,7 @@ class BasicView(MessageBaseView):
         """获取模式"""
         return self.ui.SwitchButton
 
-    def get_start(self) -> PrimaryPushButton:
+    def get_start_btn(self) -> PrimaryPushButton:
         """获取开始按钮"""
         return self.ui.BTNStart
 

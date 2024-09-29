@@ -60,3 +60,6 @@ class BasicModel:
         else:
             standalone_command.value = False
             onefile_command.value = True
+
+    def start(self):
+        ...

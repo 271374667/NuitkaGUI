@@ -60,6 +60,9 @@ class PluginPresenter:
             return self._model.get_all_packages_by_py_file(Path(py_file))
 
         def finished_func(plugins_detected: List[str]):
+            if not plugins_detected:
+                self._view.show_error_infobar('完成', '未检测到任何插件')
+                return
             self._view.enable_plugins(plugins_detected)
             self._view.show_success_infobar('自动检测成功', f'自动检测到{plugins_detected}', duration=3000)
             loguru.logger.debug(f'自动检测到的插件: {plugins_detected}')
