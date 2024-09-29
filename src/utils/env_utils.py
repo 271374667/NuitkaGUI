@@ -1,6 +1,7 @@
 import os
 import winreg
 from pathlib import Path
+from shutil import which
 from typing import Optional
 
 import loguru
@@ -55,6 +56,10 @@ class EnvUtils:
             f.write(self._get_bat_cmd(str(file_path.resolve())))
         loguru.logger.debug(f"向用户环境变量中添加了bat文件: {bat_path}")
 
+    def is_exe_in_env(self, exe_name: str) -> bool:
+        """判断exe是否在环境变量中"""
+        return which(exe_name) is not None
+
     def _get_bat_cmd(self, app_name: str) -> str:
         """
         使用bat可以将一个小的bat添加进已有的环境变量中,
@@ -76,3 +81,4 @@ if __name__ == '__main__':
     # paths = env_uitls.get_writeable_env()
     # print(paths)
     env_uitls.add_file_path_to_user_env_by_bat(GCC_EXE_FILE)
+    # print(env_uitls.is_exe_in_env("gcc"))
