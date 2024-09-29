@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Optional
 
+from src.common.manager.env_manager import EnvManager
 from src.common.manager.pip_manager import PipManager
 from src.config import cfg, PipSrouce
 from src.utils.python_env_utils import PythonEnvUtils
@@ -8,6 +9,7 @@ from src.utils.python_env_utils import PythonEnvUtils
 
 class WelcomeModel:
     def __init__(self):
+        self._env_manager = EnvManager()
         self._pip_manager = PipManager()
         self._python_env_utils = PythonEnvUtils()
 
@@ -45,6 +47,14 @@ class WelcomeModel:
         for each in python_exe_path_found:
             if self.is_python_available(str(each)):
                 return str(each)
+
+    def install_dependence_by_os(self) -> bool:
+        self._env_manager.add_dependence_to_env_by_os()
+        return True
+
+    def install_dependence_by_bat(self) -> bool:
+        self._env_manager.add_dependence_to_env_by_bat()
+        return self._env_manager.is_all_dependence_in_env()
 
 
 if __name__ == '__main__':

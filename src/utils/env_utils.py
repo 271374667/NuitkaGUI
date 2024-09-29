@@ -44,7 +44,7 @@ class EnvUtils:
         os.environ["PATH"] = ";".join(paths)
         loguru.logger.debug(f"从用户环境变量中移除了路径: {dir_path}")
 
-    def add_file_path_to_user_env_by_bat(self, file_path: Path, target_dir_path: Optional[Path] = None) -> None:
+    def add_file_path_to_user_env_by_bat(self, file_path: Path, target_dir_path: Optional[Path] = None) -> Path:
         """使用注册表将路径添加到用户环境变量
 
         使用该方法添加的环境变量永久有效
@@ -55,6 +55,7 @@ class EnvUtils:
         with open(bat_path, "w", encoding="utf-8") as f:
             f.write(self._get_bat_cmd(str(file_path.resolve())))
         loguru.logger.debug(f"向用户环境变量中添加了bat文件: {bat_path}")
+        return bat_path
 
     def is_exe_in_env(self, exe_name: str) -> bool:
         """判断exe是否在环境变量中"""

@@ -23,14 +23,15 @@ class EnvManager:
     def add_dependence_to_env_by_bat(self) -> None:
         for each in self._dependence_list:
             if not self._env_utils.is_exe_in_env(each.stem):
-                self._env_utils.add_file_path_to_user_env_by_bat(each)
+                bat_path: Path = self._env_utils.add_file_path_to_user_env_by_bat(each)
+                self._save_path_dict[each.stem] = str(bat_path)
                 loguru.logger.info(f"向系统环境添加了依赖: {each}")
+        self._save_dependence_save_path()
 
     def add_dependence_to_env_by_os(self) -> None:
         for each in self._dependence_list:
             if not self._env_utils.is_exe_in_env(each.stem):
                 self._env_utils.add_path_to_user_env_by_os(each)
-                loguru.logger.info(f"向临时环境添加了依赖: {each}")
 
     def remove_bat_dependence_from_env(self) -> None:
         self._load_dependence_save_path()
@@ -39,6 +40,13 @@ class EnvManager:
             if self._env_utils.is_exe_in_env(key):
                 Path(value).unlink(missing_ok=True)
                 loguru.logger.info(f"从系统环境移除了依赖: {key},路径: {value}")
+
+    def is_all_dependence_in_env(self) -> bool:
+        for each in self._dependence_list:
+            if not self._env_utils.is_exe_in_env(each.stem):
+                loguru.logger.error(f"依赖 {each} 不在系统环境中")
+                return False
+        return True
 
     def _load_dependence_save_path(self) -> None:
         if DEPENDENCE_SAVE_PATH_FILE.exists():
@@ -49,3 +57,9 @@ class EnvManager:
                                                         ensure_ascii=False,
                                                         indent=4),
                                              encoding="utf-8")
+
+
+if __name__ == '__main__':
+    env_manager = EnvManager()
+    env_manager.remove_bat_dependence_from_env()
+    # env_manager.is_all_dependence_in_env()
