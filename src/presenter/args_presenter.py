@@ -1,9 +1,11 @@
 from PySide6.QtWidgets import QApplication
 
 from src.model.args_model import ArgsModel
+from src.utils.singleton import singleton
 from src.view.args_view import ArgsView
 
 
+@singleton
 class ArgsPresenter:
     def __init__(self):
         self._view = ArgsView()

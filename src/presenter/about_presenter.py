@@ -1,7 +1,9 @@
-from src.view.about_view import AboutView
 from src.model.about_model import AboutModel
+from src.utils.singleton import singleton
+from src.view.about_view import AboutView
 
 
+@singleton
 class AboutPresenter:
     def __init__(self):
         self._view = AboutView()

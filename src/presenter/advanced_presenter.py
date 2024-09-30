@@ -1,7 +1,9 @@
-from src.view.advanced_view import AdvancedView
 from src.model.advanced_model import AdvancedModel
+from src.utils.singleton import singleton
+from src.view.advanced_view import AdvancedView
 
 
+@singleton
 class AdvancedPresenter:
     def __init__(self):
         self._view = AdvancedView()

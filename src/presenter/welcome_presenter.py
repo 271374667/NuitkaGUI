@@ -4,19 +4,23 @@ from typing import Optional
 import loguru
 from PySide6.QtWidgets import QFileDialog, QApplication
 
+from src.config import PipSrouce
 from src.model.welcome_model import WelcomeModel
+from src.utils.singleton import singleton
 from src.utils.thread_utils import RunInThread
 from src.view.welcome_view import WelcomeView
-from src.config import PipSrouce
 
 
+@singleton
 class WelcomePresenter:
     def __init__(self):
+        loguru.logger.info("WelcomePresenter initializing")
         self._is_running: bool = False
 
         self._view = WelcomeView()
         self._model = WelcomeModel()
         self._bind()
+        loguru.logger.info("WelcomePresenter initialized")
 
     @property
     def view(self) -> WelcomeView:
@@ -48,10 +52,10 @@ class WelcomePresenter:
             return
 
         self._view.show_state_tooltip("运行中……", "正在设置 pip 源,请稍等")
-        self._auto_pip_thread = RunInThread()
-        self._auto_pip_thread.set_start_func(start)
-        self._auto_pip_thread.set_finished_func(finished)
-        self._auto_pip_thread.start()
+        self._thread = RunInThread()
+        self._thread.set_start_func(start)
+        self._thread.set_finished_func(finished)
+        self._thread.start()
         self._is_running = True
 
     def _get_pythonexe_path_by_hand(self):
@@ -89,10 +93,10 @@ class WelcomePresenter:
             return
 
         self._view.show_state_tooltip("运行中……", "正在设置 Python 路径,请稍等")
-        self._get_pythonexe_thread = RunInThread()
-        self._get_pythonexe_thread.set_start_func(start)
-        self._get_pythonexe_thread.set_finished_func(finished)
-        self._get_pythonexe_thread.start()
+        self._thread = RunInThread()
+        self._thread.set_start_func(start)
+        self._thread.set_finished_func(finished)
+        self._thread.start()
         self._is_running = True
 
     def _install_dependence_by_os(self):
@@ -115,10 +119,10 @@ class WelcomePresenter:
             return
 
         self._view.show_state_tooltip("运行中……", "正在安装系统依赖,请稍等")
-        self._install_dependence_thread = RunInThread()
-        self._install_dependence_thread.set_start_func(start)
-        self._install_dependence_thread.set_finished_func(finished)
-        self._install_dependence_thread.start()
+        self._thread = RunInThread()
+        self._thread.set_start_func(start)
+        self._thread.set_finished_func(finished)
+        self._thread.start()
         self._is_running = True
 
     def _install_dependence_by_bat(self):
@@ -141,10 +145,10 @@ class WelcomePresenter:
             return
 
         self._view.show_state_tooltip("运行中……", "正在安装系统依赖,请稍等")
-        self._install_dependence_thread = RunInThread()
-        self._install_dependence_thread.set_start_func(start)
-        self._install_dependence_thread.set_finished_func(finished)
-        self._install_dependence_thread.start()
+        self._thread = RunInThread()
+        self._thread.set_start_func(start)
+        self._thread.set_finished_func(finished)
+        self._thread.start()
         self._is_running = True
 
     def _finished(self):

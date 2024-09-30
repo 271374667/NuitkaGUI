@@ -1,9 +1,13 @@
-from PySide6.QtWidgets import QFileDialog
 from pathlib import Path
+
+from PySide6.QtWidgets import QFileDialog
+
 from src.model.setting_model import SettingModel
+from src.utils.singleton import singleton
 from src.view.setting_view import SettingView
 
 
+@singleton
 class SettingPresenter:
     def __init__(self):
         self._view = SettingView()

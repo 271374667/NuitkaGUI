@@ -7,10 +7,12 @@ from qfluentwidgets import Flyout
 
 from src.common.nuitka_command.command_manager import CommandManager
 from src.model.plugin_model import PluginModel
+from src.utils.singleton import singleton
 from src.utils.thread_utils import RunInThread
 from src.view.plugin_view import PluginView
 
 
+@singleton
 class PluginPresenter:
     def __init__(self):
         self._is_running: bool = False

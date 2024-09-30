@@ -17,6 +17,12 @@ class ManagerBase(ABC, Generic[T]):
     command_type: Type[CommandBase] = CommandBase  # 管理器对应的命令类型
     _command_list: list[CommandBase] = []  # 管理器对应的命令列表
 
+    def __new__(cls, *args, **kwargs):
+        # 单例
+        if not hasattr(cls, "_instance"):
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self):
         self._command_list = PluginRegister.load_plugins(
             COMMAND_IMPLEMENT_DIR, self.command_type

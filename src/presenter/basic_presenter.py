@@ -6,11 +6,13 @@ from PySide6.QtWidgets import QApplication, QFileDialog
 
 from src.model.basic_model import BasicModel
 from src.signal_bus import SignalBus
+from src.utils.singleton import singleton
 from src.utils.thread_utils import RunInThread
 from src.utils.window_explorer_utils import WindowExplorerUtils
 from src.view.basic_view import BasicView
 
 
+@singleton
 class BasicPresenter:
     def __init__(self):
         self._view = BasicView()

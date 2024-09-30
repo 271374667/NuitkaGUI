@@ -7,7 +7,7 @@ authors = [
 ]
 dependencies = [
     "loguru>=0.7.2",
-    "pyside6-fluent-widgets>=1.6.3",
+    "pyside6-fluent-widgets==1.6.0",
     "ansi2html>=1.9.2",
     "typing-extensions>=4.12.2",
     "pyside6==6.7.2",

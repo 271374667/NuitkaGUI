@@ -26,7 +26,7 @@ pyside6-addons==6.7.2
 pyside6-essentials==6.7.2
     # via pyside6
     # via pyside6-addons
-pyside6-fluent-widgets==1.6.5
+pyside6-fluent-widgets==1.6.0
     # via nuitkagui
 pysidesix-frameless-window==0.4.3
     # via pyside6-fluent-widgets

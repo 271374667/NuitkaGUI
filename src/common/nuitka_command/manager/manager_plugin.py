@@ -4,8 +4,10 @@ from typing import List, Tuple, Dict
 import loguru
 
 from src.config import cfg
+from src.utils.singleton import singleton
 
 
+@singleton
 class ManagerPlugin:
     def __init__(self):
         self._plugin_list = None
@@ -78,7 +80,7 @@ class ManagerPlugin:
         except Exception as e:
             loguru.logger.critical(f"获取插件列表失败，错误信息: {e}")
         return [("", "")]
-    
+
     def filter_plugins(self, plugin_list: list[str]) -> list[str]:
         """过滤掉不支持的插件"""
         filter_plugin_list: list[str] = []

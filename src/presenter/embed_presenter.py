@@ -1,13 +1,16 @@
 from pathlib import Path
 from typing import Optional
+
 import loguru
 from PySide6.QtWidgets import QApplication
 
 from src.model.embed_model import EmbedModel
+from src.utils.singleton import singleton
 from src.utils.thread_utils import RunInThread
 from src.view.embed_view import EmbedView
 
 
+@singleton
 class EmbedPresenter:
     def __init__(self):
         self._view = EmbedView()

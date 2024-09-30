@@ -63,6 +63,9 @@ class PythonEnvUtils:
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
+        if python_path.stem != "python":
+            return False
+
         try:
             output = subprocess.check_output([python_path, "-V"], timeout=3, startupinfo=startupinfo)
         except Exception:
