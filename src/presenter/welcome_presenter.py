@@ -14,13 +14,11 @@ from src.view.welcome_view import WelcomeView
 @singleton
 class WelcomePresenter:
     def __init__(self):
-        loguru.logger.info("WelcomePresenter initializing")
         self._is_running: bool = False
 
         self._view = WelcomeView()
         self._model = WelcomeModel()
         self._bind()
-        loguru.logger.info("WelcomePresenter initialized")
 
     @property
     def view(self) -> WelcomeView:

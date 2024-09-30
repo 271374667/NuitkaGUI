@@ -19,7 +19,6 @@ from src.view.main_view import MainView
 @singleton
 class MainPresenter:
     def __init__(self):
-        loguru.logger.info("MainPresenter initializing")
         self._signal_bus = SignalBus()
 
         self._basic_presenter = BasicPresenter()
@@ -42,7 +41,6 @@ class MainPresenter:
         self._model = MainModel()
         self._default_optimization()
         self._bind()
-        loguru.logger.info("MainPresenter initialized")
 
     @property
     def view(self) -> MainView:

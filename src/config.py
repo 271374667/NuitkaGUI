@@ -29,6 +29,8 @@ if sys.getdefaultencoding() != "utf-8":
 # # 确保环境变量LANG设置为UTF-8
 locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
+AVAILABLE_PYTHON_EXE_LIST: list[Path] = PythonEnvUtils().find_available_python_exe_python()
+
 
 class Optimization(Enum):
     Normal = "Normal"
@@ -65,7 +67,7 @@ class PythonExeValidator(ConfigValidator):
         python_exe_path: Path = Path(value)
         if PythonEnvUtils().is_python_available(python_exe_path):
             return value
-        result: list[Path] = PythonEnvUtils().find_available_python_exe_python()
+        result: list[Path] = AVAILABLE_PYTHON_EXE_LIST
         if result:
             return str(result[0])
         return ''
