@@ -74,6 +74,7 @@ class BasicModel:
             command = self._command_manager.current_command.replace('"', '').split(' ')
             loguru.logger.info(f'开始打包: {command}')
             result = subprocess.run(command, creationflags=subprocess.CREATE_NEW_CONSOLE)
+            # result = subprocess.check_output(command, creationflags=subprocess.CREATE_NEW_CONSOLE)
             loguru.logger.info(f'打包结束: {result}')
             return result.returncode == 0
         except Exception as e:
