@@ -44,6 +44,13 @@ class PipSrouce(Enum):
     ZhongGuoKeJiDaXue = 'https://pypi.mirrors.ustc.edu.cn/simple/'
     DouBan = 'https://pypi.douban.com/simple/'
 
+    @classmethod
+    def from_value(cls, value: str):
+        for item in cls:
+            if item.value == value:
+                return item
+        return cls.Default
+
 
 class PythonExeValidator(ConfigValidator):
     """Config validator"""
@@ -76,7 +83,6 @@ class Config(QConfig):
         Optimization.Compatibility,
         OptionsValidator(Optimization),
         EnumSerializer(Optimization),
-        restart=True
     )
     pip_source = OptionsConfigItem(
         "General",

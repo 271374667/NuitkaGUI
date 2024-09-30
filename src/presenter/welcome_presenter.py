@@ -7,6 +7,7 @@ from PySide6.QtWidgets import QFileDialog, QApplication
 from src.model.welcome_model import WelcomeModel
 from src.utils.thread_utils import RunInThread
 from src.view.welcome_view import WelcomeView
+from src.config import PipSrouce
 
 
 class WelcomePresenter:
@@ -27,7 +28,7 @@ class WelcomePresenter:
 
     def _use_default_pip_source(self):
         self._model.pip_source = self._model.default_pip_source
-        self._view.pip_source_url = self._model.default_pip_source
+        self._view.pip_source_url = self._model.default_pip_source.value
         self._view.show_success_infobar('成功', '已经成功设置pip源为默认源')
 
     def _use_auto_pip_source(self):
@@ -36,7 +37,7 @@ class WelcomePresenter:
             return url
 
         def finished(url: str):
-            self._model.pip_source = url
+            self._model.pip_source = PipSrouce.from_value(url)
             self._view.pip_source_url = url
             self._view.finish_state_tooltip("完成", "已经完成了 pip 源的设置")
             self._view.show_success_infobar("成功", f"已经成功设置 pip 源为: {url}")

@@ -27,7 +27,7 @@ class WelcomeModel:
 
     @property
     def python_exe_path(self) -> Optional[str]:
-        return cfg.get(cfg.python_exe_path)
+        return cfg.get(cfg.global_python_exe_path)
 
     @python_exe_path.setter
     def python_exe_path(self, value: Optional[str]) -> None:

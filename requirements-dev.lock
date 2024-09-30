@@ -10,6 +10,8 @@
 #   universal: false
 
 -e file:.
+altgraph==0.17.4
+    # via pyinstaller
 ansi2html==1.9.2
     # via nuitkagui
 colorama==0.4.6
@@ -21,6 +23,14 @@ loguru==0.7.2
 nuitka==2.4.8
 ordered-set==4.1.0
     # via nuitka
+packaging==24.1
+    # via pyinstaller
+    # via pyinstaller-hooks-contrib
+pefile==2024.8.26
+    # via pyinstaller
+pyinstaller==6.10.0
+pyinstaller-hooks-contrib==2024.8
+    # via pyinstaller
 pyside6==6.7.3
     # via pyside6-fluent-widgets
 pyside6-addons==6.7.3
@@ -34,6 +44,11 @@ pysidesix-frameless-window==0.4.3
     # via pyside6-fluent-widgets
 pywin32==306
     # via pysidesix-frameless-window
+pywin32-ctypes==0.2.3
+    # via pyinstaller
+setuptools==75.1.0
+    # via pyinstaller
+    # via pyinstaller-hooks-contrib
 shiboken6==6.7.3
     # via pyside6
     # via pyside6-addons

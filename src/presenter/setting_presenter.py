@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QFileDialog
-
+from pathlib import Path
 from src.model.setting_model import SettingModel
 from src.view.setting_view import SettingView
 
@@ -28,14 +28,14 @@ class SettingPresenter:
         """让用户选择Python.exe路径"""
         file_path, _ = QFileDialog.getOpenFileName(self.view, "选择Python.exe", "", "Python.exe (*.exe)")
         if file_path:
-            self.model.project_python_exe_path = file_path
+            self.model.project_python_exe_path = Path(file_path)
             self.view.project_python_exe_path_card.setToolTip(file_path)
 
     def _global_python_exe_card_clicked(self):
         """让用户选择Python.exe路径"""
         file_path, _ = QFileDialog.getOpenFileName(self.view, "选择Python.exe", "", "Python.exe (*.exe)")
         if file_path:
-            self.model.global_python_exe_path = file_path
+            self.model.global_python_exe_path = Path(file_path)
             self.view.global_python_exe_path_card.setToolTip(file_path)
 
     def update_view(self):

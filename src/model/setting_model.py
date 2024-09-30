@@ -23,4 +23,4 @@ class SettingModel:
 
     def exit(self):
         """重启应用"""
-        sys.exit()
+        sys.exit(0)

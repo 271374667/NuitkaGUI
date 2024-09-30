@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 
 import loguru
@@ -122,6 +123,8 @@ class BasicPresenter:
             self._model.packaged_mode = 'standalone'
 
     def _get_output_dir_path(self) -> Path:
+        if self._model.source_script_path is None:
+            return Path.cwd() / 'output'
         return self._model.source_script_path.parent / 'output'
 
     def _start(self):
@@ -138,7 +141,8 @@ class BasicPresenter:
                 self._view.finish_state_tooltip('失败', '打包任务失败')
                 return
 
-            self._view.show_success_infobar('完成', '打包任务完成(不一定成功)', duration=2000)
+            self._view.show_success_infobar('完成', f'打包任务完成,任务总耗时:{time.time() - start_time:.2f}s',
+                                            duration=-1, is_closable=True)
             self._view.finish_state_tooltip('就绪', '打包已经完成')
 
         self._start_thread = RunInThread()
@@ -146,6 +150,7 @@ class BasicPresenter:
         self._start_thread.set_finished_func(finished)
         self._start_thread.start()
         self._view.show_state_tooltip('运行中...', '正在打包中,请稍等')
+        start_time = time.time()
 
     def bind(self):
         self._view.get_mask().droped_file_url.connect(self._source_script_changed)

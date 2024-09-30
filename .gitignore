@@ -21,3 +21,4 @@ config.json
 dependence
 *.json
 *.xml
+*.spec

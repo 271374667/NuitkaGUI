@@ -22,6 +22,7 @@ build-backend = "hatchling.build"
 managed = true
 dev-dependencies = [
     "nuitka>=2.4.8",
+    "pyinstaller>=6.10.0",
 ]
 
 [tool.hatch.metadata]

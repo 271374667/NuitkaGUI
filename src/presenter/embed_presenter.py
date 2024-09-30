@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from typing import Optional
 import loguru
 from PySide6.QtWidgets import QApplication
 
@@ -48,7 +48,7 @@ class EmbedPresenter:
         loguru.logger.debug(f"写入嵌入式文件列表和文件夹列表,文件列表:{files},文件夹列表:{dirs}")
 
     def _load_dir(self):
-        source_script_path: Path = self._model.source_script_path
+        source_script_path: Optional[Path] = self._model.source_script_path
         if source_script_path is None:
             self._view.show_warning_infobar("错误", "请先选择源文件", 1000, is_closable=True)
             return

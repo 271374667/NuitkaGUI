@@ -27,8 +27,11 @@ class BasicModel:
         return Path(cfg.get(cfg.project_python_exe_path))
 
     @project_python_exe_path.setter
-    def project_python_exe_path(self, project_python_exe_path: Path) -> None:
-        cfg.set(cfg.project_python_exe_path, str(project_python_exe_path))
+    def project_python_exe_path(self, project_python_exe_path: Optional[Path]) -> None:
+        if project_python_exe_path:
+            cfg.set(cfg.project_python_exe_path, str(project_python_exe_path))
+        else:
+            cfg.set(cfg.project_python_exe_path, '')
 
     @property
     def output_dir(self) -> Optional[Path]:
