@@ -2,11 +2,12 @@ import sys
 
 import loguru
 from PySide6.QtNetwork import QLocalSocket, QLocalServer
-from PySide6.QtWidgets import QApplication, QMessageBox
+from PySide6.QtWidgets import QApplication
 
 from src.config import cfg
 from src.presenter.main_presenter import MainPresenter
 from src.presenter.welcome_presenter import WelcomePresenter
+from src.utils.window_dialog_utils import WindowDialogUtils
 
 
 def is_already_running():
@@ -21,6 +22,8 @@ def is_already_running():
 def main():
     if is_already_running():
         loguru.logger.warning("Application is already running.")
+        dialog = WindowDialogUtils()
+        dialog.create_warning_dialog('警告 - 来自NuitkaGUI', '一次只能运行一个NuitkaGUI')
         sys.exit(0)
 
     server = QLocalServer()
