@@ -1,3 +1,4 @@
+import os
 import time
 from pathlib import Path
 
@@ -146,6 +147,7 @@ class BasicPresenter:
             self._view.show_success_infobar('完成', f'打包任务完成,任务总耗时:{time.time() - start_time:.2f}s',
                                             duration=-1, is_closable=True)
             self._view.finish_state_tooltip('就绪', '打包已经完成')
+            os.startfile(self._model.output_dir)
 
         self._start_thread = RunInThread()
         self._start_thread.set_start_func(start)

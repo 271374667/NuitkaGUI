@@ -4,8 +4,8 @@ from typing import Optional
 
 import loguru
 
-from src.common.nuitka_command.command_manager import CommandManager
 from src.common.nuitka_command.command_implement.command_path import CommandWindowsIconFromIco, CommandOutputDir
+from src.common.nuitka_command.command_manager import CommandManager
 from src.config import cfg
 
 
@@ -72,8 +72,8 @@ class BasicModel:
     def start(self) -> bool:
         try:
             loguru.logger.info(f'开始打包: {self._command_manager.current_command}')
-            subprocess.check_output(self._command_manager.current_command, creationflags=subprocess.CREATE_NEW_CONSOLE,
-                           shell=True)
+            subprocess.run(self._command_manager.current_command.replace('"', '').split(' '),
+                           creationflags=subprocess.CREATE_NEW_CONSOLE)
             return True
         except Exception as e:
             loguru.logger.error(e)

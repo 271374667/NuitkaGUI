@@ -2,7 +2,7 @@ import sys
 
 import loguru
 from PySide6.QtNetwork import QLocalSocket, QLocalServer
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QMessageBox
 
 from src.config import cfg
 from src.presenter.main_presenter import MainPresenter
