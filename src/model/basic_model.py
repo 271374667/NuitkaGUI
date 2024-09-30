@@ -5,14 +5,15 @@ from typing import Optional
 import loguru
 
 from src.common.nuitka_command.command_manager import CommandManager
+from src.common.nuitka_command.command_implement.command_path import CommandWindowsIconFromIco, CommandOutputDir
 from src.config import cfg
 
 
 class BasicModel:
     def __init__(self):
         self._command_manager = CommandManager()
-        self._output_command = self._command_manager.get_command_by_command('output-dir')
-        self._windows_icon_command = self._command_manager.get_command_by_command('windows-icon-from-ico')
+        self._output_command = self._command_manager.get_command_by_type(CommandOutputDir)
+        self._windows_icon_command = self._command_manager.get_command_by_type(CommandWindowsIconFromIco)
 
     @property
     def source_script_path(self) -> Optional[Path]:

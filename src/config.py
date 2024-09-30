@@ -65,17 +65,20 @@ class PythonExeValidator(ConfigValidator):
         python_exe_path: Path = Path(value)
         if PythonEnvUtils().is_python_available(python_exe_path):
             return value
-        return str(sys.executable)
+        result: list[Path] = PythonEnvUtils().find_available_python_exe_python()
+        if result:
+            return str(result[0])
+        return ''
 
 
 class Config(QConfig):
     # 全局设置
     is_first_run = ConfigItem("General", "首次运行", True, BoolValidator())
     global_python_exe_path = ConfigItem(
-        "General", "可用的Python.exe的路径", str(sys.executable), PythonExeValidator()
+        "General", "可用的Python.exe的路径", '', PythonExeValidator()
     )
     project_python_exe_path = ConfigItem(
-        "General", "项目Python.exe的路径", str(sys.executable), PythonExeValidator()
+        "General", "项目Python.exe的路径", '', PythonExeValidator()
     )
     optimization = OptionsConfigItem(
         "General",
