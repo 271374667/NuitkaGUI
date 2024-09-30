@@ -41,6 +41,7 @@ class BasicModel:
     @output_dir.setter
     def output_dir(self, output_dir: Optional[Path]) -> None:
         self._output_command.value = output_dir
+        print(self._output_command.value)
 
     @property
     def icon_path(self) -> Optional[Path]:

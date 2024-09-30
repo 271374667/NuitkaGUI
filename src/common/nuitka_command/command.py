@@ -341,7 +341,7 @@ class CommandPathBase(CommandValueBase):
 
     @property
     def value(self) -> Optional[Path]:
-        return Path(self._value) if self._value and Path(self._value).exists() else None
+        return Path(self._value) if self._value else None
 
     @value.setter
     def value(self, value: str | Path | None):

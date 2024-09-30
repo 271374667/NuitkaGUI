@@ -52,9 +52,6 @@ class BasicPresenter:
         self._model.output_dir = self._get_output_dir_path()
         self._view.show_success_infobar('成功', f'已选择文件:{drop_file_path.name}', duration=2000)
 
-        # 拖入文件后自动选择输出路径
-        self._output_dir_changed(is_show_dialog=False)
-
         # 识别是否使用虚拟环境,如果有则使用虚拟环境中的Python.exe
         project_python_exe = self._window_explorer_utils.find_files_in_dir_recursive(drop_file_path.parent,
                                                                                      'python.exe',
@@ -86,17 +83,14 @@ class BasicPresenter:
         self._model.output_dir = self._get_output_dir_path()
         self._view.show_success_infobar('成功', f'已选择文件:{self._view.source_script_path.name}', duration=2000)
 
-    def _output_dir_changed(self, is_show_dialog: bool = True):
+    def _output_dir_changed(self):
         """选择输出路径按钮点击的时候会触发这个函数"""
         if self._model.source_script_path is None:
             self._view.show_warning_infobar('错误', '请先选择 Python 文件')
             return
 
-        if is_show_dialog:
-            output_path = QFileDialog.getExistingDirectory(self._view, '选择输出路径', '')
-            loguru.logger.debug(f'选择输出路径为:{output_path}')
-        else:
-            output_path = self._get_output_dir_path()
+        output_path = QFileDialog.getExistingDirectory(self._view, '选择输出路径', '')
+        loguru.logger.debug(f'选择输出路径为:{output_path}')
 
         if not output_path:
             self._view.output_dir = self._get_output_dir_path()
@@ -131,7 +125,7 @@ class BasicPresenter:
             self._model.packaged_mode = 'standalone'
 
     def _get_output_dir_path(self) -> Path:
-        if self._model.source_script_path is None:
+        if not self._model.source_script_path:
             return Path.cwd() / 'output'
         return self._model.source_script_path.parent / 'output'
 

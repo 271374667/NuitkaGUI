@@ -16,4 +16,7 @@ class ManagerPath(ManagerBase):
 
 if __name__ == "__main__":
     manager = ManagerPath()
+    od = manager.get_command_by_command('output-dir')
+    od.value = 'C:/Users'
+    print(od.value)
     print(manager.command_list)
