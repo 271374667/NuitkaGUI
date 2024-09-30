@@ -1,4 +1,3 @@
-import selectors
 import socket
 import subprocess
 import time
@@ -53,10 +52,10 @@ class PipManager:
         with ThreadPoolExecutor() as executor:
             executor.map(install, module_list)
 
-        loguru.logger.debug(f"安装模块完成")
+        loguru.logger.debug("安装模块完成")
 
     def get_fastest_url(self, url_list: list[str]) -> Optional[str]:
-        loguru.logger.debug(f'正在获取最快的链接: {url_list}')
+        loguru.logger.debug(f"正在获取最快的链接: {url_list}")
 
         def test_speed(url: str) -> tuple[str, float]:
             host = urllib.parse.urlparse(url).hostname
@@ -71,7 +70,7 @@ class PipManager:
                 return url, response_time
             except Exception as e:
                 loguru.logger.error(f"连接 {url} 失败: {e}")
-                return url, float('inf')
+                return url, float("inf")
 
         with ThreadPoolExecutor() as executor:
             future_to_url = {executor.submit(test_speed, url): url for url in url_list}
@@ -84,7 +83,7 @@ class PipManager:
         results.sort(key=lambda x: x[1])
         fastest_url = results[0][0] if results else None
 
-        loguru.logger.debug(f'最快的链接: {fastest_url}')
+        loguru.logger.debug(f"最快的链接: {fastest_url}")
         return fastest_url
 
 

@@ -31,11 +31,12 @@ pefile==2024.8.26
 pyinstaller==6.10.0
 pyinstaller-hooks-contrib==2024.8
     # via pyinstaller
-pyside6==6.7.3
+pyside6==6.7.2
+    # via nuitkagui
     # via pyside6-fluent-widgets
-pyside6-addons==6.7.3
+pyside6-addons==6.7.2
     # via pyside6
-pyside6-essentials==6.7.3
+pyside6-essentials==6.7.2
     # via pyside6
     # via pyside6-addons
 pyside6-fluent-widgets==1.6.5
@@ -49,7 +50,7 @@ pywin32-ctypes==0.2.3
 setuptools==75.1.0
     # via pyinstaller
     # via pyinstaller-hooks-contrib
-shiboken6==6.7.3
+shiboken6==6.7.2
     # via pyside6
     # via pyside6-addons
     # via pyside6-essentials

@@ -26,6 +26,7 @@ class MainView(FluentWindow):
     ):
         super().__init__()
         self.navigationInterface.setAcrylicEnabled(True)
+        self.setAcceptDrops(True)
         self.navigationInterface.panel.expandWidth = 150
 
         # create sub interface
@@ -46,6 +47,9 @@ class MainView(FluentWindow):
 
         self._init_navigation()
         self._init_window()
+
+    def dragEnterEvent(self, event):
+        self.basic_interface.dragEnterEvent(event)
 
     def _init_navigation(self):
         self.addSubInterface(self.basic_interface, FIF.HOME, "主页")
