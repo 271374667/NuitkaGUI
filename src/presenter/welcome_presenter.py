@@ -63,6 +63,7 @@ class WelcomePresenter:
             self._view.python_exe_path = result[0]
             self._model.python_exe_path = result[0]
             self._view.show_success_infobar('成功', '已经成功设置 Python 路径')
+            self._install_packages()
         else:
             self._view.python_exe_path = None
             self._model.python_exe_path = None
@@ -79,6 +80,7 @@ class WelcomePresenter:
                 self._model.python_exe_path = python_exe_path
                 self._view.finish_state_tooltip("完成", "已经完成了 Python 路径的设置")
                 self._view.show_success_infobar("成功", f"已经成功设置 Python 路径为: {python_exe_path}")
+                self._install_packages()
             else:
                 self._view.python_exe_path = None
                 self._model.python_exe_path = None
@@ -148,6 +150,18 @@ class WelcomePresenter:
         self._thread.set_finished_func(finished)
         self._thread.start()
         self._is_running = True
+
+    def _install_packages(self):
+        def start():
+            self._model.install_packages()
+
+        def finished():
+            self._view.show_success_infobar("成功", "已经成功安装了软件包")
+
+        self._install_packages_thread = RunInThread()
+        self._install_packages_thread.set_start_func(start)
+        self._install_packages_thread.set_finished_func(finished)
+        self._install_packages_thread.start()
 
     def _finished(self):
         if self._view.show_mask_dialog('完成', '您已经完成了所有的设置,请重启软件后开始使用'):

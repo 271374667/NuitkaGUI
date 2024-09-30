@@ -3,11 +3,13 @@ import subprocess
 import time
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
 from typing import Optional
 
 import loguru
 
 from src.common.nuitka_command.command_manager import CommandManager
+from src.config import cfg
 from src.core.settings import INSTALL_PACKAGE
 
 
@@ -85,6 +87,13 @@ class PipManager:
 
         loguru.logger.debug(f"最快的链接: {fastest_url}")
         return fastest_url
+
+    def install_package(self, package: str):
+        python_exe_path: Path = self._command_manager.python_exe_path
+        pip_source: PipSrouce = cfg.get(cfg.pip_source)
+        command = [str(python_exe_path), "pip", "install", package, '-U', '-i', pip_source.value]
+        output = subprocess.run(command, creationflags=subprocess.CREATE_NEW_CONSOLE)
+        loguru.logger.debug(f"安装包: {package}, 结果: {output}")
 
 
 if __name__ == "__main__":
