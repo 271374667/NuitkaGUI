@@ -51,6 +51,9 @@ class BasicPresenter:
         self._model.source_script_path = drop_file_path
         self._view.output_dir = self._get_output_dir_path()
         self._model.output_dir = self._get_output_dir_path()
+        if not self._get_output_dir_path().exists():
+            self._get_output_dir_path().mkdir()
+            loguru.logger.debug(f'创建输出路径:{self._get_output_dir_path()}')
         self._view.show_success_infobar('成功', f'已选择文件:{drop_file_path.name}', duration=2000)
 
         # 识别是否使用虚拟环境,如果有则使用虚拟环境中的Python.exe
@@ -95,6 +98,9 @@ class BasicPresenter:
 
         if not output_path:
             self._view.output_dir = self._get_output_dir_path()
+            if not self._view.output_dir.exists():
+                self._view.output_dir.mkdir()
+                loguru.logger.debug(f'创建输出路径:{self._view.output_dir}')
             self._view.show_warning_infobar('错误', '未选择任何文件夹,已自动选择')
             return
 
@@ -148,6 +154,8 @@ class BasicPresenter:
                                             duration=-1, is_closable=True)
             self._view.finish_state_tooltip('就绪', '打包已经完成')
             os.startfile(self._model.output_dir)
+            # 让窗体闪烁
+            QApplication.alert(self._view)
 
         self._start_thread = RunInThread()
         self._start_thread.set_start_func(start)

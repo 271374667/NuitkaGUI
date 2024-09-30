@@ -71,7 +71,7 @@ class MainPresenter:
         welcome_presenter.view.show()
 
     def _start(self):
-        self.view.switchTo(self._args_presenter.view)
+        # self.view.switchTo(self._args_presenter.view)
         self._args_presenter.update_command()
 
     def _bind(self):
