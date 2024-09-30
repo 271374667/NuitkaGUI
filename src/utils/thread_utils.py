@@ -83,7 +83,6 @@ class ForceStopThread:
                 loguru.logger.debug(f'Thread {self.thread_id} forcefully terminated')
 
 
-
 class WorkThread(QObject):
     finished_signal = Signal()
     result = Signal(object)
@@ -140,9 +139,7 @@ class RunInThread(QObject):
         self.worker.result.connect(self._done_callback)
 
     def _done_callback(self, *args, **kwargs):
-        if len(args) == 2 or kwargs:
+        if args != (None,) or kwargs:
             self.finished_func(*args, **kwargs)
-        elif len(args) == 1:
-            self.finished_func(args[0])
         else:
             self.finished_func()
