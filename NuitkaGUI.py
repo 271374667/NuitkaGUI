@@ -10,9 +10,9 @@ from src.presenter.welcome_presenter import WelcomePresenter
 from src.utils.window_dialog_utils import WindowDialogUtils
 
 
-def is_already_running():
+def is_already_running() -> bool:
     socket = QLocalSocket()
-    socket.connectToServer("UniqueApplicationIdentifier")
+    socket.connectToServer("NuitkaGUI")
     running = socket.waitForConnected(500)
     socket.close()
     return running
@@ -27,7 +27,7 @@ def main():
         sys.exit(0)
 
     server = QLocalServer()
-    server.listen("UniqueApplicationIdentifier")
+    server.listen("NuitkaGUI")
     app = QApplication([])
     is_first_run: bool = cfg.get(cfg.is_first_run)
     if is_first_run:
