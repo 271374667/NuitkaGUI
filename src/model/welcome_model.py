@@ -4,8 +4,8 @@ from typing import Optional
 from src.common.manager.env_manager import EnvManager
 from src.common.manager.pip_manager import PipManager
 from src.config import cfg, PipSrouce
-from src.utils.python_env_utils import PythonEnvUtils
 from src.core.settings import INSTALL_PACKAGE
+from src.utils.python_env_utils import PythonEnvUtils
 
 
 class WelcomeModel:
@@ -57,9 +57,11 @@ class WelcomeModel:
         self._env_manager.add_dependence_to_env_by_bat()
         return self._env_manager.is_all_dependence_in_env()
 
-    def install_packages(self):
+    def install_packages(self) -> bool:
         for package in INSTALL_PACKAGE:
-            self._pip_manager.install_package(package)
+            if not self._pip_manager.install_package(package):
+                return False
+        return True
 
     def finished(self):
         cfg.set(cfg.is_first_run, False)

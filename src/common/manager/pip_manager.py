@@ -88,30 +88,24 @@ class PipManager:
         loguru.logger.debug(f"最快的链接: {fastest_url}")
         return fastest_url
 
-    def install_package(self, package: str):
+    def install_package(self, package: str) -> bool:
         python_exe_path: Path = self._command_manager.python_exe_path
         pip_source: PipSrouce = cfg.get(cfg.pip_source)
-        command = [str(python_exe_path), "pip", "install", package, '-U', '-i', pip_source.value]
-        loguru.logger.debug(f"安装包: {package}, 命令: {command}")
-        output = subprocess.run(command, creationflags=subprocess.CREATE_NEW_CONSOLE)
+        commands = [
+            [str(python_exe_path), "pip", "install", package, '-U', '-i', pip_source.value],
+            ["pip", "install", package, '-U', '-i', pip_source.value],
+            ["pip3", "install", package, '-U', '-i', pip_source.value]
+        ]
 
-        # 如果安装失败, 则尝试使用pip直接安装
-        if output.returncode != 0:
-            command = ["pip", "install", package, '-U', '-i', pip_source.value]
+        for command in commands:
             loguru.logger.debug(f"安装包: {package}, 命令: {command}")
             output = subprocess.run(command, creationflags=subprocess.CREATE_NEW_CONSOLE)
+            if output.returncode == 0:
+                loguru.logger.debug(f"安装包: {package}, 结果: {output}")
+                return True
 
-            # 依旧失败则使用 pip3
-            if output.returncode != 0:
-                command = ["pip3", "install", package, '-U', '-i', pip_source.value]
-                loguru.logger.debug(f"安装包: {package}, 命令: {command}")
-                output = subprocess.run(command, creationflags=subprocess.CREATE_NEW_CONSOLE)
-
-                # 依旧失败则直接报错
-                if output.returncode != 0:
-                    loguru.logger.error(f"安装包: {package}, 结果: {output}")
-                    raise ValueError(f"安装包: {package}安装错误, 结果: {output}")
-        loguru.logger.debug(f"安装包: {package}, 结果: {output}")
+        loguru.logger.error(f"安装包: {package}安装错误")
+        return False
 
 
 if __name__ == "__main__":

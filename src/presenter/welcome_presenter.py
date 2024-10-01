@@ -153,15 +153,20 @@ class WelcomePresenter:
 
     def _install_packages(self):
         def start():
-            self._model.install_packages()
+            return self._model.install_packages()
 
-        def finished():
-            self._view.show_success_infobar("成功", "已经成功安装了软件包")
+        def finished(is_success: bool):
+            if is_success:
+                self._view.show_success_infobar("成功", "已经成功安装了软件包")
+            else:
+                self._view.show_error_infobar("错误", "安装软件包失败")
+            self._view.finish_state_tooltip("完成", "已经完成了软件包的安装")
 
         self._install_packages_thread = RunInThread()
         self._install_packages_thread.set_start_func(start)
         self._install_packages_thread.set_finished_func(finished)
         self._install_packages_thread.start()
+        self._view.show_state_tooltip("运行中……", "正在安装软件包,请稍等")
 
     def _finished(self):
         if self._view.show_mask_dialog('完成', '您已经完成了所有的设置,请重启软件后开始使用'):
