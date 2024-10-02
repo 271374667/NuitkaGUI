@@ -20,43 +20,18 @@ from qfluentwidgets.components import (
 
 
 class CommandBase(ABC):
-    # _instance: Optional[Self] = None
     enabled: bool = True  # 是否启用
     visible: bool = True  # 是否可见
     name: str = ""  # 名称
     description: str = ""  # 描述
     command: str = ""  # 命令
     value: str = ""  # 值
-    widget: Optional[QWidget] = None  # 绑定的完整的widget(可能包括多个QWidget)
-    bind_widget: Optional[QWidget] = None  # 绑定的widget(负责对外交互的widget)
 
     def __new__(cls, *args, **kwargs):
         # 单例
         if not hasattr(cls, "_instance"):
             cls._instance = super().__new__(cls)
         return cls._instance
-
-    def __init__(self) -> None:
-        # 如果create_widget返回None，则不绑定任何widget
-        with contextlib.suppress(Exception):
-            widget = self.create_widget()
-            if widget is not None:
-                self.widget = widget
-
-    @abstractmethod
-    def create_widget(self) -> Optional[QWidget]:
-        """创建一个QWidget用于显示和编辑Command的值"""
-        raise NotImplementedError("This method must be implemented in subclass")
-
-    @abstractmethod
-    def update_widget(self):
-        """更新QWidget的值"""
-        raise NotImplementedError("This method must be implemented in subclass")
-
-    @abstractmethod
-    def update_value(self):
-        """更新value的值"""
-        raise NotImplementedError("This method must be implemented in subclass")
 
     @abstractmethod
     def get_command(self) -> str:
@@ -67,7 +42,32 @@ class CommandBase(ABC):
         return f"[{self.name}: {self.value} ({self.command})]"
 
 
-class CommandFlagBase(CommandBase):
+class WidgetBindMixin(ABC):
+    """有一些命令需要动态创建widget，这个mixin用于绑定widget"""
+    widget: Optional[QWidget] = None  # 绑定的完整的widget(可能包括多个QWidget)
+    bind_widget: Optional[QWidget] = None  # 绑定的widget(负责对外交互的widget)
+
+    def __init__(self) -> None:
+        # 如果create_widget返回None，则不绑定任何widget
+        with contextlib.suppress(Exception):
+            widget = self.create_widget()
+            if widget is not None:
+                self.widget = widget
+
+    @abstractmethod
+    def create_widget(self) -> Optional[QWidget]:
+        raise NotImplementedError("This method must be implemented in subclass")
+
+    @abstractmethod
+    def update_widget(self):
+        raise NotImplementedError("This method must be implemented in subclass")
+
+    @abstractmethod
+    def update_value(self):
+        raise NotImplementedError("This method must be implemented in subclass")
+
+
+class CommandFlagBase(CommandBase, WidgetBindMixin):
     _value: bool = False
     bind_widget: Optional[CheckBox] = None
     widget: Optional[CheckBox] = None
@@ -113,18 +113,6 @@ class CommandFlagBase(CommandBase):
 
 
 class CommandValueBase(CommandBase):
-    def create_widget(self) -> Optional[QWidget]:
-        pass
-
-    def update_widget(self):
-        pass
-
-    def update_value(self):
-        pass
-
-    def get_command(self) -> str:
-        pass
-
     _value: str | int = ""
 
     @property
@@ -135,11 +123,14 @@ class CommandValueBase(CommandBase):
     def value(self, value: str | int):
         self._value = value
 
+    def get_command(self) -> str:
+        raise NotImplementedError("This method must be implemented in subclass")
+
 
 # 下面是CommandValue的子类，用于定义不同类型的Command
 
 
-class CommandTextBase(CommandValueBase):
+class CommandTextBase(CommandValueBase, WidgetBindMixin):
     _value: str = ""
     bind_widget: Optional[LineEdit] = None
     widget: Optional[QWidget] = None
@@ -200,7 +191,7 @@ class CommandTextBase(CommandValueBase):
         return f'--{self.command}="{self.value}"'
 
 
-class CommandChoiceBase(CommandValueBase):
+class CommandChoiceBase(CommandValueBase, WidgetBindMixin):
     class Choice(Enum):
         pass
 
@@ -277,7 +268,7 @@ class CommandChoiceBase(CommandValueBase):
         return f"--{self.command}={self.value}"
 
 
-class CommandIntBase(CommandValueBase):
+class CommandIntBase(CommandValueBase, WidgetBindMixin):
     _value: int = -1
     number_range: tuple[int, int] = (0, 100)
     bind_widget: Optional[SpinBox] = None
@@ -353,15 +344,6 @@ class CommandPathBase(CommandValueBase):
             return
         self._value = value
 
-    def create_widget(self) -> QWidget:
-        ...
-
-    def update_widget(self):
-        ...
-
-    def update_value(self):
-        ...
-
     def get_command(self) -> str:
         if not self.command:
             raise ValueError("Command must be set")
@@ -391,12 +373,6 @@ class CommandMultipleTimesBase(CommandValueBase):
 
     def clear(self):
         self._value.clear()
-
-    def create_widget(self) -> QWidget: ...
-
-    def update_widget(self): ...
-
-    def update_value(self): ...
 
     def get_command(self) -> str:
         if not self.command:
