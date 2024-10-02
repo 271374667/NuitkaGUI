@@ -5,9 +5,12 @@ from PySide6.QtNetwork import QLocalSocket, QLocalServer
 from PySide6.QtWidgets import QApplication
 
 from src.config import cfg
+from src.core.paths import LOG_FILE
 from src.presenter.main_presenter import MainPresenter
 from src.presenter.welcome_presenter import WelcomePresenter
 from src.utils.window_dialog_utils import WindowDialogUtils
+
+loguru.logger.add(LOG_FILE, rotation="1 day", retention="1 week", level="DEBUG")
 
 
 def is_already_running() -> bool:

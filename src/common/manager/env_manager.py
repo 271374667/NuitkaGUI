@@ -4,7 +4,7 @@ from pathlib import Path
 import loguru
 
 from src.core.paths import CCACHE_DEPENDENCE_FILE, DEPENDS_DLL_DEPENDENCE_FILE, DEPENDS_EXE_DEPENDENCE_FILE, \
-    UPX_DEPENDENCE_FILE, GCC_EXE_FILE, DEPENDENCE_SAVE_PATH_FILE
+    UPX_DEPENDENCE_FILE, GCC_EXE_FILE, DEPENDENCE_SAVE_PATH_FILE, CLANG_EXE_FILE
 from src.utils.env_utils import EnvUtils
 
 
@@ -15,7 +15,8 @@ class EnvManager:
             DEPENDS_DLL_DEPENDENCE_FILE,
             DEPENDS_EXE_DEPENDENCE_FILE,
             UPX_DEPENDENCE_FILE,
-            GCC_EXE_FILE
+            GCC_EXE_FILE,
+            CLANG_EXE_FILE
         ]
         self._save_path_dict: dict[str, str] = {}
         self._env_utils = EnvUtils()
