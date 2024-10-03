@@ -4,7 +4,10 @@ from typing import Optional
 
 import loguru
 
-from src.common.nuitka_command.command_implement.command_path import CommandWindowsIconFromIco, CommandOutputDir
+from src.common.nuitka_command.command_implement.command_path import (
+    CommandWindowsIconFromIco,
+    CommandOutputDir,
+)
 from src.common.nuitka_command.command_manager import CommandManager
 from src.config import cfg
 
@@ -12,8 +15,12 @@ from src.config import cfg
 class BasicModel:
     def __init__(self):
         self._command_manager = CommandManager()
-        self._output_command = self._command_manager.get_command_by_type(CommandOutputDir)
-        self._windows_icon_command = self._command_manager.get_command_by_type(CommandWindowsIconFromIco)
+        self._output_command = self._command_manager.get_command_by_type(
+            CommandOutputDir
+        )
+        self._windows_icon_command = self._command_manager.get_command_by_type(
+            CommandWindowsIconFromIco
+        )
 
     @property
     def source_script_path(self) -> Optional[Path]:
@@ -32,7 +39,7 @@ class BasicModel:
         if project_python_exe_path:
             cfg.set(cfg.project_python_exe_path, str(project_python_exe_path))
         else:
-            cfg.set(cfg.project_python_exe_path, '')
+            cfg.set(cfg.project_python_exe_path, "")
 
     @property
     def output_dir(self) -> Optional[Path]:
@@ -53,16 +60,16 @@ class BasicModel:
 
     @property
     def packaged_mode(self) -> str:
-        standalone_command = self._command_manager.get_command_by_command('standalone')
+        standalone_command = self._command_manager.get_command_by_command("standalone")
         if standalone_command.value:
-            return 'standalone'
-        return 'onefile'
+            return "standalone"
+        return "onefile"
 
     @packaged_mode.setter
     def packaged_mode(self, mode: str) -> None:
-        standalone_command = self._command_manager.get_command_by_command('standalone')
-        onefile_command = self._command_manager.get_command_by_command('onefile')
-        if mode == 'standalone':
+        standalone_command = self._command_manager.get_command_by_command("standalone")
+        onefile_command = self._command_manager.get_command_by_command("onefile")
+        if mode == "standalone":
             standalone_command.value = True
             onefile_command.value = False
         else:
@@ -71,11 +78,13 @@ class BasicModel:
 
     def start(self) -> bool:
         try:
-            command = self._command_manager.current_command.replace('"', '').split(' ')
-            loguru.logger.info(f'开始打包: {command}')
-            result = subprocess.run(command, creationflags=subprocess.CREATE_NEW_CONSOLE)
+            command = self._command_manager.current_command.replace('"', "").split(" ")
+            loguru.logger.info(f"开始打包: {command}")
+            result = subprocess.run(
+                command, creationflags=subprocess.CREATE_NEW_CONSOLE, encoding="utf-8"
+            )
             # result = subprocess.check_output(command, creationflags=subprocess.CREATE_NEW_CONSOLE)
-            loguru.logger.info(f'打包结束: {result}')
+            loguru.logger.info(f"打包结束: {result}")
             return result.returncode == 0
         except Exception as e:
             loguru.logger.error(e)

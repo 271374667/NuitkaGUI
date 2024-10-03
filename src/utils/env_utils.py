@@ -1,4 +1,5 @@
 import os
+from tkinter import N
 import winreg
 from pathlib import Path
 from shutil import which
@@ -44,13 +45,23 @@ class EnvUtils:
         os.environ["PATH"] = ";".join(paths)
         loguru.logger.debug(f"从用户环境变量中移除了路径: {dir_path}")
 
-    def add_file_path_to_user_env_by_bat(self, file_path: Path, target_dir_path: Optional[Path] = None) -> Path:
+    def add_file_path_to_user_env_by_bat(
+        self, file_path: Path, target_dir_path: Optional[Path] = None
+    ) -> Path:
         """使用注册表将路径添加到用户环境变量
 
         使用该方法添加的环境变量永久有效
         """
-        writeable_env_path = self._writeable_env_path_list[0] if self._writeable_env_path_list else None
-        target_dir_path = writeable_env_path if target_dir_path is None else target_dir_path
+        writeable_env_path = (
+            self._writeable_env_path_list[0] if self._writeable_env_path_list else None
+        )
+        if writeable_env_path is None:
+            raise ValueError(
+                f"写入地址必须是一个合法的地址，当前为: {writeable_env_path}"
+            )
+        target_dir_path = (
+            writeable_env_path if target_dir_path is None else target_dir_path
+        )
         bat_path = target_dir_path / f"{file_path.stem}.bat"
         with open(bat_path, "w", encoding="utf-8") as f:
             f.write(self._get_bat_cmd(str(file_path.resolve())))
@@ -67,15 +78,14 @@ class EnvUtils:
         从而实现在任何地方都可以调用该程序,而不需要在程序所在的目录下调用
         """
         content: list[str] = [
-            '@echo off',
-            'chcp 65001',
+            "@echo off",
+            "chcp 65001",
             f'"{app_name}" %*',
-            'exit'
         ]
-        return '\n'.join(content)
+        return "\n".join(content)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from src.core.paths import GCC_EXE_FILE
 
     env_uitls = EnvUtils()

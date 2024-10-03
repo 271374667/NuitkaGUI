@@ -92,14 +92,24 @@ class PipManager:
         python_exe_path: Path = self._command_manager.python_exe_path
         pip_source: PipSrouce = cfg.get(cfg.pip_source)
         commands = [
-            [str(python_exe_path), "pip", "install", package, '-U', '-i', pip_source.value],
-            ["pip", "install", package, '-U', '-i', pip_source.value],
-            ["pip3", "install", package, '-U', '-i', pip_source.value]
+            [
+                str(python_exe_path),
+                "pip",
+                "install",
+                package,
+                "-U",
+                "-i",
+                pip_source.value,
+            ],
+            ["pip", "install", package, "-U", "-i", pip_source.value],
+            ["pip3", "install", package, "-U", "-i", pip_source.value],
         ]
 
         for command in commands:
             loguru.logger.debug(f"安装包: {package}, 命令: {command}")
-            output = subprocess.run(command, creationflags=subprocess.CREATE_NEW_CONSOLE)
+            output = subprocess.run(
+                command, creationflags=subprocess.CREATE_NEW_CONSOLE, encoding="utf-8"
+            )
             if output.returncode == 0:
                 loguru.logger.debug(f"安装包: {package}, 结果: {output}")
                 return True
