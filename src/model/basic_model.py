@@ -1,4 +1,5 @@
 import subprocess
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Optional
 
@@ -10,10 +11,13 @@ from src.common.nuitka_command.command_implement.command_path import (
 )
 from src.common.nuitka_command.command_manager import CommandManager
 from src.config import cfg
+from src.core.paths import NUITKA_CRASH_REPORT_FILE
+from src.signal_bus import SignalBus
 
 
 class BasicModel:
     def __init__(self):
+        self._signal_bus = SignalBus()
         self._command_manager = CommandManager()
         self._output_command = self._command_manager.get_command_by_type(
             CommandOutputDir
@@ -77,15 +81,35 @@ class BasicModel:
             onefile_command.value = True
 
     def start(self) -> bool:
+        def getexceptions(context: str) -> str:
+            # 如果是Nuitka的崩溃报告文件，则解析出其中的异常信息
+            try:
+                root = ET.fromstring(context)
+                exceptions = root.findall('.//exception')
+                return '\n'.join([exception.text for exception in exceptions if exception.text])
+            except ET.ParseError as e:
+                return f"Error parsing XML: {e}"
+
         try:
             command = self._command_manager.current_command.replace('"', "").split(" ")
+            # command = self._command_manager.current_command
             loguru.logger.info(f"开始打包: {command}")
             result = subprocess.run(
                 command, creationflags=subprocess.CREATE_NEW_CONSOLE, encoding="utf-8"
             )
             # result = subprocess.check_output(command, creationflags=subprocess.CREATE_NEW_CONSOLE)
             loguru.logger.info(f"打包结束: {result}")
-            return result.returncode == 0
+            if result.returncode != 0:
+                raise Exception("打包失败")
+            return True
         except Exception as e:
             loguru.logger.error(e)
+            if NUITKA_CRASH_REPORT_FILE.exists():
+                with open(NUITKA_CRASH_REPORT_FILE, 'r', encoding='utf-8') as f:
+                    context = f.read()
+                exceptions = getexceptions(context)
+                self._signal_bus.append_output.emit(f"打包失败: {e}\n{exceptions}")
+                NUITKA_CRASH_REPORT_FILE.rename(NUITKA_CRASH_REPORT_FILE.with_suffix('.bak'))
+                return False
+            self._signal_bus.append_output.emit(f"打包失败: {e}")
             return False

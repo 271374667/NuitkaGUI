@@ -1,3 +1,4 @@
+import os
 import sys
 
 import loguru
@@ -11,6 +12,11 @@ from src.presenter.welcome_presenter import WelcomePresenter
 from src.utils.window_dialog_utils import WindowDialogUtils
 
 loguru.logger.add(LOG_FILE, rotation="1 day", retention="1 week", level="DEBUG")
+
+# 设置环境变量为PYTHONIOENCODING=utf-8
+os.environ["PYTHONIOENCODING"] = "utf-8"
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
 
 
 def is_already_running() -> bool:
