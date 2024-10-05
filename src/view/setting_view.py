@@ -12,7 +12,8 @@ from qfluentwidgets.components import (
     LargeTitleLabel,
     SmoothScrollArea,
     ComboBoxSettingCard,
-    PushSettingCard
+    PushSettingCard,
+    SwitchSettingCard
 )
 
 from src.config import cfg
@@ -69,6 +70,14 @@ class SettingView(MessageBaseView):
             self.general_group,
         )
 
+        self.auto_update_plugin_card = SwitchSettingCard(
+            Icon(FluentIcon.CHEVRON_RIGHT),
+            "自动更新插件",
+            "每一次启动的时候都从命令行获取最新的插件",
+            cfg.auto_update_plugin,
+            self.general_group,
+        )
+
         self.optimization_card = ComboBoxSettingCard(
             cfg.optimization,
             Icon(FluentIcon.CHEVRON_RIGHT),
@@ -98,6 +107,7 @@ class SettingView(MessageBaseView):
     def _set_up_tooltip(self):
         self.project_python_exe_path_card.setToolTip("选择当前项目使用的Python.exe路径")
         self.global_python_exe_path_card.setToolTip("选择全局Python.exe路径")
+        self.auto_update_plugin_card.setToolTip("如果没有配置全局Python环境会导致报错")
         self.optimization_card.setToolTip("选择优化选项")
         self.pip_source_card.setToolTip("通常情况下建议选择阿里源")
         self.open_welcome_card.setToolTip("如果您的软件出现了问题,可以尝试打开欢迎页面重新设置依赖等")
@@ -116,6 +126,7 @@ class SettingView(MessageBaseView):
             [
                 self.project_python_exe_path_card,
                 self.global_python_exe_path_card,
+                self.auto_update_plugin_card,
                 self.optimization_card,
                 self.pip_source_card,
                 self.open_welcome_card

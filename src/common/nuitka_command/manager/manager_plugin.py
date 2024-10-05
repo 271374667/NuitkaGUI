@@ -6,6 +6,38 @@ import loguru
 from src.config import cfg
 from src.utils.singleton import singleton
 
+DEFAULT_PLUGIN_TEXT: str = """                 The following plugins are available in Nuitka
+--------------------------------------------------------------------------------
+ anti-bloat        Patch stupid imports out of widely used library modules source codes.
+ data-files        Include data files specified by package configuration files.
+ delvewheel        Required for 'support' of delvewheel using packages in standalone mode.
+ dill-compat       Required for 'dill' package compatibility.
+ dll-files         Include DLLs as per package configuration files.
+ enum-compat       Required for Python2 and 'enum' package.
+ eventlet          Support for including 'eventlet' dependencies and its need for 'dns' package monkey patching.
+ gevent            Required by the 'gevent' package.
+ gi                Support for GI package typelib dependency.
+ glfw              Required for 'OpenGL' (PyOpenGL) and 'glfw' package in standalone mode.
+ implicit-imports  Provide implicit imports of package as per package configuration files.
+ kivy              Required by 'kivy' package.
+ matplotlib        Required for 'matplotlib' module.
+ multiprocessing   Required by Python's 'multiprocessing' module.
+ no-qt             Disable inclusion of all Qt bindings.
+ options-nanny     Inform the user about potential problems as per package configuration files.
+ pbr-compat        Required by the 'pbr' package in standalone mode.
+ pkg-resources     Workarounds for 'pkg_resources'.
+ pmw-freezer       Required by the 'Pmw' package.
+ pylint-warnings   Support PyLint / PyDev linting source markers.
+ pyqt5             Required by the PyQt5 package.
+ pyqt6             Required by the PyQt6 package for standalone mode.
+ pyside2           Required by the PySide2 package.
+ pyside6           Required by the PySide6 package for standalone mode.
+ pywebview         Required by the 'webview' package (pywebview on PyPI).
+ spacy             Required by 'spacy' package.
+ tk-inter          Required by Python's Tk modules.
+ transformers      Provide implicit imports for transformers package.
+ upx               Compress created binaries with UPX automatically."""
+
 
 @singleton
 class ManagerPlugin:
@@ -66,9 +98,13 @@ class ManagerPlugin:
         if not self._pythonexe_path:
             self._pythonexe_path = "python"
         try:
-            arg = [self._pythonexe_path, "-m", "nuitka", "--plugin-list"]
-            result = subprocess.check_output(arg)
-            result_list = result.decode("utf-8").splitlines()[2:]
+            is_auto_update_plugin: bool = cfg.get(cfg.auto_update_plugin)
+            if not is_auto_update_plugin:
+                result_list = DEFAULT_PLUGIN_TEXT.splitlines()[2:]
+            else:
+                arg = [self._pythonexe_path, "-m", "nuitka", "--plugin-list"]
+                result = subprocess.check_output(arg)
+                result_list = result.decode("utf-8").splitlines()[2:]
             result_list = [
                 (x.split(maxsplit=1)[0], x.split(maxsplit=1)[1]) for x in result_list
             ]
