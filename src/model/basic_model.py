@@ -109,6 +109,9 @@ class BasicModel:
                     context = f.read()
                 exceptions = getexceptions(context)
                 self._signal_bus.append_output.emit(f"打包失败: {e}\n{exceptions}")
+                result_name = NUITKA_CRASH_REPORT_FILE.with_suffix('.bak')
+                if result_name.exists():
+                    result_name.unlink()
                 NUITKA_CRASH_REPORT_FILE.rename(NUITKA_CRASH_REPORT_FILE.with_suffix('.bak'))
                 return False
             self._signal_bus.append_output.emit(f"打包失败: {e}")
