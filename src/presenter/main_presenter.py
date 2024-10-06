@@ -1,4 +1,3 @@
-import loguru
 from PySide6.QtWidgets import QApplication
 
 from src.config import cfg, Optimization
@@ -83,6 +82,7 @@ class MainPresenter:
             self._open_welcome_view
         )
         self._basic_presenter.view.get_start_btn().clicked.connect(self._start)
+        self._signal_bus.append_output.connect(self._view.cmd_interface.append_log)
 
 
 if __name__ == "__main__":

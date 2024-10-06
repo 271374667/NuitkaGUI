@@ -1,3 +1,5 @@
+import importlib
+import locale
 import os
 import sys
 
@@ -17,6 +19,14 @@ loguru.logger.add(LOG_FILE, rotation="1 day", retention="1 week", level="DEBUG")
 os.environ["PYTHONIOENCODING"] = "utf-8"
 sys.stdout.reconfigure(encoding="utf-8")
 sys.stderr.reconfigure(encoding="utf-8")
+
+importlib.reload(sys)
+loguru.logger.debug(
+    f"系统默认编码: {sys.getdefaultencoding()}, 已经重新加载为UTF-8"
+)
+
+# 确保环境变量LANG设置为UTF-8
+locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 
 def is_already_running() -> bool:

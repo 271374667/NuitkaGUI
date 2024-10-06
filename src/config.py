@@ -1,9 +1,6 @@
-import locale
-import sys
 from enum import Enum
 from pathlib import Path
 
-import loguru
 from qfluentwidgets import (
     BoolValidator,
     ConfigItem,
@@ -17,17 +14,6 @@ from qfluentwidgets import (
 
 from src.core.paths import CONFIG_FILE
 from src.utils.python_env_utils import PythonEnvUtils
-
-if sys.getdefaultencoding() != "utf-8":
-    import importlib
-
-    importlib.reload(sys)
-    loguru.logger.debug(
-        f"系统默认编码: {sys.getdefaultencoding()}, 已经重新加载为UTF-8"
-    )
-
-# # 确保环境变量LANG设置为UTF-8
-locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 AVAILABLE_PYTHON_EXE_LIST: list[Path] = PythonEnvUtils().find_available_python_exe_python()
 
