@@ -180,14 +180,14 @@ class Ui_Form(object):
         # endif // QT_CONFIG(tooltip)
         self.TextEdit.setPlaceholderText(
             QCoreApplication.translate(
-                "Form", "Nuitka\u7684\u547d\u4ee4\u5728\u8fd9\u91cc\u8f93\u51fa", None
+                "Form", "Nuitka \u7684\u547d\u4ee4\u5728\u8fd9\u91cc\u8f93\u51fa", None
             )
         )
         # if QT_CONFIG(tooltip)
         self.HyperlinkButton_2.setToolTip(
             QCoreApplication.translate(
                 "Form",
-                "<html><head/><body><p>\u7ea2\u8272\u7684\u4ee3\u8868\u4e0d\u5728GUI\u7684\u9009\u9879\u5185<br/>\u84dd\u8272\u7684\u8868\u793a\u6210\u529f\u9009\u62e9</p></body></html>",
+                "<html><head/><body><p>\u4ece NuitkaGUI \u83b7\u53d6\u547d\u4ee4</p></body></html>",
                 None,
             )
         )
@@ -207,7 +207,7 @@ class Ui_Form(object):
         self.TextEdit_2.setPlaceholderText(
             QCoreApplication.translate(
                 "Form",
-                "\u590d\u5236\u5176\u4ed6\u4eba\u7684Nuitka\u547d\u4ee4\u5230\u8fd9\u91cc,\u7ea2\u8272\u7684\u4ee3\u8868\u4e0d\u5728GUI\u7684\u9009\u9879\u5185,\u84dd\u8272\u7684\u8868\u793a\u6210\u529f\u9009\u62e9",
+                "\u590d\u5236 Nuitka \u7684\u547d\u4ee4\u5230\u8fd9\u91cc\u8fdb\u884c\u89e3\u6790",
                 None,
             )
         )
@@ -215,13 +215,13 @@ class Ui_Form(object):
         self.HyperlinkButton.setToolTip(
             QCoreApplication.translate(
                 "Form",
-                "<html><head/><body><p>\u7ea2\u8272\u7684\u4ee3\u8868\u4e0d\u5728GUI\u7684\u9009\u9879\u5185<br/>\u84dd\u8272\u7684\u8868\u793a\u6210\u529f\u9009\u62e9</p></body></html>",
+                "<html><head/><body><p>\u6839\u636e\u547d\u4ee4\u9006\u5411\u56de NuitkaGUI</p></body></html>",
                 None,
             )
         )
         # endif // QT_CONFIG(tooltip)
         self.HyperlinkButton.setText(
-            QCoreApplication.translate("Form", "\u5206\u6790\u547d\u4ee4", None)
+            QCoreApplication.translate("Form", "\u89e3\u6790\u547d\u4ee4", None)
         )
         # if QT_CONFIG(tooltip)
         self.PrimaryPushButton.setToolTip("")

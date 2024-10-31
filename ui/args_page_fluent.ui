@@ -112,14 +112,14 @@
            <bool>true</bool>
           </property>
           <property name="placeholderText">
-           <string>Nuitka的命令在这里输出</string>
+           <string>Nuitka 的命令在这里输出</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="HyperlinkButton" name="HyperlinkButton_2">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;红色的代表不在GUI的选项内&lt;br/&gt;蓝色的表示成功选择&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;从 NuitkaGUI 获取命令&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>获取命令</string>
@@ -141,17 +141,17 @@
            <string>当前不支持自动开启插件，在未来的版本会进行更新</string>
           </property>
           <property name="placeholderText">
-           <string>复制其他人的Nuitka命令到这里,红色的代表不在GUI的选项内,蓝色的表示成功选择</string>
+           <string>复制 Nuitka 的命令到这里进行解析</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="HyperlinkButton" name="HyperlinkButton">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;红色的代表不在GUI的选项内&lt;br/&gt;蓝色的表示成功选择&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;根据命令逆向回 NuitkaGUI&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>分析命令</string>
+           <string>解析命令</string>
           </property>
          </widget>
         </item>
@@ -178,18 +178,18 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PushButton</class>
-   <extends>QPushButton</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
    <class>HyperlinkButton</class>
    <extends>PushButton</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>PrimaryPushButton</class>
+   <class>PushButton</class>
    <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
@@ -204,14 +204,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>SimpleCardWidget</class>
-   <extends>CardWidget</extends>
+   <class>ElevatedCardWidget</class>
+   <extends>SimpleCardWidget</extends>
    <header>qfluentwidgets</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>ElevatedCardWidget</class>
-   <extends>SimpleCardWidget</extends>
+   <class>SimpleCardWidget</class>
+   <extends>CardWidget</extends>
    <header>qfluentwidgets</header>
    <container>1</container>
   </customwidget>

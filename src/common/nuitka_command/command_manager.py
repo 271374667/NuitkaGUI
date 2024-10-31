@@ -3,6 +3,9 @@ from typing import Generic
 from typing import Optional
 from typing import Type, TypeVar
 
+import loguru
+from win32comext.adsi.demos.scp import logger
+
 from src.common.nuitka_command import command
 from src.common.nuitka_command.command_implement import command_flag, command_path
 from src.common.nuitka_command.manager.manager_base import ManagerBase
@@ -72,6 +75,22 @@ class CommandManager(Generic[CommandBaseType]):
         if not project_python_exe_path.exists():
             raise ValueError("Must have a avialable python exe(project or gloabl)")
         return project_python_exe_path
+
+    def parse_command(self, command: str) -> None:
+        loguru.logger.debug(f"开始解析命令: {command}")
+        for each in command.split(" "):
+            command_str_list: list[str] = each.split("=")
+            command_name = command_str_list[0]
+            # 去掉开头的-
+            while command_name.startswith("-"):
+                command_name = command_name[1:]
+            command_value: Optional[str] = command_str_list[1] if len(command_str_list) > 1 else None
+            command = self.get_command_by_command(command_name)
+            if not command:
+                loguru.logger.error(f"Unknown command: {command_name}")
+                continue
+            logger.debug(f"command_name: {command_name}, command_value: {command_value}")
+            command.parse(command_value)
 
     def update_command_list(self):
         self.command_list = []

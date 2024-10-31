@@ -31,6 +31,8 @@ class ArgsPresenter:
     def bind(self):
         self._view.get_output_args_btn().clicked.connect(self.update_command)
         self._view.get_clear_btn().clicked.connect(self._clear)
+        self.view.get_input_args_btn().clicked.connect(
+            lambda: self._model.parse_command(self.view.get_input_args_textedit().toPlainText()))
 
 
 if __name__ == "__main__":

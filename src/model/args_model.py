@@ -7,3 +7,6 @@ class ArgsModel:
 
     def get_command(self) -> str:
         return self._command_manager.current_command
+
+    def parse_command(self, command: str) -> None:
+        self._command_manager.parse_command(command)

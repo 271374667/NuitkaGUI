@@ -38,6 +38,11 @@ class CommandBase(ABC):
         """获取命令"""
         raise NotImplementedError("This method must be implemented in subclass")
 
+    @abstractmethod
+    def parse(self, value: str | None):
+        """解析命令"""
+        raise NotImplementedError("This method must be implemented in subclass")
+
     def __repr__(self) -> str:
         return f"[{self.name}: {self.value} ({self.command})]"
 
@@ -79,6 +84,11 @@ class CommandFlagBase(CommandBase, WidgetBindMixin):
     @value.setter
     def value(self, value: bool):
         self._value = value
+
+    def parse(self, value: str):
+        # 标志类命令只要有值就是True
+        if value:
+            self._value = True
 
     def create_widget(self) -> CheckBox:
         if self.widget is not None:
@@ -122,6 +132,10 @@ class CommandValueBase(CommandBase):
     @value.setter
     def value(self, value: str | int):
         self._value = value
+
+    def parse(self, value: str | None):
+        if value:
+            self._value = value
 
     def get_command(self) -> str:
         raise NotImplementedError("This method must be implemented in subclass")
@@ -207,8 +221,15 @@ class CommandChoiceBase(CommandValueBase, WidgetBindMixin):
         if value in self.chocies:
             self._value = value
             loguru.logger.debug(f"CommandChoiceBase: {self.name} = {self.value}")
+            # 修改值后，需要更新绑定的widget
+            self.update_widget()
         else:
-            raise ValueError(f"Value {value} is not valid")
+            raise ValueError(f"{self.command}: Value {value} is not valid, It must be in {self.chocies}")
+
+    def parse(self, value: str | None):
+        if value:
+            value = value.replace('"', "")
+            self.value = value
 
     @property
     def chocies(self) -> list[str]:
@@ -256,7 +277,7 @@ class CommandChoiceBase(CommandValueBase, WidgetBindMixin):
     def update_widget(self):
         if self.bind_widget is not None:
             self.bind_widget.setEnabled(self.enabled)
-            self.bind_widget.setCurrentText(self.value)
+            self.bind_widget.setCurrentText(self._value)
 
     def update_value(self):
         if self.bind_widget is not None:
@@ -284,6 +305,10 @@ class CommandIntBase(CommandValueBase, WidgetBindMixin):
             loguru.logger.debug(f"CommandIntBase: {self.name} = {self.value}")
         else:
             raise ValueError(f"Value must be in range {self.number_range}")
+
+    def parse(self, value: str | None):
+        if value:
+            self.value = int(value)
 
     def create_widget(self) -> QWidget:
         if self.widget is not None:
@@ -344,6 +369,10 @@ class CommandPathBase(CommandValueBase):
             return
         self._value = value
 
+    def parse(self, value: str | None):
+        if value:
+            self.value = value
+
     def get_command(self) -> str:
         if not self.command:
             raise ValueError("Command must be set")
@@ -361,6 +390,12 @@ class CommandMultipleTimesBase(CommandValueBase):
     @value.setter
     def value(self, value: list[str]):
         self._value = value
+
+    def parse(self, value: str | None):
+        if ',' in value:
+            self._value = value.split(',')
+        else:
+            self.add(value)
 
     def add(self, value: str):
         self._value.append(value)
