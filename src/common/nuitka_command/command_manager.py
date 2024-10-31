@@ -1,10 +1,10 @@
+import re
 from pathlib import Path
 from typing import Generic
 from typing import Optional
 from typing import Type, TypeVar
 
 import loguru
-from win32comext.adsi.demos.scp import logger
 
 from src.common.nuitka_command import command
 from src.common.nuitka_command.command_implement import command_flag, command_path
@@ -78,6 +78,38 @@ class CommandManager(Generic[CommandBaseType]):
 
     def parse_command(self, command: str) -> None:
         loguru.logger.debug(f"开始解析命令: {command}")
+
+        def parse_python_path(command: str) -> str:
+            # Define the regex patterns for the different cases
+            patterns = [
+                r'^(python)\s+.*nuitka',  # Case 1: python followed by nuitka command
+                r'^(python\s+-m\s+nuitka)',  # Case 2: python -m nuitka followed by nuitka command
+                r'^(.+python\.exe)\s+.*nuitka',  # Case 3: long python.exe path followed by nuitka command
+                r'^(.+python\.exe\s+-m\s+nuitka)'  # Case 4: long python.exe path -m nuitka followed by nuitka command
+            ]
+
+            for pattern in patterns:
+                match = re.match(pattern, command)
+                if match:
+                    return match.group(1)
+
+            raise ValueError("No valid Python path found in the command")
+
+        python_path: str = parse_python_path(command)
+        loguru.logger.debug(f"Python path: {python_path}")
+
+        command_excluded_text: list[str] = [
+            python_path,
+            '-m',
+            'nuitka'
+        ]
+        command_args: list[str] = []
+        for each in command.split(" "):
+            if each in command_excluded_text or not each:
+                continue
+            command_args.append(each)
+        command = " ".join(command_args)
+
         for each in command.split(" "):
             command_str_list: list[str] = each.split("=")
             command_name = command_str_list[0]
@@ -89,7 +121,7 @@ class CommandManager(Generic[CommandBaseType]):
             if not command:
                 loguru.logger.error(f"Unknown command: {command_name}")
                 continue
-            logger.debug(f"command_name: {command_name}, command_value: {command_value}")
+            loguru.logger.debug(f"command_name: {command_name}, command_value: {command_value}")
             command.parse(command_value)
 
     def update_command_list(self):

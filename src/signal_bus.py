@@ -9,3 +9,5 @@ class SignalBus(QObject):
     update_setting_view = Signal()
     # 将内容输出到输出面板
     append_output = Signal(str)
+    # 更新插件页面(解析页面触发插件页面的更新)
+    update_plugin_view = Signal()

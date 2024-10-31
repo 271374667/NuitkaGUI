@@ -7,6 +7,7 @@ from qfluentwidgets import Flyout
 
 from src.common.nuitka_command.command_manager import CommandManager
 from src.model.plugin_model import PluginModel
+from src.signal_bus import SignalBus
 from src.utils.singleton import singleton
 from src.utils.thread_utils import RunInThread
 from src.view.plugin_view import PluginView
@@ -116,6 +117,7 @@ class PluginPresenter:
         self.view.get_auto_btn().clicked.connect(self.auto_detect)
         self.view.get_selected_btn().clicked.connect(self._show_current_selected)
         self.view.card_clicked.connect(self.update_value_to_command_manager)
+        SignalBus().update_setting_view.connect(self.update_widget)
 
 
 if __name__ == '__main__':

@@ -82,6 +82,7 @@ class ManagerPlugin:
 
     @property
     def enable_plugins(self) -> list[str]:
+        self.disable_all_plugin()
         return [k for k, v in self._plugin_enable_dict.items() if v]
 
     def set_plugin_enable(self, plugin_name: str, status: bool) -> None:

@@ -10,3 +10,6 @@ class ArgsModel:
 
     def parse_command(self, command: str) -> None:
         self._command_manager.parse_command(command)
+
+    def update_widget(self) -> None:
+        self._command_manager.update_widget()

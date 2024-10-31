@@ -221,8 +221,6 @@ class CommandChoiceBase(CommandValueBase, WidgetBindMixin):
         if value in self.chocies:
             self._value = value
             loguru.logger.debug(f"CommandChoiceBase: {self.name} = {self.value}")
-            # 修改值后，需要更新绑定的widget
-            self.update_widget()
         else:
             raise ValueError(f"{self.command}: Value {value} is not valid, It must be in {self.chocies}")
 
@@ -392,6 +390,8 @@ class CommandMultipleTimesBase(CommandValueBase):
         self._value = value
 
     def parse(self, value: str | None):
+        value = value.replace('"', "")
+
         if ',' in value:
             self._value = value.split(',')
         else:
