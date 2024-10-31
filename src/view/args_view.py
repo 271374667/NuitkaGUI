@@ -13,9 +13,6 @@ class ArgsView(QWidget):
 
         self.initialize()
 
-        # TODO: 未来更新反向分析命令的功能，现在先隐藏
-        # self.get_input_args_card_widget().setVisible(False)
-
     def get_output_args_textedit(self) -> TextEdit:
         return self.ui.TextEdit
 

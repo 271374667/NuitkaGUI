@@ -85,10 +85,9 @@ class CommandFlagBase(CommandBase, WidgetBindMixin):
     def value(self, value: bool):
         self._value = value
 
-    def parse(self, value: str):
+    def parse(self, value: str | None):
         # 标志类命令只要有值就是True
-        if value:
-            self._value = True
+        self._value = True
 
     def create_widget(self) -> CheckBox:
         if self.widget is not None:
@@ -359,6 +358,7 @@ class CommandPathBase(CommandValueBase):
 
     @value.setter
     def value(self, value: str | Path | None):
+        value = value.replace('"', "")
         if value is None:
             self._value = ""
             return

@@ -19,9 +19,9 @@ from src.common.nuitka_command.manager.manager_path import ManagerPath
 from src.common.nuitka_command.manager.manager_plugin import ManagerPlugin
 from src.common.nuitka_command.manager.manager_text import ManagerText
 from src.config import cfg
+from src.signal_bus import SignalBus
 from src.utils.class_utils import ClassUtils
 from src.utils.singleton import singleton
-from src.signal_bus import SignalBus
 
 CommandBaseType = TypeVar("CommandBaseType", bound=command.CommandBase)
 
@@ -30,6 +30,7 @@ CommandBaseType = TypeVar("CommandBaseType", bound=command.CommandBase)
 class CommandManager(Generic[CommandBaseType]):
     def __init__(self):
         self.command_list: list[command.CommandBase] = []
+        self._extra_command_list: list[str] = []
 
         self.manager_list: list[ManagerBase] = [
             ManagerChoice(),
@@ -67,6 +68,7 @@ class CommandManager(Generic[CommandBaseType]):
         for i in self.command_list:
             if i.enabled and i.value != "" and i.value is not None and i.value is not False and i.value != -1:
                 result.append(i.get_command())
+        result.extend(self._extra_command_list)
         return " ".join(result)
 
     @property
@@ -86,8 +88,11 @@ class CommandManager(Generic[CommandBaseType]):
             patterns = [
                 r'^(python)\s+.*nuitka',  # Case 1: python followed by nuitka command
                 r'^(python\s+-m\s+nuitka)',  # Case 2: python -m nuitka followed by nuitka command
-                r'^(.+python\.exe)\s+.*nuitka',  # Case 3: long python.exe path followed by nuitka command
-                r'^(.+python\.exe\s+-m\s+nuitka)'  # Case 4: long python.exe path -m nuitka followed by nuitka command
+                r'^"(.+python\.exe)"\s+.*nuitka',  # Case 3: long python.exe path in quotes followed by nuitka command
+                r'^"(.+python\.exe)"\s+-m\s+nuitka',
+                # Case 4: long python.exe path in quotes -m nuitka followed by nuitka command
+                r'^(.+python\.exe)\s+.*nuitka',  # Case 5: long python.exe path followed by nuitka command
+                r'^(.+python\.exe)\s+-m\s+nuitka'  # Case 6: long python.exe path -m nuitka followed by nuitka command
             ]
 
             for pattern in patterns:
@@ -95,7 +100,8 @@ class CommandManager(Generic[CommandBaseType]):
                 if match:
                     return match.group(1)
 
-            raise ValueError("No valid Python path found in the command")
+            loguru.logger.error(f"Failed to parse python path from command: {command}, use default python path")
+            return 'python'
 
         python_path: str = parse_python_path(command)
         loguru.logger.debug(f"Python path: {python_path}")
@@ -122,6 +128,9 @@ class CommandManager(Generic[CommandBaseType]):
             command = self.get_command_by_command(command_name)
             if not command:
                 loguru.logger.error(f"Unknown command: {command_name}")
+                is_keep_unsupported_command: bool = cfg.get(cfg.keep_unsupported_command)
+                if is_keep_unsupported_command:
+                    self._extra_command_list.append(each)
                 continue
             loguru.logger.debug(f"command_name: {command_name}, command_value: {command_value}")
             command.parse(command_value)
