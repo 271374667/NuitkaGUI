@@ -68,6 +68,7 @@ class Config(QConfig):
     project_python_exe_path = ConfigItem(
         "General", "项目Python.exe的路径", '', PythonExeValidator()
     )
+    keep_unsupported_command = ConfigItem("General", "保留不支持的命令", True, BoolValidator())
     auto_update_plugin = ConfigItem("General", "自动更新插件", False, BoolValidator())
     optimization = OptionsConfigItem(
         "General",

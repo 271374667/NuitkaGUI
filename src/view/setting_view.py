@@ -70,6 +70,14 @@ class SettingView(MessageBaseView):
             self.general_group,
         )
 
+        self.keep_unsupported_command_card = SwitchSettingCard(
+            Icon(FluentIcon.CHEVRON_RIGHT),
+            "保留不支持的命令",
+            "当您的命令不支持解析时,是否在输出的时候保留他们",
+            cfg.keep_unsupported_command,
+            self.general_group,
+        )
+
         self.auto_update_plugin_card = SwitchSettingCard(
             Icon(FluentIcon.CHEVRON_RIGHT),
             "自动更新插件",
@@ -108,6 +116,7 @@ class SettingView(MessageBaseView):
         self.project_python_exe_path_card.setToolTip("选择当前项目使用的Python.exe路径")
         self.global_python_exe_path_card.setToolTip("选择全局Python.exe路径")
         self.auto_update_plugin_card.setToolTip("如果没有配置全局Python环境会导致报错")
+        self.keep_unsupported_command_card.setToolTip('例如`--python-flag`这个参数不支持,是否在输出的时候也保留他们')
         self.optimization_card.setToolTip("选择优化选项")
         self.pip_source_card.setToolTip("通常情况下建议选择阿里源")
         self.open_welcome_card.setToolTip("如果您的软件出现了问题,可以尝试打开欢迎页面重新设置依赖等")
@@ -126,6 +135,7 @@ class SettingView(MessageBaseView):
             [
                 self.project_python_exe_path_card,
                 self.global_python_exe_path_card,
+                self.keep_unsupported_command_card,
                 self.auto_update_plugin_card,
                 self.optimization_card,
                 self.pip_source_card,
