@@ -182,6 +182,7 @@ class WelcomePresenter:
         self._view.get_auto_pythonexe_btn().clicked.connect(self._get_pythonexe_path_by_auto)
         self._view.get_install_os_dependence_btn().clicked.connect(self._install_dependence_by_os)
         self._view.get_intall_reg_dependence_btn().clicked.connect(self._install_dependence_by_bat)
+        self._view.get_skip_btn().clicked.connect(self._finished)
 
 
 if __name__ == '__main__':

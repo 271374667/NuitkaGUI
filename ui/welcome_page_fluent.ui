@@ -446,6 +446,13 @@
     </widget>
    </item>
    <item>
+    <widget class="HyperlinkButton" name="HyperlinkButton">
+     <property name="text">
+      <string>直接跳过，我稍后自行设置</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="ProgressBar" name="ProgressBar">
      <property name="maximum">
       <number>3</number>
@@ -458,6 +465,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>HyperlinkButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
   <customwidget>
    <class>PushButton</class>
    <extends>QPushButton</extends>

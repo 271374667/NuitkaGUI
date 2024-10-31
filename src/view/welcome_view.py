@@ -2,7 +2,8 @@ from typing import Optional
 
 from PySide6.QtWidgets import QApplication, QWidget
 from qfluentwidgets import ToolTipFilter
-from qfluentwidgets.components import PrimaryPushButton, InfoBadge, PillPushButton, ProgressBar, PushButton
+from qfluentwidgets.components import PrimaryPushButton, InfoBadge, PillPushButton, ProgressBar, PushButton, \
+    HyperlinkButton
 from qframelesswindow import FramelessWindow
 
 from src.interface.Ui_welcome_page_fluent import Ui_Form
@@ -54,6 +55,9 @@ class WelcomeView(FramelessWindow, MessageBaseView):
 
     def get_finish_btn(self) -> PillPushButton:
         return self.ui.finishedBtn
+
+    def get_skip_btn(self) -> HyperlinkButton:
+        return self.ui.HyperlinkButton
 
     def get_progress_bar(self) -> ProgressBar:
         return self.ui.ProgressBar

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'welcome_page_fluent.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -29,6 +29,7 @@ from qfluentwidgets import (
     BodyLabel,
     CardWidget,
     DisplayLabel,
+    HyperlinkButton,
     PrimaryPushButton,
     ProgressBar,
     PushButton,
@@ -240,6 +241,11 @@ class Ui_Form(object):
 
         self.verticalLayout_4.addWidget(self.finishedBtn)
 
+        self.HyperlinkButton = HyperlinkButton(Form)
+        self.HyperlinkButton.setObjectName("HyperlinkButton")
+
+        self.verticalLayout_4.addWidget(self.HyperlinkButton)
+
         self.ProgressBar = ProgressBar(Form)
         self.ProgressBar.setObjectName("ProgressBar")
         self.ProgressBar.setMaximum(3)
@@ -342,6 +348,13 @@ class Ui_Form(object):
         self.finishedBtn.setText(
             QCoreApplication.translate(
                 "Form", "\u60a8\u9700\u8981\u5148\u5b8c\u6210\u8bbe\u7f6e", None
+            )
+        )
+        self.HyperlinkButton.setText(
+            QCoreApplication.translate(
+                "Form",
+                "\u76f4\u63a5\u8df3\u8fc7\uff0c\u6211\u7a0d\u540e\u81ea\u884c\u8bbe\u7f6e",
+                None,
             )
         )
 
