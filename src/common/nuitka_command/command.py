@@ -394,7 +394,7 @@ class CommandMultipleTimesBase(CommandValueBase):
 
         if ',' in value:
             self._value = value.split(',')
-        else:
+        elif value not in self._value:
             self.add(value)
 
     def add(self, value: str):

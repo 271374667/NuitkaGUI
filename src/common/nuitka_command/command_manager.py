@@ -21,6 +21,7 @@ from src.common.nuitka_command.manager.manager_text import ManagerText
 from src.config import cfg
 from src.utils.class_utils import ClassUtils
 from src.utils.singleton import singleton
+from src.signal_bus import SignalBus
 
 CommandBaseType = TypeVar("CommandBaseType", bound=command.CommandBase)
 
@@ -40,6 +41,7 @@ class CommandManager(Generic[CommandBaseType]):
         ]
 
         self.manager_plugin = ManagerPlugin()
+        self._signal_bus = SignalBus()
 
         self.update_command_list()
 
@@ -80,7 +82,7 @@ class CommandManager(Generic[CommandBaseType]):
         loguru.logger.debug(f"开始解析命令: {command}")
 
         def parse_python_path(command: str) -> str:
-            # Define the regex patterns for the different cases
+            """从Nuitka命令中提取Python路径"""
             patterns = [
                 r'^(python)\s+.*nuitka',  # Case 1: python followed by nuitka command
                 r'^(python\s+-m\s+nuitka)',  # Case 2: python -m nuitka followed by nuitka command
@@ -123,6 +125,15 @@ class CommandManager(Generic[CommandBaseType]):
                 continue
             loguru.logger.debug(f"command_name: {command_name}, command_value: {command_value}")
             command.parse(command_value)
+
+        self.update_widget()
+        # 因为插件页面的命令是动态生成的,所以需要单独处理
+        plugin_command = self.get_command_by_command('enable-plugins')
+        self.manager_plugin.disable_all_plugin()
+        for each in self.manager_plugin.filter_plugins(plugin_command.value.split(",")):
+            self.manager_plugin.set_plugin_enable(each, True)
+
+        self._signal_bus.update_plugin_view.emit()
 
     def update_command_list(self):
         self.command_list = []

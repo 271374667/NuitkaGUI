@@ -18,6 +18,8 @@ class PluginPresenter:
     def __init__(self):
         self._is_running: bool = False
 
+        self._signal_bus = SignalBus()
+
         self._view = PluginView()
         self._model = PluginModel()
         self.flyout = self._view.get_flyout()
@@ -91,8 +93,8 @@ class PluginPresenter:
         if plugin_command is None:
             return
 
-        self.model.set_plugin_status(plugin_name, is_selected)
-        plugin_command.value = self.model.get_enable_plugins()
+        self._model.set_plugin_status(plugin_name, is_selected)
+        plugin_command.value = self._model.get_enable_plugins()
 
     def update_widget(self) -> None:
         enabled_plugins = self._model.get_enable_plugins()
@@ -117,7 +119,7 @@ class PluginPresenter:
         self.view.get_auto_btn().clicked.connect(self.auto_detect)
         self.view.get_selected_btn().clicked.connect(self._show_current_selected)
         self.view.card_clicked.connect(self.update_value_to_command_manager)
-        SignalBus().update_setting_view.connect(self.update_widget)
+        self._signal_bus.update_plugin_view.connect(self.update_widget)
 
 
 if __name__ == '__main__':
