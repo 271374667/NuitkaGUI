@@ -22,7 +22,7 @@ build-backend = "hatchling.build"
 [tool.rye]
 managed = true
 dev-dependencies = [
-    "nuitka>=2.4.8",
+    "nuitka>=2.4.11",
 ]
 
 [tool.hatch.metadata]

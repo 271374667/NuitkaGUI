@@ -18,7 +18,7 @@ darkdetect==0.8.0
     # via pyside6-fluent-widgets
 loguru==0.7.2
     # via nuitkagui
-nuitka==2.4.8
+nuitka==2.4.11
 ordered-set==4.1.0
     # via nuitka
 pyside6==6.7.3
