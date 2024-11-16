@@ -8,7 +8,7 @@ from PySide6.QtNetwork import QLocalSocket, QLocalServer
 from PySide6.QtWidgets import QApplication
 
 from src.config import cfg
-from src.core.paths import LOG_FILE
+from src.core.paths import LOG_FILE, DEPENDENCE_DIR
 from src.presenter.main_presenter import MainPresenter
 from src.presenter.welcome_presenter import WelcomePresenter
 from src.utils.window_dialog_utils import WindowDialogUtils
@@ -17,6 +17,8 @@ loguru.logger.add(LOG_FILE, rotation="1 day", retention="1 week", level="DEBUG")
 
 # 设置环境变量为PYTHONIOENCODING=utf-8
 os.environ["PYTHONIOENCODING"] = "utf-8"
+os.environ["NUITKA_CACHE_DIR"] = str(DEPENDENCE_DIR)
+
 sys.stdout.reconfigure(encoding="utf-8")
 sys.stderr.reconfigure(encoding="utf-8")
 
