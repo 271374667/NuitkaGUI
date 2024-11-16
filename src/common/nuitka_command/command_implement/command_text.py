@@ -30,3 +30,9 @@ class CommandOnefileTempdirSpec(CommandTextBase):
     description: str = "设置单文件临时目录位置"
     command: str = "onefile-tempdir-spec"
     visible: bool = False
+
+
+class CommandIncludePackageData(CommandTextBase):
+    name: str = "include-package-data"
+    description: str = "在这里输入需要打包的模块的名称: 比如: PySide6, pyautogui,模块之间用逗号分隔"
+    command: str = "include-package-data"

@@ -35,9 +35,9 @@ class CommandManager(Generic[CommandBaseType]):
         self.manager_list: list[ManagerBase] = [
             ManagerChoice(),
             ManagerInt(),
-            ManagerText(),
             ManagerFlag(),
             ManagerPath(),
+            ManagerText(),
             ManagerMultipleTimes(),
         ]
 
