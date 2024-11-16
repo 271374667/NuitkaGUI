@@ -225,7 +225,8 @@ class CommandChoiceBase(CommandValueBase, WidgetBindMixin):
 
     def parse(self, value: str | None):
         if value:
-            value = value.replace('"', "")
+            if '"' in value:
+                value = value.replace('"', "")
             self.value = value
 
     @property
@@ -358,7 +359,9 @@ class CommandPathBase(CommandValueBase):
 
     @value.setter
     def value(self, value: str | Path | None):
-        value = value.replace('"', "")
+        if isinstance(value, str) and '"' in value:
+            value = value.replace('"', "")
+
         if value is None:
             self._value = ""
             return
@@ -390,7 +393,8 @@ class CommandMultipleTimesBase(CommandValueBase):
         self._value = value
 
     def parse(self, value: str | None):
-        value = value.replace('"', "")
+        if '"' in value:
+            value = value.replace('"', "")
 
         if ',' in value:
             self._value = value.split(',')

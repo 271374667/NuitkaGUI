@@ -152,6 +152,10 @@ class WelcomePresenter:
         self._is_running = True
 
     def _install_packages(self):
+        is_install_nuitka: bool = self._view.show_mask_dialog("询问", "是否为当前的 Python 环境安装 nuitka(非必须)")
+        if not is_install_nuitka:
+            return
+
         def start():
             return self._model.install_packages()
 
